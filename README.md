@@ -1,6 +1,6 @@
-## ArduinoFuzzy v1.0 - A Fuzzy Library for Arduino and Embeded Systens 
+## eFLL (Embedded Fuzzy Logic Library) v1.0
 
-ArduinoFuzzy is an Arduino's library to implement easy and eficient Fuzzy Systems, it can by used too in any microcontroller wich users C as assembly language.
+eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and eficient Fuzzy Systems.
 
 Para informações avançadas, documentação e exemplos de uso em PORTUGUÊS: [ArduinoFuzzy - Uma Biblioteca Fuzzy para Arduino e Sistemas Embarcados](http://www.zerokol.com/2012/09/arduinofuzzy-uma-biblioteca-fuzzy-para.html)
 
@@ -8,7 +8,7 @@ For advanced information, documentation, and usage examples in ENGLISH: [Arduino
 
 ## Características
 
-Written in C++/C, uses only standard C language library "stdlib.h", so ArduinoFuzzy is a library designed not only to Arduino, but any Embedded System or not how have your commands written in C.
+Written in C++/C, uses only standard C language library "stdlib.h", so eFLL is a library designed not only to Arduino, but any Embedded System or not how have your commands written in C.
 
 It has no explicit limitations on quantity of Fuzzy, Fuzzy Rules, Inputs or Outputs, these limited processing power and storage of each microcontroller
 
@@ -20,7 +20,7 @@ Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
 ## How to install
 
-Step 1: Go to the official project page on GitHub: ArduinoFuzzy
+Step 1: Go to the official project page on GitHub (Here)
 
 Step 2: Make a clone of the project using Git or download at Donwload on the button "Download as zip."
 
@@ -34,7 +34,7 @@ Ok! The library is ready to be used.
 
 If the installation of the library has been successfully held,  to import the library is easy:
 
-Step 1: Open your Arduino IDE, check out the tab on the top menu SKETCKS → LIBRARY  → Import ArduinoFuzzy
+Step 1: Open your Arduino IDE, check out the tab on the top menu SKETCKS → LIBRARY  → Import eFLL
 
 ## Brief documentation
 
@@ -58,7 +58,7 @@ FuzzyRuleConsequente object - This object is used to render the object FuzzyRule
 
 ## Tip
 
-These are all ArduinoFuzzy library objects that are used in the process. The next step, generally interactive is handled by three methods of the Fuzzy Class first:
+These are all eFLL library objects that are used in the process. The next step, generally interactive is handled by three methods of the Fuzzy Class first:
 
 bool setInput(int id, float value);
 
