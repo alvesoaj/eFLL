@@ -50,7 +50,7 @@ bool FuzzyIO::addFuzzySet(FuzzySet* fuzzySet){
 		this->fuzzySets = aux;
 		this->fuzzySetsCursor	= aux;
 	}else{
-		fuzzySetsCursor->next = aux;
+		this->fuzzySetsCursor->next = aux;
 		this->fuzzySetsCursor = aux;
 	}
 	return true;

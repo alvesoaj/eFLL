@@ -36,7 +36,7 @@ bool FuzzyRuleConsequent::addOutput(FuzzySet* fuzzySet){
 		this->fuzzySetOutputs = aux;
 		this->fuzzySetOutputsCursor	= aux;
 	}else{
-		fuzzySetOutputsCursor->next = aux;
+		this->fuzzySetOutputsCursor->next = aux;
 		this->fuzzySetOutputsCursor = aux;
 	}
 	return true;

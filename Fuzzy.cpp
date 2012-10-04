@@ -48,7 +48,7 @@ bool Fuzzy::addFuzzyInput(FuzzyInput* fuzzyInput){
         this->fuzzyInputs = aux;
         this->fuzzyInputsCursor  = aux;
     }else{
-        fuzzyInputsCursor->next = aux;
+        this->fuzzyInputsCursor->next = aux;
         this->fuzzyInputsCursor = aux;
     }
 
@@ -71,7 +71,7 @@ bool Fuzzy::addFuzzyOutput(FuzzyOutput* fuzzyOutput){
         this->fuzzyOutputs = aux;
         this->fuzzyOutputsCursor  = aux;
     }else{
-        fuzzyOutputsCursor->next = aux;
+        this->fuzzyOutputsCursor->next = aux;
         this->fuzzyOutputsCursor = aux;
     }
     return true;
@@ -90,7 +90,7 @@ bool Fuzzy::addFuzzyRule(FuzzyRule* fuzzyRule){
         this->fuzzyRules = aux;
         this->fuzzyRulesCursor  = aux;
     }else{
-        fuzzyRulesCursor->next = aux;
+        this->fuzzyRulesCursor->next = aux;
         this->fuzzyRulesCursor = aux;
     }
     return true;
