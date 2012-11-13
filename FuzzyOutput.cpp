@@ -57,17 +57,6 @@ float FuzzyOutput::getCrispOutput(){
 	return this->fuzzyComposition.avaliate();
 }
 
-// MÉTODOS PRIVADOS
-bool FuzzyOutput::swap(fuzzySetArray* fuzzySetA, fuzzySetArray* fuzzySetB){
-	FuzzySet* aux;
-	
-	aux = fuzzySetA->fuzzySet;
-	fuzzySetA->fuzzySet = fuzzySetB->fuzzySet;
-	fuzzySetB->fuzzySet = aux;
-
-	return true;
-}
-
 // Um simples Bubble Sort
 bool FuzzyOutput::order(){
 	fuzzySetArray *aux1;
@@ -88,5 +77,16 @@ bool FuzzyOutput::order(){
 		aux2 = this->fuzzySets;
 		aux1 = aux1->next;
 	}
+	return true;
+}
+
+// MÉTODOS PRIVADOS
+bool FuzzyOutput::swap(fuzzySetArray* fuzzySetA, fuzzySetArray* fuzzySetB){
+	FuzzySet* aux;
+	
+	aux = fuzzySetA->fuzzySet;
+	fuzzySetA->fuzzySet = fuzzySetB->fuzzySet;
+	fuzzySetB->fuzzySet = aux;
+
 	return true;
 }

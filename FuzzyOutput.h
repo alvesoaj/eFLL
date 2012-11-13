@@ -25,12 +25,12 @@ class FuzzyOutput : public FuzzyIO {
 		// MÉTODOS PÚBLICOS
 		bool truncate();
 		float getCrispOutput();
+		bool order();
 
-	public:
+	private:
 		// VARIÁVEIS PRIVADAS
 		FuzzyComposition fuzzyComposition;
 		// MÉTODOS PRIVADOS
 		bool swap(fuzzySetArray* fuzzySetA, fuzzySetArray* fuzzySetB);
-		bool order();
 };
 #endif
