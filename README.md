@@ -6,7 +6,7 @@ Para informações avançadas, documentação e exemplos de uso em PORTUGUÊS: [
 
 For advanced information, documentation, and usage examples in ENGLISH: [eFLL - A Fuzzy Library for Arduino and Embeded Systems](http://www.zerokol.com/2012/09/arduinofuzzy-fuzzy-library-for-arduino.html)
 
-## Características
+## Characteristics
 
 Written in C++/C, uses only standard C language library "stdlib.h", so eFLL is a library designed not only to Arduino, but any Embedded System or not how have your commands written in C.
 
