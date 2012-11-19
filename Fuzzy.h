@@ -49,6 +49,7 @@ class Fuzzy {
 		bool addFuzzyRule(FuzzyRule* fuzzyRule);
 		bool setInput(int fuzzyInputIndex, float crispValue);
 		bool fuzzify();
+		bool isFiredRule(int fuzzyRuleIndex);
 		float defuzzify(int fuzzyOutputIndex);
 
 	private:

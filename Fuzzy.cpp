@@ -139,6 +139,18 @@ bool Fuzzy::fuzzify(){
     return true;
 }
 
+bool Fuzzy::isFiredRule(int fuzzyRuleIndex){
+    fuzzyRuleArray *aux;
+    aux = this->fuzzyRules;
+    while(aux != NULL){
+        if(aux->fuzzyRule->getIndex() == fuzzyRuleIndex){
+            return aux->fuzzyRule->isFired();
+        }
+        aux = aux->next;
+    }
+    return false;
+}
+
 float Fuzzy::defuzzify(int fuzzyOutputIndex){
     fuzzyOutputArray *aux;
     aux = this->fuzzyOutputs;

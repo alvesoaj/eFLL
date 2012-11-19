@@ -652,9 +652,12 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify03){
 
   fuzzy->fuzzify();
 
+  bool fuzzyRule1IsFired = fuzzy->isFiredRule(1);
+
   float output = fuzzy->defuzzify(1);
 
   EXPECT_GT(0.0, output);
+  EXPECT_TRUE(fuzzyRule1IsFired);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify04){
