@@ -1010,7 +1010,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify07){
 
   float output = fuzzy->defuzzify(1);
 
-  EXPECT_EQ(80.0, output);
+  EXPECT_EQ(20.0, output);
 }
 // ############### MAIN
 
