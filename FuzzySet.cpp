@@ -63,7 +63,9 @@ bool FuzzySet::calculatePertinence(float crispValue){
 }
 
 void FuzzySet::setPertinence(float pertinence){
-	this->pertinence = pertinence;
+	if(this->pertinence < pertinence){
+		this->pertinence = pertinence;
+	}
 }
 
 float FuzzySet::getPertinence(){

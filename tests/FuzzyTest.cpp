@@ -934,6 +934,84 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify06){
   EXPECT_EQ(10.5, output2);
 }
 
+TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify07){
+  Fuzzy* fuzzy = new Fuzzy();
+
+  // FuzzyInput
+  FuzzyInput* distance = new FuzzyInput(1);
+
+  FuzzySet* close = new FuzzySet(0, 20, 20, 40);
+  distance->addFuzzySet(close);
+  FuzzySet* safe = new FuzzySet(30, 50, 50, 70);
+  distance->addFuzzySet(safe);
+  FuzzySet* distante = new FuzzySet(60, 80, 100, 100);
+  distance->addFuzzySet(distante);
+
+  fuzzy->addFuzzyInput(distance);
+
+  // FuzzyInput
+  FuzzyInput* temperature = new FuzzyInput(2);
+
+  FuzzySet* cold = new FuzzySet(-30, -30, -20, -10);
+  temperature->addFuzzySet(cold);
+  FuzzySet* good = new FuzzySet(-15, 0, 0, 15);
+  temperature->addFuzzySet(good);
+  FuzzySet* hot = new FuzzySet(10, 20, 30, 30);
+  temperature->addFuzzySet(hot);
+
+  fuzzy->addFuzzyInput(temperature);
+
+  // FuzzyOutput
+  FuzzyOutput* risk = new FuzzyOutput(1);
+
+  FuzzySet* minimum = new FuzzySet(0, 20, 20, 40);
+  risk->addFuzzySet(minimum);
+  FuzzySet* average = new FuzzySet(30, 50, 50, 70);
+  risk->addFuzzySet(average);
+  FuzzySet* maximum = new FuzzySet(60, 80, 80, 100);
+  risk->addFuzzySet(maximum);
+
+  fuzzy->addFuzzyOutput(risk);
+
+  // Building FuzzyRule
+  FuzzyRuleAntecedent* ifDistanceCloseAndTemperatureCold = new FuzzyRuleAntecedent();
+  ifDistanceCloseAndTemperatureCold->joinWithAND(close, cold);
+
+  FuzzyRuleConsequent* thenRiskMinimum1 = new FuzzyRuleConsequent();
+  thenRiskMinimum1->addOutput(minimum);
+
+  FuzzyRule* fuzzyRule1 = new FuzzyRule(1, ifDistanceCloseAndTemperatureCold, thenRiskMinimum1);
+  fuzzy->addFuzzyRule(fuzzyRule1);
+
+  // Building FuzzyRule
+  FuzzyRuleAntecedent* ifDistanceCloseAndTemperatureGood = new FuzzyRuleAntecedent();
+  ifDistanceCloseAndTemperatureGood->joinWithAND(close, good);
+
+  FuzzyRuleConsequent* thenRiskMinimum2 = new FuzzyRuleConsequent();
+  thenRiskMinimum2->addOutput(minimum);
+
+  FuzzyRule* fuzzyRule2 = new FuzzyRule(2, ifDistanceCloseAndTemperatureGood, thenRiskMinimum2);
+  fuzzy->addFuzzyRule(fuzzyRule2);
+
+  // Building FuzzyRule
+  FuzzyRuleAntecedent* ifDistanceSafeAndTemperatureCold = new FuzzyRuleAntecedent();
+  ifDistanceSafeAndTemperatureCold->joinWithAND(safe, cold);
+
+  FuzzyRuleConsequent* thenRiskMinimum3 = new FuzzyRuleConsequent();
+  thenRiskMinimum3->addOutput(minimum);
+
+  FuzzyRule* fuzzyRule3 = new FuzzyRule(3, ifDistanceSafeAndTemperatureCold, thenRiskMinimum3);
+  fuzzy->addFuzzyRule(fuzzyRule3);
+
+  fuzzy->setInput(1, 10);
+  fuzzy->setInput(2, -5);
+
+  fuzzy->fuzzify();
+
+  float output = fuzzy->defuzzify(1);
+
+  EXPECT_EQ(80.0, output);
+}
 // ############### MAIN
 
 int main(int argc, char* *argv) {
