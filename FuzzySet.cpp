@@ -39,7 +39,7 @@ bool FuzzySet::calculatePertinence(float crispValue){
 	float slope;
 
 	if (crispValue < this->a){
-		if (this->a == this->b && this->b != this->c && this->c != this->d){
+		if (this->a == this->b && this->c != this->d){
 			this->pertinence = 1;
 		}else{
 			this->pertinence = 0;
@@ -53,7 +53,7 @@ bool FuzzySet::calculatePertinence(float crispValue){
 		slope = 1 / (this->c - this->d);
 		this->pertinence = slope * (crispValue - this->c) + 1;
 	}else if (crispValue > this->d){
-		if (this->c == this->d && this->c != this->b && this->b != this->a){
+		if (this->c == this->d && this->b != this->a){
 			this->pertinence = 1;
 		}else{
 			this->pertinence = 0;
