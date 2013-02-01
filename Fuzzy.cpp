@@ -112,14 +112,29 @@ bool Fuzzy::setInput(int fuzzyInputIndex, float crispValue){
 
 bool Fuzzy::fuzzify(){
     fuzzyInputArray* fuzzyInputAux;
+
+    fuzzyOutputArray *fuzzyOutputAux;
+
     fuzzyInputAux = this->fuzzyInputs;
+    while(fuzzyInputAux != NULL){
+        fuzzyInputAux->fuzzyInput->resetFuzzySets();
+        fuzzyInputAux = fuzzyInputAux->next;
+    }
+
+    fuzzyOutputAux = this->fuzzyOutputs;
+    while(fuzzyOutputAux != NULL){
+        fuzzyOutputAux->fuzzyOutput->resetFuzzySets();
+        fuzzyOutputAux = fuzzyOutputAux->next;
+    }
+
     // Calculando a pertinência de todos os FuzzyInputs
+    fuzzyInputAux = this->fuzzyInputs;
     while(fuzzyInputAux != NULL){
         fuzzyInputAux->fuzzyInput->calculateFuzzySetPertinences();
         fuzzyInputAux = fuzzyInputAux->next;
     }
 
-    // Evaliando quais regras foram disparadas
+    // Avaliando quais regras foram disparadas
     fuzzyRuleArray* fuzzyRuleAux;
     fuzzyRuleAux = this->fuzzyRules;
     // Calculando as pertinências de totos os FuzzyInputs
@@ -129,7 +144,6 @@ bool Fuzzy::fuzzify(){
     }
 
     // Truncado os conjuntos de saída
-    fuzzyOutputArray *fuzzyOutputAux;
     fuzzyOutputAux = this->fuzzyOutputs;
     while(fuzzyOutputAux != NULL){
         fuzzyOutputAux->fuzzyOutput->truncate();

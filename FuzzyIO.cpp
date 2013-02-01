@@ -56,6 +56,16 @@ bool FuzzyIO::addFuzzySet(FuzzySet* fuzzySet){
 	return true;
 }
 
+void FuzzyIO::resetFuzzySets(){
+	fuzzySetArray* fuzzySetsAux;
+    fuzzySetsAux = this->fuzzySets;
+    // Calculando as pertinências de totos os FuzzyInputs
+    while(fuzzySetsAux != NULL){
+        fuzzySetsAux->fuzzySet->reset();
+        fuzzySetsAux = fuzzySetsAux->next;
+    }
+}
+
 // MÉTODOS PROTEGIDOS
 void FuzzyIO::cleanFuzzySets(fuzzySetArray *aux){
 	if(aux != NULL){

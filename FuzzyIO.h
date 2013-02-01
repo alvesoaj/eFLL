@@ -33,6 +33,7 @@ class FuzzyIO {
 		void setCrispInput(float crispInput);
 		float getCrispInput();
 		bool addFuzzySet(FuzzySet* fuzzySet);
+		void resetFuzzySets();
 
 	protected:
 		// VARIÁVEIS PROTEGIDAS

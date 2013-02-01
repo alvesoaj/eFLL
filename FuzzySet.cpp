@@ -71,3 +71,7 @@ void FuzzySet::setPertinence(float pertinence){
 float FuzzySet::getPertinence(){
 	return this->pertinence;
 }
+
+void FuzzySet::reset(){
+	this->pertinence = 0.0;
+}

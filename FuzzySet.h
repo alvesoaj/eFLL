@@ -24,6 +24,7 @@ class FuzzySet {
 		bool calculatePertinence(float crispValue);
 		void setPertinence(float pertinence);
 		float getPertinence();
+		void reset();
 
 	private:
 		// VARIÁVEIS
