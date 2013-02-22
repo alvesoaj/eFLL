@@ -24,7 +24,7 @@ Step 1: Go to the official project page on GitHub (Here)
 
 Step 2: Make a clone of the project using Git or download at Donwload on the button "Download as zip."
 
-Step 3: Clone or unzip the files into Arduino libraries' folder:
+Step 3: Clone or unzip (For safety, rename the fold to "eFLL") the files into Arduino libraries' folder:
 
 Ubuntu (/usr/share/arduino/libraries/) if installed via apt-get, if not, on Windows, Mac or Linux (where you downloaded the Arduino IDE, the Library folder is inside)
 
