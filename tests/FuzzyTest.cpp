@@ -328,7 +328,6 @@ TEST(FuzzyComposition, checkPoint){
   EXPECT_FALSE(result2);
 }
 
-
 TEST(FuzzyComposition, build){
   FuzzyComposition* fuzzyComposition = new FuzzyComposition();
 
@@ -1011,6 +1010,71 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify07){
   float output = fuzzy->defuzzify(1);
 
   EXPECT_EQ(20.0, output);
+}
+
+TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify08){
+  Fuzzy* fuzzy = new Fuzzy();
+
+  // FuzzyInput
+  FuzzyInput* temperature = new FuzzyInput(1);
+
+  FuzzySet* low = new FuzzySet(-50, -40, -40, -30);
+  temperature->addFuzzySet(low);
+  FuzzySet* mean = new FuzzySet(-40, -30, -20, -10);
+  temperature->addFuzzySet(mean);
+  FuzzySet* high = new FuzzySet(-20, -10, -10, 0);
+  temperature->addFuzzySet(high);
+
+  fuzzy->addFuzzyInput(temperature);
+
+  // FuzzyOutput
+  FuzzyOutput* climate = new FuzzyOutput(1);
+
+  FuzzySet* cold = new FuzzySet(-10, -8, -8, -6);
+  climate->addFuzzySet(cold);
+  FuzzySet* good = new FuzzySet(-8, -6, -6, -4);
+  climate->addFuzzySet(good);
+  FuzzySet* hot = new FuzzySet(-6, -4, -4, -2);
+  climate->addFuzzySet(hot);
+
+  fuzzy->addFuzzyOutput(climate);
+
+  // Building FuzzyRule
+  FuzzyRuleAntecedent* ifTemperatureLow = new FuzzyRuleAntecedent();
+  ifTemperatureLow->joinSingle(low);
+  FuzzyRuleConsequent* thenClimateCold = new FuzzyRuleConsequent();
+  thenClimateCold->addOutput(cold);
+
+  FuzzyRule* fuzzyRule1 = new FuzzyRule(1, ifTemperatureLow, thenClimateCold);
+  fuzzy->addFuzzyRule(fuzzyRule1);
+
+  // Building FuzzyRule
+  FuzzyRuleAntecedent* ifTemperatureMean = new FuzzyRuleAntecedent();
+  ifTemperatureMean->joinSingle(mean);
+  FuzzyRuleConsequent* thenClimateGood = new FuzzyRuleConsequent();
+  thenClimateGood->addOutput(good);
+
+  FuzzyRule* fuzzyRule2 = new FuzzyRule(2, ifTemperatureMean, thenClimateGood);
+  fuzzy->addFuzzyRule(fuzzyRule2);
+
+  // Building FuzzyRule
+  FuzzyRuleAntecedent* ifTemperatureHigh = new FuzzyRuleAntecedent();
+  ifTemperatureHigh->joinSingle(low);
+  FuzzyRuleConsequent* thenClimateHot = new FuzzyRuleConsequent();
+  thenClimateHot->addOutput(cold);
+
+  FuzzyRule* fuzzyRule3 = new FuzzyRule(3, ifTemperatureHigh, thenClimateHot);
+  fuzzy->addFuzzyRule(fuzzyRule3);
+
+  bool result1 = fuzzy->setInput(1, -40);
+
+  bool result2 = fuzzy->fuzzify();
+
+  float output = fuzzy->defuzzify(1);
+
+  EXPECT_TRUE(result1);
+  EXPECT_TRUE(result2);
+  EXPECT_EQ(output, -8);
 }
 // ############### MAIN
 
