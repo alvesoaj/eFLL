@@ -1012,6 +1012,50 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify07){
 
   EXPECT_EQ(20.0, output);
 }
+
+TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify08){
+  Fuzzy* fuzzy = new Fuzzy();
+
+  FuzzyInput* age = new FuzzyInput(1);
+
+  FuzzySet* months = new FuzzySet(-360, -6, 5, 1200);
+  age->addFuzzySet(months);
+
+  fuzzy->addFuzzyInput(age);
+
+  FuzzyOutput* quality = new FuzzyOutput(1);
+
+  FuzzySet* avaliation = new FuzzySet(0, 1, 1, 1);
+  quality->addFuzzySet(avaliation);
+
+  fuzzy->addFuzzyOutput(quality);
+
+  //-------------------- Montando as regras Fuzzy
+  FuzzyRuleAntecedent* ifMonths = new FuzzyRuleAntecedent();
+  ifMonths->joinSingle(months);
+
+  FuzzyRuleConsequent* thenAvaliation = new FuzzyRuleConsequent();
+  thenAvaliation->addOutput(avaliation);
+  
+  // Instanciando um objeto FuzzyRule
+  FuzzyRule* fuzzyRule01 = new FuzzyRule(1, ifMonths, thenAvaliation);
+  fuzzy->addFuzzyRule(fuzzyRule01);
+
+  fuzzy->setInput(1, 50);
+
+  fuzzy->fuzzify();
+  // cout << "Pertinência (months): " << months->getPertinence() << endl;
+
+  // cout << "Pertinência (avaliation): " << avaliation->getPertinence() << endl;
+
+  float fuzzyAntecedentEvaluate = ifMonths->evaluate();
+
+  // cout << "Entrada: " << dist << ", Saida: " << output << endl;
+
+  EXPECT_EQ(months->getPertinence(), fuzzyAntecedentEvaluate);
+}
+
+
 // ############### MAIN
 
 int main(int argc, char* *argv) {
