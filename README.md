@@ -14,7 +14,7 @@ It has no explicit limitations on quantity of Fuzzy, Fuzzy Rules, Inputs or Outp
 
 The library utilza the process:
 
-(MAX-MIN) and (Minimum Mamdani) for inference and composition and (CENTER OF AREA) to defuzzification in a continuous universe.
+(MAX-MIN) and (Mamdani Minimum) for inference and composition and (CENTER OF AREA) to defuzzification in a continuous universe.
 
 Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
