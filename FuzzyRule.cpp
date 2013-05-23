@@ -2,7 +2,7 @@
  * Robotic Research Group (RRG)
  * State University of Piaui (UESPI), Brazil - Piauí - Teresina
  *
- * FuzzyRule.cpp
+ * FuzzyOutput.cpp
  *
  *      Author: Msc. Marvin Lemos <marvinlemos@gmail.com>
  *          Co authors: AJ Alves <aj.alves@zerokol.com>
@@ -25,10 +25,10 @@ int FuzzyRule::getIndex(){
 bool FuzzyRule::evaluateExpression(){
 	if (this->fuzzyRuleAntecedent != NULL){
 		float powerOfAntecedent = this->fuzzyRuleAntecedent->evaluate();
-        if(powerOfAntecedent > 0.0){
-            this->fired = true;
-        }
-        this->fuzzyRuleConsequent->evaluate(powerOfAntecedent);
+
+		(powerOfAntecedent > 0.0) ?	(this->fired = true) : (this->fired = false);
+		
+		this->fuzzyRuleConsequent->evaluate(powerOfAntecedent);
 	}
 	return this->fired;
 }

@@ -1,4 +1,4 @@
-## eFLL (Embedded Fuzzy Logic Library) v1.0.3
+## eFLL (Embedded Fuzzy Logic Library) v1.0.4
 
 eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and eficient Fuzzy Systems.
 
