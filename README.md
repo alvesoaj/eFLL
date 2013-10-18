@@ -12,9 +12,9 @@ Written in C++/C, uses only standard C language library "stdlib.h", so eFLL is a
 
 It has no explicit limitations on quantity of Fuzzy, Fuzzy Rules, Inputs or Outputs, these limited processing power and storage of each microcontroller
 
-The library utilza the process:
+It uses the process:
 
-(MAX-MIN) and (Minimum Mamdani) for inference and composition and (CENTER OF AREA) to defuzzification in a continuous universe.
+(MAX-MIN) and (Mamdani Minimum) for inference and composition, (CENTER OF AREA) to defuzzification in a continuous universe.
 
 Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
