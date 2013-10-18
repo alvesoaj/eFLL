@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
 	float output1 = fuzzy->defuzzify(1);
 	float output2 = fuzzy->defuzzify(2);
 
-	cout << "Sapda Risco: " << output1 << ", Saída Velocidade: " << output2 << endl;
+	cout << "Saída Risco: " << output1 << ", Saída Velocidade: " << output2 << endl;
 	
 	return 0;
 }
