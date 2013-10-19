@@ -87,6 +87,7 @@ int main(int argc, char *argv[]) {
 	FuzzyRuleAntecedent* movingBack = new FuzzyRuleAntecedent();
 	FuzzyRuleAntecedent* movingLeft = new FuzzyRuleAntecedent();
 	FuzzyRuleAntecedent* movingRight = new FuzzyRuleAntecedent();
+	FuzzyRuleAntecedent* zeroTest = new FuzzyRuleAntecedent();
 	//    FuzzyRuleAntecedent* stable = new FuzzyRuleAntecedent();
 
 	// thens
@@ -94,12 +95,14 @@ int main(int argc, char *argv[]) {
 	FuzzyRuleConsequent* moveBack = new FuzzyRuleConsequent();
 	FuzzyRuleConsequent* moveLeft = new FuzzyRuleConsequent();
 	FuzzyRuleConsequent* moveRight = new FuzzyRuleConsequent();
+	FuzzyRuleConsequent* zeroOutTest = new FuzzyRuleConsequent();
 
 	// setup ifs
 	movingFront->joinWithAND(neg[0], pos[1]);
 	movingBack->joinWithAND(pos[0], neg[1]);
 	movingLeft->joinWithAND(neg[0], neg[1]);
 	movingRight->joinWithAND(pos[0], pos[1]);
+	zeroTest->joinWithAND(zero[0], zero[1]);
 	//    stable->joinWithAND(zero[0], zero[1]);
 
 	//setup thens
@@ -123,19 +126,26 @@ int main(int argc, char *argv[]) {
 	moveRight->addOutput(slow[2]);
 	moveRight->addOutput(fast[3]);
 
+	zeroOutTest->addOutput(medium[0]);
+	zeroOutTest->addOutput(medium[1]);
+	zeroOutTest->addOutput(medium[2]);
+	zeroOutTest->addOutput(medium[3]);
+
 	//rules
 	FuzzyRule* rule1 = new FuzzyRule(1, movingFront, moveBack);
 	FuzzyRule* rule2 = new FuzzyRule(2, movingBack, moveFront);
 	FuzzyRule* rule3 = new FuzzyRule(3, movingLeft, moveRight);
 	FuzzyRule* rule4 = new FuzzyRule(4, movingRight, moveLeft);
+	FuzzyRule* rule5 = new FuzzyRule(5, zeroTest, zeroOutTest);
 
 	fuzzy->addFuzzyRule(rule1);
 	fuzzy->addFuzzyRule(rule2);
 	fuzzy->addFuzzyRule(rule3);
 	fuzzy->addFuzzyRule(rule4);
+	fuzzy->addFuzzyRule(rule5);
 
-	float dx = -10;
-	float dy = 10;
+	float dx = 5;
+	float dy = 5;
 
 	fuzzy->setInput(1, dx);
 	fuzzy->setInput(2, dy);
