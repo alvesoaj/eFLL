@@ -12,6 +12,9 @@
 #include "FuzzyIO.h"
 
 // CONSTRUTORES
+FuzzyIO::FuzzyIO(){
+}
+
 FuzzyIO::FuzzyIO(int index){
 	this->index = index;
 	// Iniciando os ponteiros como nulo

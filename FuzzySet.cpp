@@ -11,6 +11,9 @@
  */
 #include "FuzzySet.h"
 
+FuzzySet::FuzzySet(){
+}
+
 FuzzySet::FuzzySet(float a, float b, float c, float d){
 	this->a = a;
 	this->b = b;

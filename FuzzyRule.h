@@ -19,6 +19,7 @@
 class FuzzyRule {
 	public:
 		// CONSTRUTORES
+		FuzzyRule();
 		FuzzyRule(int index, FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzyRuleConsequent* fuzzyRuleConsequent);
 		// MÉTODOS PÚBLICOS
 		int getIndex();

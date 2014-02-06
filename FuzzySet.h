@@ -15,6 +15,7 @@
 class FuzzySet {
 	public:
 		// CONSTRUTORES
+		FuzzySet();
 		FuzzySet(float a, float b, float c, float d);
 		// MÉTODOS PÚBLICOS
 		float getPointA();

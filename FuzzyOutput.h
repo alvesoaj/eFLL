@@ -19,6 +19,7 @@
 class FuzzyOutput : public FuzzyIO {
 	public:
 		// CONSTRUTORES
+		FuzzyOutput();
 		FuzzyOutput(int index);
 		// DESTRUTOR
 		~FuzzyOutput();

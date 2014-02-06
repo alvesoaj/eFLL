@@ -18,6 +18,7 @@
 class FuzzyInput : public FuzzyIO {
 	public:
 		// CONSTRUTORES
+        FuzzyInput();
 		FuzzyInput(int index);
 		// DESTRUTOR
 		~FuzzyInput();

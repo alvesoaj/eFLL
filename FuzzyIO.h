@@ -25,6 +25,7 @@ struct fuzzySetArray{
 class FuzzyIO {
 	public:
 		// CONSTRUTORES
+		FuzzyIO();
 		FuzzyIO(int index);
 		// DESTRUTOR
 		~FuzzyIO();

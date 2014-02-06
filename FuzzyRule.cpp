@@ -11,6 +11,9 @@
  */
 #include "FuzzyRule.h"
 
+FuzzyRule::FuzzyRule(){
+}
+
 FuzzyRule::FuzzyRule(int index, FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzyRuleConsequent* fuzzyRuleConsequent){
 	this->index = index;
 	this->fuzzyRuleAntecedent = fuzzyRuleAntecedent;

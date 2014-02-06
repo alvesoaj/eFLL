@@ -12,6 +12,9 @@
 #include "FuzzyOutput.h"
 
 // CONSTRUTORES
+FuzzyOutput::FuzzyOutput() : FuzzyIO(){
+}
+
 FuzzyOutput::FuzzyOutput(int index) : FuzzyIO(index){
 }
 
