@@ -74,6 +74,8 @@ float defuzzify(int id);
 
 ## REFERENCES
 
+Questions and Sugestions: AJ Alves <aj.alves@zerokol.com>
+
 Author: Msc. Marvin Lemos <marvinlemos@gmail.com>
 Co authors: AJ Alves <aj.alves@zerokol.com>
             Douglas S. Kridi <douglaskridi@gmail.com>

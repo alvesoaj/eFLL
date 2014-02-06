@@ -1,3 +1,9 @@
 *.o
 *.bin
 uml/*
+.DS_Store
+examples/.DS_Store
+examples/sample01/.DS_Store
+examples/sample01/sample01.bin.dSYM/*
+examples/sample02/sample02.bin.dSYM/*
+tests/GeneralTest.bin.dSYM/*
