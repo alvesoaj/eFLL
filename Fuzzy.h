@@ -14,7 +14,6 @@
 
 // IMPORTANDO AS BIBLIOTECAS NECESSÁRIAS
 #include <inttypes.h>
-#include "FuzzySet.h"
 #include "FuzzyInput.h"
 #include "FuzzyOutput.h"
 #include "FuzzyRule.h"
