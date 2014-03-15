@@ -5,8 +5,8 @@
  * Fuzzy.cpp
  *
  *      Author: Msc. Marvin Lemos <marvinlemos@gmail.com>
- *          Co authors: AJ Alves <aj.alves@zerokol.com>
- *                      Douglas S. Kridi <douglaskridi@gmail.com>
+ *              AJ Alves <aj.alves@zerokol.com>
+ *          Co authors: Douglas S. Kridi <douglaskridi@gmail.com>
  *                      Kannya Leal <kannyal@hotmail.com>
  */
 #include "Fuzzy.h"

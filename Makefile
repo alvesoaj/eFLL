@@ -8,5 +8,5 @@ all:
 
 clean:
 	rm *.o
-	rm ./examples/*.bin
+	rm ./examples/*/*.bin
 	rm ./tests/*.bin
