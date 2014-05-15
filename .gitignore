@@ -6,4 +6,8 @@ examples/.DS_Store
 examples/sample01/.DS_Store
 examples/sample01/sample01.bin.dSYM/*
 examples/sample02/sample02.bin.dSYM/*
-tests/GeneralTest.bin.dSYM/*
+
+examples/general_advanced_sample/general_advanced_sample.bin.dSYM/
+examples/general_simple_sample/general_simple_sample.bin.dSYM/
+tests/FuzzyTest.bin.dSYM/
+tests/GeneralTest.bin.dSYM/
