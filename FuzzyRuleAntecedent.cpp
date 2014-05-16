@@ -127,7 +127,7 @@ float FuzzyRuleAntecedent::evaluate(){
 		case MODE_FS_FS:
 			switch(this->op){
 				case OP_AND:
-					if(this->fuzzySet1->getPertinence() > 0 and this->fuzzySet2->getPertinence() > 0){
+					if(this->fuzzySet1->getPertinence() > 0.0 and this->fuzzySet2->getPertinence() > 0.0){
 						if(this->fuzzySet1->getPertinence() < this->fuzzySet2->getPertinence()){
 							return this->fuzzySet1->getPertinence();
 						}else{
@@ -138,7 +138,7 @@ float FuzzyRuleAntecedent::evaluate(){
 					}
 					break;
 				case OP_OR:
-					if(this->fuzzySet1->getPertinence() > 0 or this->fuzzySet2->getPertinence() > 0){
+					if(this->fuzzySet1->getPertinence() > 0.0 or this->fuzzySet2->getPertinence() > 0.0){
 						if(this->fuzzySet1->getPertinence() > this->fuzzySet2->getPertinence()){
 							return this->fuzzySet1->getPertinence();
 						}else{
@@ -155,7 +155,7 @@ float FuzzyRuleAntecedent::evaluate(){
 		case MODE_FS_FRA:
 			switch(this->op){
 				case OP_AND:
-					if(this->fuzzySet1->getPertinence() > 0 and fuzzyRuleAntecedent1->evaluate() > 0){
+					if(this->fuzzySet1->getPertinence() > 0.0 and fuzzyRuleAntecedent1->evaluate() > 0.0){
 						if(this->fuzzySet1->getPertinence() < fuzzyRuleAntecedent1->evaluate()){
 							return this->fuzzySet1->getPertinence();
 						}else{
@@ -166,7 +166,7 @@ float FuzzyRuleAntecedent::evaluate(){
 					}
 					break;
 				case OP_OR:
-					if(this->fuzzySet1->getPertinence() > 0 or fuzzyRuleAntecedent1->evaluate() > 0){
+					if(this->fuzzySet1->getPertinence() > 0.0 or fuzzyRuleAntecedent1->evaluate() > 0.0){
 						if(this->fuzzySet1->getPertinence() > fuzzyRuleAntecedent1->evaluate()){
 							return this->fuzzySet1->getPertinence();
 						}else{
@@ -183,7 +183,7 @@ float FuzzyRuleAntecedent::evaluate(){
 		case MODE_FRA_FRA:
 			switch(this->op){
 				case OP_AND:
-					if(fuzzyRuleAntecedent1->evaluate() > 0 and fuzzyRuleAntecedent2->evaluate() > 0){
+					if(fuzzyRuleAntecedent1->evaluate() > 0.0 and fuzzyRuleAntecedent2->evaluate() > 0.0){
 						if(fuzzyRuleAntecedent1->evaluate() < fuzzyRuleAntecedent2->evaluate()){
 							return fuzzyRuleAntecedent1->evaluate();
 						}else{
@@ -194,7 +194,7 @@ float FuzzyRuleAntecedent::evaluate(){
 					}
 					break;
 				case OP_OR:
-					if(fuzzyRuleAntecedent1->evaluate() > 0 or fuzzyRuleAntecedent2->evaluate() > 0){
+					if(fuzzyRuleAntecedent1->evaluate() > 0.0 or fuzzyRuleAntecedent2->evaluate() > 0.0){
 						if(fuzzyRuleAntecedent1->evaluate() > fuzzyRuleAntecedent2->evaluate()){
 							return fuzzyRuleAntecedent1->evaluate();
 						}else{

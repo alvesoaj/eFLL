@@ -43,23 +43,23 @@ bool FuzzySet::calculatePertinence(float crispValue){
 
 	if (crispValue < this->a){
 		if (this->a == this->b && this->b != this->c && this->c != this->d){
-			this->pertinence = 1;
+			this->pertinence = 1.0;
 		}else{
-			this->pertinence = 0;
+			this->pertinence = 0.0;
 		}
 	}else if (crispValue >= this->a && crispValue < this->b){
-		slope = 1 / (this->b - this->a);
-		this->pertinence = slope * (crispValue - this->b) + 1;
+		slope = 1.0 / (this->b - this->a);
+		this->pertinence = slope * (crispValue - this->b) + 1.0;
 	}else if (crispValue >= this->b && crispValue <= this->c){
-		this->pertinence = 1;
+		this->pertinence = 1.0;
 	}else if (crispValue > this->c && crispValue <= this->d){
-		slope = 1 / (this->c - this->d);
-		this->pertinence = slope * (crispValue - this->c) + 1;
+		slope = 1.0 / (this->c - this->d);
+		this->pertinence = slope * (crispValue - this->c) + 1.0;
 	}else if (crispValue > this->d){
 		if (this->c == this->d && this->c != this->b && this->b != this->a){
-			this->pertinence = 1;
+			this->pertinence = 1.0;
 		}else{
-			this->pertinence = 0;
+			this->pertinence = 0.0;
 		}
 	}
 	return true;

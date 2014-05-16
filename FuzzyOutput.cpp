@@ -24,11 +24,10 @@ FuzzyOutput::~FuzzyOutput(){
 
 // MÉTODOS PÚBLICOS
 bool FuzzyOutput::truncate(){
-	fuzzySetArray *aux;
-	float point, point1, point2, slope = 0.0;
 	// esvaziando a composição
 	this->fuzzyComposition.empty();
 
+	fuzzySetArray *aux;
 	aux = this->fuzzySets;
 	while(aux != NULL){
 		if(aux->fuzzySet->getPertinence() > 0.0){

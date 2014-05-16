@@ -20,6 +20,7 @@ FuzzyComposition::FuzzyComposition(){
 
 // DESTRUTOR
 FuzzyComposition::~FuzzyComposition(){
+	this->cleanPoints(this->pointsCursor);
 	this->cleanPoints(this->points);
 }
 
@@ -103,26 +104,26 @@ float FuzzyComposition::avaliate(){
 				// Se Singleton
 				area 	= aux->pertinence;
 				middle 	= aux->point;
-			}else if(aux->pertinence == 0 || aux->next->pertinence == 0){
+			}else if(aux->pertinence == 0.0 || aux->next->pertinence == 0.0){
 				// Se triangulo
 				float pertinence;
-				if(aux->pertinence > 0){
+				if(aux->pertinence > 0.0){
 					pertinence = aux->pertinence;
 				}else{
 					pertinence = aux->next->pertinence;
 				}
 				area 	= ((aux->next->point - aux->point) * pertinence) / 2.0;
 				middle 	= ((aux->next->point - aux->point) / 2.0) + aux->point;
-			}else if((aux->pertinence > 0 && aux->next->pertinence > 0) && (aux->pertinence == aux->next->pertinence)){
+			}else if((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && (aux->pertinence == aux->next->pertinence)){
 				// Se quadrado
-				area = (aux->next->point - aux->point) * aux->pertinence;
+				area 	= (aux->next->point - aux->point) * aux->pertinence;
 				middle 	= ((aux->next->point - aux->point) / 2.0) + aux->point;
-			}else if((aux->pertinence > 0 && aux->next->pertinence > 0) && (aux->pertinence != aux->next->pertinence)){
+			}else if((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && (aux->pertinence != aux->next->pertinence)){
 				// Se trapezio
 				area 	= ((aux->pertinence + aux->next->pertinence) / 2.0) * (aux->next->point - aux->point);
 				middle 	= ((aux->next->point - aux->point) / 2.0) + aux->point;
 			}
-			numerator += middle * area;
+			numerator 	+= middle * area;
 			denominator += area;
 		}
 		aux = aux->next;
@@ -170,14 +171,14 @@ bool FuzzyComposition::rebuild(pointsArray* aSegmentBegin, pointsArray* aSegment
 	numera = (x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3);
 	numerb = (x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3);
 
-	if(denom < 0){
-		denom *= -1;
+	if(denom < 0.0){
+		denom *= -1.0;
 	}
-	if(numera < 0){
-		numera *= -1;
+	if(numera < 0.0){
+		numera *= -1.0;
 	}
-	if(numerb < 0){
-		numerb *= -1;
+	if(numerb < 0.0){
+		numerb *= -1.0;
 	}
 
 	// Se os seguimentos forem paralelos, retornar falso
@@ -188,7 +189,7 @@ bool FuzzyComposition::rebuild(pointsArray* aSegmentBegin, pointsArray* aSegment
 	// Verificar se há interseção ao longo do seguimento
 	mua = numera / denom;
 	mub = numerb / denom;
-	if(mua < 0 || mua > 1 || mub < 0 || mub > 1){
+	if(mua < 0.0 || mua > 1.0 || mub < 0.0 || mub > 1.0){
 		return false;
 	}else{
 		// Calculando o ponto e a pertinencia do novo elemento

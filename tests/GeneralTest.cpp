@@ -15,12 +15,12 @@ int main(int argc, char *argv[]) {
     Fuzzy* fuzzy = new Fuzzy();
 
     ///////////////////////////////////////////////////////////////////////////////
-    FuzzySet* ErroAltoNegativo = new FuzzySet(-101, -101, -100, -50);
-    FuzzySet* ErroMedioNegativo = new FuzzySet(-100, -50, -50, 0);
-    FuzzySet* ErroBaixonegativo = new FuzzySet(-50, 0, 0, 0);
-    FuzzySet* ErroBaixoPositivo = new FuzzySet(0, 0, 0, 50);
-    FuzzySet* ErroMedioPositivo = new FuzzySet(0,50, 50, 100);
-    FuzzySet* ErroAltoPositivo = new FuzzySet(50, 100, 101, 101);
+    FuzzySet* ErroAltoNegativo = new FuzzySet(-101.0, -101.0, -100.0, -50.0);
+    FuzzySet* ErroMedioNegativo = new FuzzySet(-100.0, -50.0, -50.0, 0.0);
+    FuzzySet* ErroBaixonegativo = new FuzzySet(-50.0, 0.0, 0.0, 0.0);
+    FuzzySet* ErroBaixoPositivo = new FuzzySet(0.0, 0.0, 0.0, 50.0);
+    FuzzySet* ErroMedioPositivo = new FuzzySet(0.0, 50.0, 50.0, 100.0);
+    FuzzySet* ErroAltoPositivo = new FuzzySet(50.0, 100.0, 101.0, 101.0);
 
     // Criando o FuzzyInput Erro
     FuzzyInput* Erro = new FuzzyInput(1);
@@ -37,12 +37,12 @@ int main(int argc, char *argv[]) {
 
     ///////////////////////////////////////////////////////////////////////////////
 
-    FuzzySet* DerroAltoNegativo = new FuzzySet(-101, -101, -100, -50);
-    FuzzySet* DerroMedioNegativo = new FuzzySet(-100, -50, -50, 0);
-    FuzzySet* DerroBaixonegativo = new FuzzySet(-50, 0, 0, 0);
-    FuzzySet* DerroBaixoPositivo = new FuzzySet(0, 0, 0, 50);
-    FuzzySet* DerroMedioPositivo = new FuzzySet(0,50, 50, 100);
-    FuzzySet* DerroAltoPositivo = new FuzzySet(50, 100, 101, 101);
+    FuzzySet* DerroAltoNegativo = new FuzzySet(-101.0, -101.0, -100.0, -50.0);
+    FuzzySet* DerroMedioNegativo = new FuzzySet(-100.0, -50.0, -50.0, 0.0);
+    FuzzySet* DerroBaixonegativo = new FuzzySet(-50.0, 0.0, 0.0, 0.0);
+    FuzzySet* DerroBaixoPositivo = new FuzzySet(0.0, 0.0, 0.0, 50.0);
+    FuzzySet* DerroMedioPositivo = new FuzzySet(0.0, 50.0, 50.0, 100.0);
+    FuzzySet* DerroAltoPositivo = new FuzzySet(50.0, 100.0, 101.0, 101.0);
 
     // Criando o FuzzyInput Derivada do Erro
     FuzzyInput* DErro = new FuzzyInput(2);
@@ -62,12 +62,12 @@ int main(int argc, char *argv[]) {
     // Criando o FuzzyOutput Velocidade
     FuzzyOutput* Velocidade = new FuzzyOutput(1);
 
-    FuzzySet* OutAltoNegativo = new FuzzySet(-101, -101, -100, -50);
-    FuzzySet* OutMedioNegativo = new FuzzySet(-100, -50, -50, 0);
-    FuzzySet* OutBaixonegativo = new FuzzySet(-50, 0, 0, 0);
-    FuzzySet* OutBaixoPositivo = new FuzzySet(0, 0, 0, 50);
-    FuzzySet* OutMedioPositivo = new FuzzySet(0,50, 50, 100);
-    FuzzySet* OutAltoPositivo = new FuzzySet(50, 100, 101, 101);
+    FuzzySet* OutAltoNegativo = new FuzzySet(-101.0, -101.0, -100.0, -50.0);
+    FuzzySet* OutMedioNegativo = new FuzzySet(-100.0, -50.0, -50.0, 0.0);
+    FuzzySet* OutBaixonegativo = new FuzzySet(-50.0, 0.0, 0.0, 0.0);
+    FuzzySet* OutBaixoPositivo = new FuzzySet(0.0, 0.0, 0.0, 50.0);
+    FuzzySet* OutMedioPositivo = new FuzzySet(0.0, 50.0, 50.0, 100.0);
+    FuzzySet* OutAltoPositivo = new FuzzySet(50.0, 100.0, 101.0, 101.0);
 
 
     // Criando os FuzzySet que compoem o FuzzyOutput velocidade 
@@ -80,9 +80,6 @@ int main(int argc, char *argv[]) {
 
     fuzzy->addFuzzyOutput(Velocidade); // Adicionando o FuzzyOutput no objeto Fuzzy   
     //////////////////////////////////////////////////////////////////////////////////
-
-
-
 
     FuzzyRuleAntecedent* IfErroAltoNegativoAndDerroAltoNegativo = new FuzzyRuleAntecedent();
     IfErroAltoNegativoAndDerroAltoNegativo->joinWithAND(ErroAltoNegativo,DerroAltoNegativo);
@@ -193,14 +190,6 @@ int main(int argc, char *argv[]) {
     IfErroAltoPositivoAndDerroAltoPositivo->joinWithAND(ErroAltoPositivo,DerroAltoPositivo);
 
 
-
-
-
-
-
-
-
-
     FuzzyRuleConsequent* ThenOutAltoPositivo = new FuzzyRuleConsequent(); 
     ThenOutAltoPositivo->addOutput(OutAltoPositivo);
 
@@ -218,12 +207,6 @@ int main(int argc, char *argv[]) {
 
     FuzzyRuleConsequent* ThenOutAltoNegativo = new FuzzyRuleConsequent();
     ThenOutAltoNegativo->addOutput(OutAltoNegativo);
-
-
-
-
-
-
 
 
     FuzzyRule* fuzzyRule01 = new FuzzyRule(1, IfErroAltoNegativoAndDerroAltoNegativo, ThenOutAltoPositivo);
@@ -307,13 +290,13 @@ int main(int argc, char *argv[]) {
     FuzzyRule* fuzzyRule27 = new FuzzyRule(27, IfErroMedioPositivoAndDerroBaixonegativo, ThenOutBaixonegativo);
     fuzzy->addFuzzyRule(fuzzyRule27);
 
-    FuzzyRule* fuzzyRule28 = new FuzzyRule(28, IfErroMedioPositivoAndDerroBaixoPositivo, ThenOutMedioNegativo);
+    FuzzyRule* fuzzyRule28 = new FuzzyRule(28, IfErroMedioPositivoAndDerroBaixoPositivo, ThenOutMedioNegativo); //----
     fuzzy->addFuzzyRule(fuzzyRule28);
 
     FuzzyRule* fuzzyRule29 = new FuzzyRule(29, IfErroMedioPositivoAndDerroMedioPositivo, ThenOutAltoNegativo); //----
     fuzzy->addFuzzyRule(fuzzyRule29);
 
-    FuzzyRule* fuzzyRule30 = new FuzzyRule(30, IfErroMedioPositivoAndDerroAltoPositivo, ThenOutAltoNegativo);  //----
+    FuzzyRule* fuzzyRule30 = new FuzzyRule(30, IfErroMedioPositivoAndDerroAltoPositivo, ThenOutAltoNegativo);
     fuzzy->addFuzzyRule(fuzzyRule30);
 
     FuzzyRule* fuzzyRule31 = new FuzzyRule(31, IfErroAltoPositivoAndDerroAltoNegativo, ThenOutBaixonegativo);
@@ -334,8 +317,8 @@ int main(int argc, char *argv[]) {
     FuzzyRule* fuzzyRule36 = new FuzzyRule(36, IfErroAltoPositivoAndDerroAltoPositivo, ThenOutAltoNegativo); 
     fuzzy->addFuzzyRule(fuzzyRule36);
 
-    fuzzy->setInput(1,-10);
-    fuzzy->setInput(2,-10);    
+    fuzzy->setInput(1, 0);
+    fuzzy->setInput(2, 0);
     fuzzy->fuzzify();
     
     float outputPitch = fuzzy->defuzzify(1);
@@ -350,5 +333,23 @@ int main(int argc, char *argv[]) {
     std::cout << "regras 16-30 : " << fuzzy->isFiredRule(16) << ", " << fuzzy->isFiredRule(17) << ", " << fuzzy->isFiredRule(18) << ", " << fuzzy->isFiredRule(19) << ", " << fuzzy->isFiredRule(20) << ", " << fuzzy->isFiredRule(21) << ", " << fuzzy->isFiredRule(22) << ", " << fuzzy->isFiredRule(23) << ", " << fuzzy->isFiredRule(24) << ", " << fuzzy->isFiredRule(25) << ", " << fuzzy->isFiredRule(26) << ", " << fuzzy->isFiredRule(27) << ", " << fuzzy->isFiredRule(28) << ", " << fuzzy->isFiredRule(29) << ", " << fuzzy->isFiredRule(30) << std::endl;
     std::cout << "regras 31-36 : " << fuzzy->isFiredRule(31) << ", " << fuzzy->isFiredRule(32) << ", " << fuzzy->isFiredRule(33) << ", " << fuzzy->isFiredRule(34) << ", " << fuzzy->isFiredRule(35) << ", " << fuzzy->isFiredRule(36) << std::endl;
 
-	return 0;
+    std::cout << "\n" << std::endl;
+
+    fuzzy->setInput(1, -100);
+    fuzzy->setInput(2, -100);
+    fuzzy->fuzzify();
+    
+    outputPitch = fuzzy->defuzzify(1);
+    
+    std::cout << "Erro: " << ErroAltoNegativo->getPertinence() << ", " << ErroMedioNegativo->getPertinence() << ", " << ErroBaixonegativo->getPertinence() << ", " << ErroBaixoPositivo->getPertinence() << ", " << ErroMedioPositivo->getPertinence() << ", " << ErroAltoPositivo->getPertinence() << std::endl;
+    std::cout << "DErro: " << DerroAltoNegativo->getPertinence() << ", " << DerroMedioNegativo->getPertinence() << ", " << DerroBaixonegativo->getPertinence() << ", " << DerroBaixoPositivo->getPertinence() << ", " << DerroMedioPositivo->getPertinence() << ", " << DerroAltoPositivo->getPertinence() << std::endl;
+    std::cout << "velocidade: " << OutAltoNegativo->getPertinence() << ", " << OutMedioNegativo->getPertinence() << ", " << OutBaixonegativo->getPertinence() << ", " << OutBaixoPositivo->getPertinence() << ", " << OutMedioPositivo->getPertinence() << ", " << OutAltoPositivo->getPertinence() << std::endl;
+
+    std::cout << "Output: " << outputPitch << std::endl;
+
+    std::cout << "regras 1-15 : " << fuzzy->isFiredRule(1) << ", " << fuzzy->isFiredRule(2) << ", " << fuzzy->isFiredRule(3) << ", " << fuzzy->isFiredRule(4) << ", " << fuzzy->isFiredRule(5) << ", " << fuzzy->isFiredRule(6) << ", " << fuzzy->isFiredRule(7) << ", " << fuzzy->isFiredRule(8) << ", " << fuzzy->isFiredRule(9) << ", " << fuzzy->isFiredRule(10) << ", " << fuzzy->isFiredRule(11) << ", " << fuzzy->isFiredRule(12) << ", " << fuzzy->isFiredRule(13) << ", " << fuzzy->isFiredRule(14) << ", " << fuzzy->isFiredRule(15) << std::endl;
+    std::cout << "regras 16-30 : " << fuzzy->isFiredRule(16) << ", " << fuzzy->isFiredRule(17) << ", " << fuzzy->isFiredRule(18) << ", " << fuzzy->isFiredRule(19) << ", " << fuzzy->isFiredRule(20) << ", " << fuzzy->isFiredRule(21) << ", " << fuzzy->isFiredRule(22) << ", " << fuzzy->isFiredRule(23) << ", " << fuzzy->isFiredRule(24) << ", " << fuzzy->isFiredRule(25) << ", " << fuzzy->isFiredRule(26) << ", " << fuzzy->isFiredRule(27) << ", " << fuzzy->isFiredRule(28) << ", " << fuzzy->isFiredRule(29) << ", " << fuzzy->isFiredRule(30) << std::endl;
+    std::cout << "regras 31-36 : " << fuzzy->isFiredRule(31) << ", " << fuzzy->isFiredRule(32) << ", " << fuzzy->isFiredRule(33) << ", " << fuzzy->isFiredRule(34) << ", " << fuzzy->isFiredRule(35) << ", " << fuzzy->isFiredRule(36) << std::endl;
+
+    return 0;
 }

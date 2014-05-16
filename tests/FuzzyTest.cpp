@@ -1370,8 +1370,8 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify09){
   fuzzyRule21 = new FuzzyRule(21, ifShiftS_0AndDistanceD_4, thenSteeringangleAng_0AndRunningspeedSpeed_0);
   fuzzy->addFuzzyRule(fuzzyRule21);
 
-  int target_x = 21.88;  //  key in the digital value
-  int target_y = 32;
+  float target_x = 21.88;  //  key in the digital value
+  float target_y = 32;
 
   // target_x and target_y are the inputs    
   fuzzy->setInput(1, target_x);  // shift
