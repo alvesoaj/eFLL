@@ -20,7 +20,6 @@ FuzzyComposition::FuzzyComposition(){
 
 // DESTRUTOR
 FuzzyComposition::~FuzzyComposition(){
-	this->cleanPoints(this->pointsCursor);
 	this->cleanPoints(this->points);
 }
 
