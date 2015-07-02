@@ -20,6 +20,7 @@ FuzzyOutput::FuzzyOutput(int index) : FuzzyIO(index){
 
 // DESTRUTOR
 FuzzyOutput::~FuzzyOutput(){
+	this->fuzzyComposition.empty();
 }
 
 // MÉTODOS PÚBLICOS
