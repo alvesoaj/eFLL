@@ -12,344 +12,174 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
+    // Instanciando um objeto da biblioteca
     Fuzzy* fuzzy = new Fuzzy();
 
-    ///////////////////////////////////////////////////////////////////////////////
-    FuzzySet* ErroAltoNegativo = new FuzzySet(-101.0, -101.0, -100.0, -50.0);
-    FuzzySet* ErroMedioNegativo = new FuzzySet(-100.0, -50.0, -50.0, 0.0);
-    FuzzySet* ErroBaixonegativo = new FuzzySet(-50.0, 0.0, 0.0, 0.0);
-    FuzzySet* ErroBaixoPositivo = new FuzzySet(0.0, 0.0, 0.0, 50.0);
-    FuzzySet* ErroMedioPositivo = new FuzzySet(0.0, 50.0, 50.0, 100.0);
-    FuzzySet* ErroAltoPositivo = new FuzzySet(50.0, 100.0, 101.0, 101.0);
-
-    // Criando o FuzzyInput Erro
-    FuzzyInput* Erro = new FuzzyInput(1);
-    // Criando os FuzzySet que compoem o FuzzyInput distancia 
-    Erro->addFuzzySet(ErroAltoNegativo); // Adicionando o FuzzySet small em Erro
-    Erro->addFuzzySet(ErroMedioNegativo); // Adicionando o FuzzySet small em Erro
-    Erro->addFuzzySet(ErroBaixonegativo); // Adicionando o FuzzySet small em Erro
-    Erro->addFuzzySet(ErroBaixoPositivo); // Adicionando o FuzzySet small em Erro
-    Erro->addFuzzySet(ErroMedioPositivo); // Adicionando o FuzzySet small em Erro
-    Erro->addFuzzySet(ErroAltoPositivo); // Adicionando o FuzzySet small em Erro
-
-    fuzzy->addFuzzyInput(Erro); // Adicionando o FuzzyInput no objeto Fuzzy  
-    ///////////////////////////////////////////////////////////////////////////////
+    FuzzySet* seco = new FuzzySet(0, 0 , 0, 42.5);
+    FuzzySet* humedo = new FuzzySet(37.5, 60, 60, 82.5);
+    FuzzySet* encharcado = new FuzzySet(77.5, 100, 100, 100);
 
-    ///////////////////////////////////////////////////////////////////////////////
+    FuzzySet* frio = new FuzzySet(-5, -5, -5, 12.5);
+    FuzzySet* templado = new FuzzySet(7.5, 17.5, 17.5, 27.5);
+    FuzzySet* calor = new FuzzySet(22.5, 45, 45, 45);
 
-    FuzzySet* DerroAltoNegativo = new FuzzySet(-101.0, -101.0, -100.0, -50.0);
-    FuzzySet* DerroMedioNegativo = new FuzzySet(-100.0, -50.0, -50.0, 0.0);
-    FuzzySet* DerroBaixonegativo = new FuzzySet(-50.0, 0.0, 0.0, 0.0);
-    FuzzySet* DerroBaixoPositivo = new FuzzySet(0.0, 0.0, 0.0, 50.0);
-    FuzzySet* DerroMedioPositivo = new FuzzySet(0.0, 50.0, 50.0, 100.0);
-    FuzzySet* DerroAltoPositivo = new FuzzySet(50.0, 100.0, 101.0, 101.0);
+    FuzzySet* nada = new FuzzySet(0, 0, 0, 0);
+    FuzzySet* muyPoco = new FuzzySet(0, 0, 0, 5.5);
+    FuzzySet* poco = new FuzzySet(4.5, 7.5, 7.5, 10.5);
+    FuzzySet* medio = new FuzzySet(9.5, 12.5, 12.5, 15.5);
+    FuzzySet* bastante = new FuzzySet(14.5, 17.5, 17.5, 20.5);
+    FuzzySet* mucho = new FuzzySet(19.5, 22.5, 22.5, 25.5);
+    FuzzySet* muchisimo = new FuzzySet(24.5, 30, 30, 30);
 
-    // Criando o FuzzyInput Derivada do Erro
-    FuzzyInput* DErro = new FuzzyInput(2);
-    // Criando os FuzzySet que compoem o FuzzyInput distancia 
-    DErro->addFuzzySet(DerroAltoNegativo); // Adicionando o FuzzySet small em DErro
-    DErro->addFuzzySet(DerroMedioNegativo); // Adicionando o FuzzySet small em DErro
-    DErro->addFuzzySet(DerroBaixonegativo); // Adicionando o FuzzySet small em DErro
-    DErro->addFuzzySet(DerroBaixoPositivo); // Adicionando o FuzzySet small em DErro
-    DErro->addFuzzySet(DerroMedioPositivo); // Adicionando o FuzzySet small em DErro
-    DErro->addFuzzySet(DerroAltoPositivo); // Adicionando o FuzzySet small em DErro
+    // FuzzyInput
+    FuzzyInput* humedad = new FuzzyInput(1);
+    humedad->addFuzzySet(seco);
+    humedad->addFuzzySet(humedo);
+    humedad->addFuzzySet(encharcado);
 
-    fuzzy->addFuzzyInput(DErro); // Adicionando o FuzzyInput no objeto Fuzzy 
-    //////////////////////////////////////////////////////////////////////////////////
+    fuzzy->addFuzzyInput(humedad);
 
+    FuzzyInput* temperatura = new FuzzyInput(2);
+    temperatura->addFuzzySet(frio);
+    temperatura->addFuzzySet(templado);
+    temperatura->addFuzzySet(calor);
 
-    //////////////////////////////////////////////////////////////////////////////////    
-    // Criando o FuzzyOutput Velocidade
-    FuzzyOutput* Velocidade = new FuzzyOutput(1);
+    fuzzy->addFuzzyInput(temperatura);
 
-    FuzzySet* OutAltoNegativo = new FuzzySet(-101.0, -101.0, -100.0, -50.0);
-    FuzzySet* OutMedioNegativo = new FuzzySet(-100.0, -50.0, -50.0, 0.0);
-    FuzzySet* OutBaixonegativo = new FuzzySet(-50.0, 0.0, 0.0, 0.0);
-    FuzzySet* OutBaixoPositivo = new FuzzySet(0.0, 0.0, 0.0, 50.0);
-    FuzzySet* OutMedioPositivo = new FuzzySet(0.0, 50.0, 50.0, 100.0);
-    FuzzySet* OutAltoPositivo = new FuzzySet(50.0, 100.0, 101.0, 101.0);
+    FuzzyOutput* tiempo = new FuzzyOutput(1);
 
+    tiempo->addFuzzySet(nada);
+    tiempo->addFuzzySet(muyPoco);
+    tiempo->addFuzzySet(poco);
+    tiempo->addFuzzySet(medio);
+    tiempo->addFuzzySet(bastante);
+    tiempo->addFuzzySet(mucho);
+    tiempo->addFuzzySet(muchisimo);
 
-    // Criando os FuzzySet que compoem o FuzzyOutput velocidade 
-    Velocidade->addFuzzySet(OutAltoNegativo);  // Adicionando o FuzzySet slow em velocity
-    Velocidade->addFuzzySet(OutMedioNegativo);  // Adicionando o FuzzySet slow em velocity
-    Velocidade->addFuzzySet(OutBaixonegativo);  // Adicionando o FuzzySet slow em velocity
-    Velocidade->addFuzzySet(OutBaixoPositivo);  // Adicionando o FuzzySet slow em velocity
-    Velocidade->addFuzzySet(OutMedioPositivo);  // Adicionando o FuzzySet slow em velocity
-    Velocidade->addFuzzySet(OutAltoPositivo);  // Adicionando o FuzzySet slow em velocity
+    fuzzy->addFuzzyOutput(tiempo);
 
-    fuzzy->addFuzzyOutput(Velocidade); // Adicionando o FuzzyOutput no objeto Fuzzy   
-    //////////////////////////////////////////////////////////////////////////////////
+    // ############## Rule 1
+    FuzzyRuleAntecedent* humedadSecoandTemperaturaFrio = new FuzzyRuleAntecedent();
+    humedadSecoandTemperaturaFrio->joinWithAND(seco, frio);
 
-    FuzzyRuleAntecedent* IfErroAltoNegativoAndDerroAltoNegativo = new FuzzyRuleAntecedent();
-    IfErroAltoNegativoAndDerroAltoNegativo->joinWithAND(ErroAltoNegativo,DerroAltoNegativo);
+    FuzzyRuleConsequent* thenMedio_1 = new FuzzyRuleConsequent();
+    thenMedio_1->addOutput(medio);
 
-    FuzzyRuleAntecedent* IfErroAltoNegativoAndDerroMedioNegativo = new FuzzyRuleAntecedent();
-    IfErroAltoNegativoAndDerroMedioNegativo->joinWithAND(ErroAltoNegativo,DerroMedioNegativo);
+    FuzzyRule* fuzzyRule1 = new FuzzyRule(1, humedadSecoandTemperaturaFrio, thenMedio_1);
+    fuzzy->addFuzzyRule(fuzzyRule1);
 
-    FuzzyRuleAntecedent* IfErroAltoNegativoAndDerroBaixonegativo = new FuzzyRuleAntecedent();
-    IfErroAltoNegativoAndDerroBaixonegativo->joinWithAND(ErroAltoNegativo,DerroBaixonegativo);
+    // ############## Rule 2
+    FuzzyRuleAntecedent* humedadHumedoandTemperaturaFrio = new FuzzyRuleAntecedent();
+    humedadHumedoandTemperaturaFrio->joinWithAND(humedo, frio);
 
-    FuzzyRuleAntecedent* IfErroAltoNegativoAndDerroBaixoPositivo = new FuzzyRuleAntecedent();
-    IfErroAltoNegativoAndDerroBaixoPositivo->joinWithAND(ErroAltoNegativo,DerroBaixoPositivo);
+    FuzzyRuleConsequent* thenMuyPoco_1 = new FuzzyRuleConsequent();
+    thenMuyPoco_1->addOutput(muyPoco);
 
-    FuzzyRuleAntecedent* IfErroAltoNegativoAndDerroMedioPositivo = new FuzzyRuleAntecedent(); 
-    IfErroAltoNegativoAndDerroMedioPositivo->joinWithAND(ErroAltoNegativo,DerroMedioPositivo);
+    FuzzyRule* fuzzyRule2 = new FuzzyRule(2, humedadHumedoandTemperaturaFrio, thenMuyPoco_1);
+    fuzzy->addFuzzyRule(fuzzyRule2);
 
-    FuzzyRuleAntecedent* IfErroAltoNegativoAndDerroAltoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroAltoNegativoAndDerroAltoPositivo->joinWithAND(ErroAltoNegativo,DerroAltoPositivo);
+    // ############## Rule 3
+    FuzzyRuleAntecedent* humedadEncharcadoandTemperaturaFrio = new FuzzyRuleAntecedent();
+    humedadEncharcadoandTemperaturaFrio->joinWithAND(encharcado, frio);
 
-    FuzzyRuleAntecedent* IfErroMedioNegativoAndDerroAltoNegativo = new FuzzyRuleAntecedent(); 
-    IfErroMedioNegativoAndDerroAltoNegativo->joinWithAND(ErroMedioNegativo,DerroAltoNegativo);
+    FuzzyRuleConsequent* thenNada_1 = new FuzzyRuleConsequent();
+    thenNada_1->addOutput(nada);
 
-    FuzzyRuleAntecedent* IfErroMedioNegativoAndDerroMedioNegativo = new FuzzyRuleAntecedent(); 
-    IfErroMedioNegativoAndDerroMedioNegativo->joinWithAND(ErroMedioNegativo,DerroMedioNegativo);
+    FuzzyRule* fuzzyRule3 = new FuzzyRule(3, humedadEncharcadoandTemperaturaFrio, thenNada_1);
+    fuzzy->addFuzzyRule(fuzzyRule3);
 
-    FuzzyRuleAntecedent* IfErroMedioNegativoAndDerroBaixonegativo = new FuzzyRuleAntecedent(); 
-    IfErroMedioNegativoAndDerroBaixonegativo->joinWithAND(ErroMedioNegativo,DerroBaixonegativo);
+    // ############## Rule 4
+    FuzzyRuleAntecedent* humedadSecoandTemperaturaTemplado = new FuzzyRuleAntecedent();
+    humedadSecoandTemperaturaTemplado->joinWithAND(seco, templado);
 
-    FuzzyRuleAntecedent* IfErroMedioNegativoAndDerroBaixoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroMedioNegativoAndDerroBaixoPositivo->joinWithAND(ErroMedioNegativo,DerroBaixoPositivo);
+    FuzzyRuleConsequent* thenBastante = new FuzzyRuleConsequent();
+    thenBastante->addOutput(bastante);
 
-    FuzzyRuleAntecedent* IfErroMedioNegativoAndDerroMedioPositivo = new FuzzyRuleAntecedent(); 
-    IfErroMedioNegativoAndDerroMedioPositivo->joinWithAND(ErroMedioNegativo,DerroMedioPositivo);
+    FuzzyRule* fuzzyRule4 = new FuzzyRule(4, humedadSecoandTemperaturaTemplado, thenBastante);
+    fuzzy->addFuzzyRule(fuzzyRule4);
 
-    FuzzyRuleAntecedent* IfErroMedioNegativoAndDerroAltoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroMedioNegativoAndDerroAltoPositivo->joinWithAND(ErroMedioNegativo,DerroAltoPositivo);
+    // ############## Rule 5
+    FuzzyRuleAntecedent* humedadHumedoandTemperaturaTemplado = new FuzzyRuleAntecedent();
+    humedadHumedoandTemperaturaTemplado->joinWithAND(humedo, templado);
 
-    FuzzyRuleAntecedent* IfErroBaixonegativoAndDerroAltoNegativo = new FuzzyRuleAntecedent(); 
-    IfErroBaixonegativoAndDerroAltoNegativo->joinWithAND(ErroBaixonegativo,DerroAltoNegativo);
+    FuzzyRuleConsequent* thenMedio_2 = new FuzzyRuleConsequent();
+    thenMedio_2->addOutput(medio);
 
-    FuzzyRuleAntecedent* IfErroBaixonegativoAndDerroMedioNegativo = new FuzzyRuleAntecedent();
-    IfErroBaixonegativoAndDerroMedioNegativo->joinWithAND(ErroBaixonegativo,DerroMedioNegativo);
+    FuzzyRule* fuzzyRule5 = new FuzzyRule(5, humedadHumedoandTemperaturaTemplado, thenMedio_2);
+    fuzzy->addFuzzyRule(fuzzyRule5);
 
-    FuzzyRuleAntecedent* IfErroBaixonegativoAndDerroBaixonegativo = new FuzzyRuleAntecedent(); 
-    IfErroBaixonegativoAndDerroBaixonegativo->joinWithAND(ErroBaixonegativo,DerroBaixonegativo);
+    // ############## Rule 6
+    FuzzyRuleAntecedent* humedadEncharcadoandTemperaturaTemplado = new FuzzyRuleAntecedent();
+    humedadEncharcadoandTemperaturaTemplado->joinWithAND(encharcado, templado);
 
-    FuzzyRuleAntecedent* IfErroBaixonegativoAndDerroBaixoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroBaixonegativoAndDerroBaixoPositivo->joinWithAND(ErroBaixonegativo,DerroBaixoPositivo);
+    FuzzyRuleConsequent* thenMuyPoco_2 = new FuzzyRuleConsequent();
+    thenMuyPoco_2->addOutput(muyPoco);
 
-    FuzzyRuleAntecedent* IfErroBaixonegativoAndDerroMedioPositivo = new FuzzyRuleAntecedent(); 
-    IfErroBaixonegativoAndDerroMedioPositivo->joinWithAND(ErroBaixonegativo,DerroMedioPositivo);
+    FuzzyRule* fuzzyRule6 = new FuzzyRule(6, humedadEncharcadoandTemperaturaTemplado, thenMuyPoco_2);
+    fuzzy->addFuzzyRule(fuzzyRule6);
 
-    FuzzyRuleAntecedent* IfErroBaixonegativoAndDerroAltoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroBaixonegativoAndDerroAltoPositivo->joinWithAND(ErroBaixonegativo,DerroAltoPositivo);
+    // ############## Rule 7
+    FuzzyRuleAntecedent* humedadSecoandTemperaturaCalor = new FuzzyRuleAntecedent();
+    humedadSecoandTemperaturaCalor->joinWithAND(seco, calor);
 
-    FuzzyRuleAntecedent* IfErroBaixoPositivoAndDerroAltoNegativo = new FuzzyRuleAntecedent(); 
-    IfErroBaixoPositivoAndDerroAltoNegativo->joinWithAND(ErroBaixoPositivo,DerroAltoNegativo);
+    FuzzyRuleConsequent* thenMucho = new FuzzyRuleConsequent();
+    thenMucho->addOutput(mucho);
 
-    FuzzyRuleAntecedent* IfErroBaixoPositivoAndDerroMedioNegativo = new FuzzyRuleAntecedent(); 
-    IfErroBaixoPositivoAndDerroMedioNegativo->joinWithAND(ErroBaixoPositivo,DerroMedioNegativo);
+    FuzzyRule* fuzzyRule7 = new FuzzyRule(7, humedadSecoandTemperaturaCalor, thenMucho);
+    fuzzy->addFuzzyRule(fuzzyRule7);
 
-    FuzzyRuleAntecedent* IfErroBaixoPositivoAndDerroBaixonegativo = new FuzzyRuleAntecedent(); 
-    IfErroBaixoPositivoAndDerroBaixonegativo->joinWithAND(ErroBaixoPositivo,DerroBaixonegativo);
+    // ############## Rule 8
+    FuzzyRuleAntecedent* humedadHumedoandTemperaturaCalor = new FuzzyRuleAntecedent();
+    humedadHumedoandTemperaturaCalor->joinWithAND(humedo, calor);
 
-    FuzzyRuleAntecedent* IfErroBaixoPositivoAndDerroBaixoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroBaixoPositivoAndDerroBaixoPositivo->joinWithAND(ErroBaixoPositivo,DerroBaixoPositivo);
+    FuzzyRuleConsequent* thenMuchisimo = new FuzzyRuleConsequent();
+    thenMuchisimo->addOutput(muchisimo);
 
-    FuzzyRuleAntecedent* IfErroBaixoPositivoAndDerroMedioPositivo = new FuzzyRuleAntecedent();
-    IfErroBaixoPositivoAndDerroMedioPositivo->joinWithAND(ErroBaixoPositivo,DerroMedioPositivo);
+    FuzzyRule* fuzzyRule8 = new FuzzyRule(8, humedadHumedoandTemperaturaCalor, thenBastante);
+    fuzzy->addFuzzyRule(fuzzyRule8);
 
-    FuzzyRuleAntecedent* IfErroBaixoPositivoAndDerroAltoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroBaixoPositivoAndDerroAltoPositivo->joinWithAND(ErroBaixoPositivo,DerroAltoPositivo);
+    // ############## Rule 9
+    FuzzyRuleAntecedent* humedadEncharcadoandTemperaturaCalor = new FuzzyRuleAntecedent();
+    humedadEncharcadoandTemperaturaCalor->joinWithAND(encharcado, calor);
 
-    FuzzyRuleAntecedent* IfErroMedioPositivoAndDerroAltoNegativo = new FuzzyRuleAntecedent(); 
-    IfErroMedioPositivoAndDerroAltoNegativo->joinWithAND(ErroMedioPositivo,DerroAltoNegativo);
+    FuzzyRuleConsequent* thenNada_2 = new FuzzyRuleConsequent();
+    thenNada_2->addOutput(nada);
 
-    FuzzyRuleAntecedent* IfErroMedioPositivoAndDerroMedioNegativo = new FuzzyRuleAntecedent(); 
-    IfErroMedioPositivoAndDerroMedioNegativo->joinWithAND(ErroMedioPositivo,DerroMedioNegativo);
+    FuzzyRule* fuzzyRule9 = new FuzzyRule(9, humedadEncharcadoandTemperaturaCalor, thenNada_2);
+    fuzzy->addFuzzyRule(fuzzyRule9);
 
-    FuzzyRuleAntecedent* IfErroMedioPositivoAndDerroBaixonegativo = new FuzzyRuleAntecedent();
-    IfErroMedioPositivoAndDerroBaixonegativo->joinWithAND(ErroMedioPositivo,DerroBaixonegativo);
+    float entrada_humedad = 81.19;
+    float entrada_temperatura = 26.14;
 
-    FuzzyRuleAntecedent* IfErroMedioPositivoAndDerroBaixoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroMedioPositivoAndDerroBaixoPositivo->joinWithAND(ErroMedioPositivo,DerroBaixoPositivo);
+    fuzzy->setInput(1, entrada_humedad);
+    fuzzy->setInput(2, entrada_temperatura);
 
-    FuzzyRuleAntecedent* IfErroMedioPositivoAndDerroMedioPositivo = new FuzzyRuleAntecedent();
-    IfErroMedioPositivoAndDerroMedioPositivo->joinWithAND(ErroMedioPositivo,DerroMedioPositivo);
+    fuzzy->fuzzify();    
 
-    FuzzyRuleAntecedent* IfErroMedioPositivoAndDerroAltoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroMedioPositivoAndDerroAltoPositivo->joinWithAND(ErroMedioPositivo,DerroAltoPositivo);
+    std::cout << "\n####################"<< std::endl;
+    std::cout << "Entradas:"<< std::endl;
 
-    FuzzyRuleAntecedent* IfErroAltoPositivoAndDerroAltoNegativo = new FuzzyRuleAntecedent(); 
-    IfErroAltoPositivoAndDerroAltoNegativo->joinWithAND(ErroAltoPositivo,DerroAltoNegativo);
+    std::cout << "\tHumedad: " << entrada_humedad << std::endl;
+    std::cout << "\t\tPertinencias: " << seco->getPertinence() << ", " << humedo->getPertinence() << ", " << encharcado->getPertinence() << std::endl;
 
-    FuzzyRuleAntecedent* IfErroAltoPositivoAndDerroMedioNegativo = new FuzzyRuleAntecedent();
-    IfErroAltoPositivoAndDerroMedioNegativo->joinWithAND(ErroAltoPositivo,DerroMedioNegativo);
+    std::cout << "\tTemperatura: " << entrada_temperatura << std::endl;
+    std::cout << "\t\tPertinencias: " << frio->getPertinence() << ", " << templado->getPertinence() << ", " << calor->getPertinence() << std::endl;
 
-    FuzzyRuleAntecedent* IfErroAltoPositivoAndDerroBaixonegativo = new FuzzyRuleAntecedent(); 
-    IfErroAltoPositivoAndDerroBaixonegativo->joinWithAND(ErroAltoPositivo,DerroBaixonegativo);
+    std::cout << "Reglas Activadas:" << std::endl;
 
-    FuzzyRuleAntecedent* IfErroAltoPositivoAndDerroBaixoPositivo = new FuzzyRuleAntecedent();
-    IfErroAltoPositivoAndDerroBaixoPositivo->joinWithAND(ErroAltoPositivo,DerroBaixoPositivo);
+    for (int i = 1; i < 10; i++) {
+        bool wasTheRulleFired = fuzzy->isFiredRule(i);
+        if (wasTheRulleFired == 1) {
+            std::cout << "\tRegla: " << i << std::endl;
+        }    
+    }
 
-    FuzzyRuleAntecedent* IfErroAltoPositivoAndDerroMedioPositivo = new FuzzyRuleAntecedent();
-    IfErroAltoPositivoAndDerroMedioPositivo->joinWithAND(ErroAltoPositivo,DerroMedioPositivo);
+    float output1 = fuzzy->defuzzify(1);
 
-    FuzzyRuleAntecedent* IfErroAltoPositivoAndDerroAltoPositivo = new FuzzyRuleAntecedent(); 
-    IfErroAltoPositivoAndDerroAltoPositivo->joinWithAND(ErroAltoPositivo,DerroAltoPositivo);
+    std::cout << "Salida:" << std::endl;
 
-
-    FuzzyRuleConsequent* ThenOutAltoPositivo = new FuzzyRuleConsequent(); 
-    ThenOutAltoPositivo->addOutput(OutAltoPositivo);
-
-    FuzzyRuleConsequent* ThenOutMedioPositivo = new FuzzyRuleConsequent();
-    ThenOutMedioPositivo->addOutput(OutMedioPositivo);
-
-    FuzzyRuleConsequent* ThenOutBaixoPositivo = new FuzzyRuleConsequent();
-    ThenOutBaixoPositivo->addOutput(OutBaixoPositivo);
-
-    FuzzyRuleConsequent* ThenOutBaixonegativo = new FuzzyRuleConsequent();
-    ThenOutBaixonegativo->addOutput(OutBaixonegativo);
-
-    FuzzyRuleConsequent* ThenOutMedioNegativo = new FuzzyRuleConsequent();
-    ThenOutMedioNegativo->addOutput(OutMedioNegativo);
-
-    FuzzyRuleConsequent* ThenOutAltoNegativo = new FuzzyRuleConsequent();
-    ThenOutAltoNegativo->addOutput(OutAltoNegativo);
-
-
-    FuzzyRule* fuzzyRule01 = new FuzzyRule(1, IfErroAltoNegativoAndDerroAltoNegativo, ThenOutAltoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule01);
-
-    FuzzyRule* fuzzyRule02 = new FuzzyRule(2, IfErroAltoNegativoAndDerroMedioNegativo, ThenOutAltoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule02);
-
-    FuzzyRule* fuzzyRule03 = new FuzzyRule(3, IfErroAltoNegativoAndDerroBaixonegativo, ThenOutAltoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule03);
-
-    FuzzyRule* fuzzyRule04 = new FuzzyRule(4, IfErroAltoNegativoAndDerroBaixoPositivo, ThenOutMedioPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule04);
-
-    FuzzyRule* fuzzyRule05 = new FuzzyRule(5, IfErroAltoNegativoAndDerroMedioPositivo, ThenOutMedioPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule05);
-
-    FuzzyRule* fuzzyRule06 = new FuzzyRule(6, IfErroAltoNegativoAndDerroAltoPositivo, ThenOutBaixoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule06);
-
-    FuzzyRule* fuzzyRule07 = new FuzzyRule(7, IfErroMedioNegativoAndDerroAltoNegativo, ThenOutAltoPositivo); 
-    fuzzy->addFuzzyRule(fuzzyRule07);
-
-    FuzzyRule* fuzzyRule08 = new FuzzyRule(8, IfErroMedioNegativoAndDerroMedioNegativo, ThenOutAltoPositivo); //++++
-    fuzzy->addFuzzyRule(fuzzyRule08);
-
-    FuzzyRule* fuzzyRule09 = new FuzzyRule(9, IfErroMedioNegativoAndDerroBaixonegativo, ThenOutMedioPositivo); //++++
-    fuzzy->addFuzzyRule(fuzzyRule09);
-
-    FuzzyRule* fuzzyRule10 = new FuzzyRule(10, IfErroMedioNegativoAndDerroBaixoPositivo, ThenOutBaixoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule10);
-
-    FuzzyRule* fuzzyRule11 = new FuzzyRule(11, IfErroMedioNegativoAndDerroMedioPositivo, ThenOutBaixoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule11);
-
-    FuzzyRule* fuzzyRule12 = new FuzzyRule(12, IfErroMedioNegativoAndDerroAltoPositivo, ThenOutBaixoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule12);
-
-    FuzzyRule* fuzzyRule13 = new FuzzyRule(13, IfErroBaixonegativoAndDerroAltoNegativo, ThenOutMedioPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule13);
-
-    FuzzyRule* fuzzyRule14 = new FuzzyRule(14, IfErroBaixonegativoAndDerroMedioNegativo, ThenOutMedioPositivo); //++++
-    fuzzy->addFuzzyRule(fuzzyRule14);
-
-    FuzzyRule* fuzzyRule15 = new FuzzyRule(15, IfErroBaixonegativoAndDerroBaixonegativo, ThenOutBaixoPositivo); //++++
-    fuzzy->addFuzzyRule(fuzzyRule15);
-
-    FuzzyRule* fuzzyRule16 = new FuzzyRule(16, IfErroBaixonegativoAndDerroBaixoPositivo, ThenOutBaixoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule16);
-
-    FuzzyRule* fuzzyRule17 = new FuzzyRule(17, IfErroBaixonegativoAndDerroMedioPositivo, ThenOutBaixonegativo);
-    fuzzy->addFuzzyRule(fuzzyRule17);
-
-    FuzzyRule* fuzzyRule18 = new FuzzyRule(18, IfErroBaixonegativoAndDerroAltoPositivo, ThenOutBaixonegativo);
-    fuzzy->addFuzzyRule(fuzzyRule18);
-
-    FuzzyRule* fuzzyRule19 = new FuzzyRule(19, IfErroBaixoPositivoAndDerroAltoNegativo, ThenOutBaixoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule19);
-
-    FuzzyRule* fuzzyRule20 = new FuzzyRule(20, IfErroBaixoPositivoAndDerroMedioNegativo, ThenOutBaixoPositivo);
-    fuzzy->addFuzzyRule(fuzzyRule20);
-
-    FuzzyRule* fuzzyRule21 = new FuzzyRule(21, IfErroBaixoPositivoAndDerroBaixonegativo, ThenOutBaixonegativo);
-    fuzzy->addFuzzyRule(fuzzyRule21);
-
-    FuzzyRule* fuzzyRule22 = new FuzzyRule(22, IfErroBaixoPositivoAndDerroBaixoPositivo, ThenOutBaixonegativo); //----
-    fuzzy->addFuzzyRule(fuzzyRule22);
-
-    FuzzyRule* fuzzyRule23 = new FuzzyRule(23, IfErroBaixoPositivoAndDerroMedioPositivo, ThenOutMedioNegativo); //----
-    fuzzy->addFuzzyRule(fuzzyRule23);
-
-    FuzzyRule* fuzzyRule24 = new FuzzyRule(24, IfErroBaixoPositivoAndDerroAltoPositivo, ThenOutMedioNegativo);
-    fuzzy->addFuzzyRule(fuzzyRule24);
-
-    FuzzyRule* fuzzyRule25 = new FuzzyRule(25, IfErroMedioPositivoAndDerroAltoNegativo, ThenOutBaixonegativo);
-    fuzzy->addFuzzyRule(fuzzyRule25);
-
-    FuzzyRule* fuzzyRule26 = new FuzzyRule(26, IfErroMedioPositivoAndDerroMedioNegativo, ThenOutBaixonegativo);
-    fuzzy->addFuzzyRule(fuzzyRule26);
-
-    FuzzyRule* fuzzyRule27 = new FuzzyRule(27, IfErroMedioPositivoAndDerroBaixonegativo, ThenOutBaixonegativo);
-    fuzzy->addFuzzyRule(fuzzyRule27);
-
-    FuzzyRule* fuzzyRule28 = new FuzzyRule(28, IfErroMedioPositivoAndDerroBaixoPositivo, ThenOutMedioNegativo); //----
-    fuzzy->addFuzzyRule(fuzzyRule28);
-
-    FuzzyRule* fuzzyRule29 = new FuzzyRule(29, IfErroMedioPositivoAndDerroMedioPositivo, ThenOutAltoNegativo); //----
-    fuzzy->addFuzzyRule(fuzzyRule29);
-
-    FuzzyRule* fuzzyRule30 = new FuzzyRule(30, IfErroMedioPositivoAndDerroAltoPositivo, ThenOutAltoNegativo);
-    fuzzy->addFuzzyRule(fuzzyRule30);
-
-    FuzzyRule* fuzzyRule31 = new FuzzyRule(31, IfErroAltoPositivoAndDerroAltoNegativo, ThenOutBaixonegativo);
-    fuzzy->addFuzzyRule(fuzzyRule31);
-
-    FuzzyRule* fuzzyRule32 = new FuzzyRule(32, IfErroAltoPositivoAndDerroMedioNegativo, ThenOutMedioNegativo);
-    fuzzy->addFuzzyRule(fuzzyRule32);
-
-    FuzzyRule* fuzzyRule33 = new FuzzyRule(33, IfErroAltoPositivoAndDerroBaixonegativo, ThenOutMedioNegativo);
-    fuzzy->addFuzzyRule(fuzzyRule33);
-
-    FuzzyRule* fuzzyRule34 = new FuzzyRule(34, IfErroAltoPositivoAndDerroBaixoPositivo, ThenOutAltoNegativo); 
-    fuzzy->addFuzzyRule(fuzzyRule34);
-
-    FuzzyRule* fuzzyRule35 = new FuzzyRule(35, IfErroAltoPositivoAndDerroMedioPositivo, ThenOutAltoNegativo); 
-    fuzzy->addFuzzyRule(fuzzyRule35);
-
-    FuzzyRule* fuzzyRule36 = new FuzzyRule(36, IfErroAltoPositivoAndDerroAltoPositivo, ThenOutAltoNegativo); 
-    fuzzy->addFuzzyRule(fuzzyRule36);
-
-    fuzzy->setInput(1, 0);
-    fuzzy->setInput(2, 0);
-    fuzzy->fuzzify();
-    
-    float outputPitch = fuzzy->defuzzify(1);
-    
-    std::cout << "Erro: " << ErroAltoNegativo->getPertinence() << ", " << ErroMedioNegativo->getPertinence() << ", " << ErroBaixonegativo->getPertinence() << ", " << ErroBaixoPositivo->getPertinence() << ", " << ErroMedioPositivo->getPertinence() << ", " << ErroAltoPositivo->getPertinence() << std::endl;
-    std::cout << "DErro: " << DerroAltoNegativo->getPertinence() << ", " << DerroMedioNegativo->getPertinence() << ", " << DerroBaixonegativo->getPertinence() << ", " << DerroBaixoPositivo->getPertinence() << ", " << DerroMedioPositivo->getPertinence() << ", " << DerroAltoPositivo->getPertinence() << std::endl;
-    std::cout << "velocidade: " << OutAltoNegativo->getPertinence() << ", " << OutMedioNegativo->getPertinence() << ", " << OutBaixonegativo->getPertinence() << ", " << OutBaixoPositivo->getPertinence() << ", " << OutMedioPositivo->getPertinence() << ", " << OutAltoPositivo->getPertinence() << std::endl;
-
-    std::cout << "Output: " << outputPitch << std::endl;
-
-    std::cout << "regras 1-15 : " << fuzzy->isFiredRule(1) << ", " << fuzzy->isFiredRule(2) << ", " << fuzzy->isFiredRule(3) << ", " << fuzzy->isFiredRule(4) << ", " << fuzzy->isFiredRule(5) << ", " << fuzzy->isFiredRule(6) << ", " << fuzzy->isFiredRule(7) << ", " << fuzzy->isFiredRule(8) << ", " << fuzzy->isFiredRule(9) << ", " << fuzzy->isFiredRule(10) << ", " << fuzzy->isFiredRule(11) << ", " << fuzzy->isFiredRule(12) << ", " << fuzzy->isFiredRule(13) << ", " << fuzzy->isFiredRule(14) << ", " << fuzzy->isFiredRule(15) << std::endl;
-    std::cout << "regras 16-30 : " << fuzzy->isFiredRule(16) << ", " << fuzzy->isFiredRule(17) << ", " << fuzzy->isFiredRule(18) << ", " << fuzzy->isFiredRule(19) << ", " << fuzzy->isFiredRule(20) << ", " << fuzzy->isFiredRule(21) << ", " << fuzzy->isFiredRule(22) << ", " << fuzzy->isFiredRule(23) << ", " << fuzzy->isFiredRule(24) << ", " << fuzzy->isFiredRule(25) << ", " << fuzzy->isFiredRule(26) << ", " << fuzzy->isFiredRule(27) << ", " << fuzzy->isFiredRule(28) << ", " << fuzzy->isFiredRule(29) << ", " << fuzzy->isFiredRule(30) << std::endl;
-    std::cout << "regras 31-36 : " << fuzzy->isFiredRule(31) << ", " << fuzzy->isFiredRule(32) << ", " << fuzzy->isFiredRule(33) << ", " << fuzzy->isFiredRule(34) << ", " << fuzzy->isFiredRule(35) << ", " << fuzzy->isFiredRule(36) << std::endl;
-
-    std::cout << "\n" << std::endl;
-
-    fuzzy->setInput(1, -100);
-    fuzzy->setInput(2, -100);
-    fuzzy->fuzzify();
-    
-    outputPitch = fuzzy->defuzzify(1);
-    
-    std::cout << "Erro: " << ErroAltoNegativo->getPertinence() << ", " << ErroMedioNegativo->getPertinence() << ", " << ErroBaixonegativo->getPertinence() << ", " << ErroBaixoPositivo->getPertinence() << ", " << ErroMedioPositivo->getPertinence() << ", " << ErroAltoPositivo->getPertinence() << std::endl;
-    std::cout << "DErro: " << DerroAltoNegativo->getPertinence() << ", " << DerroMedioNegativo->getPertinence() << ", " << DerroBaixonegativo->getPertinence() << ", " << DerroBaixoPositivo->getPertinence() << ", " << DerroMedioPositivo->getPertinence() << ", " << DerroAltoPositivo->getPertinence() << std::endl;
-    std::cout << "velocidade: " << OutAltoNegativo->getPertinence() << ", " << OutMedioNegativo->getPertinence() << ", " << OutBaixonegativo->getPertinence() << ", " << OutBaixoPositivo->getPertinence() << ", " << OutMedioPositivo->getPertinence() << ", " << OutAltoPositivo->getPertinence() << std::endl;
-
-    std::cout << "Output: " << outputPitch << std::endl;
-
-    std::cout << "regras 1-15 : " << fuzzy->isFiredRule(1) << ", " << fuzzy->isFiredRule(2) << ", " << fuzzy->isFiredRule(3) << ", " << fuzzy->isFiredRule(4) << ", " << fuzzy->isFiredRule(5) << ", " << fuzzy->isFiredRule(6) << ", " << fuzzy->isFiredRule(7) << ", " << fuzzy->isFiredRule(8) << ", " << fuzzy->isFiredRule(9) << ", " << fuzzy->isFiredRule(10) << ", " << fuzzy->isFiredRule(11) << ", " << fuzzy->isFiredRule(12) << ", " << fuzzy->isFiredRule(13) << ", " << fuzzy->isFiredRule(14) << ", " << fuzzy->isFiredRule(15) << std::endl;
-    std::cout << "regras 16-30 : " << fuzzy->isFiredRule(16) << ", " << fuzzy->isFiredRule(17) << ", " << fuzzy->isFiredRule(18) << ", " << fuzzy->isFiredRule(19) << ", " << fuzzy->isFiredRule(20) << ", " << fuzzy->isFiredRule(21) << ", " << fuzzy->isFiredRule(22) << ", " << fuzzy->isFiredRule(23) << ", " << fuzzy->isFiredRule(24) << ", " << fuzzy->isFiredRule(25) << ", " << fuzzy->isFiredRule(26) << ", " << fuzzy->isFiredRule(27) << ", " << fuzzy->isFiredRule(28) << ", " << fuzzy->isFiredRule(29) << ", " << fuzzy->isFiredRule(30) << std::endl;
-    std::cout << "regras 31-36 : " << fuzzy->isFiredRule(31) << ", " << fuzzy->isFiredRule(32) << ", " << fuzzy->isFiredRule(33) << ", " << fuzzy->isFiredRule(34) << ", " << fuzzy->isFiredRule(35) << ", " << fuzzy->isFiredRule(36) << std::endl;
+    std::cout << "\tRiego: " << output1 << std::endl;
+    std::cout << "\t\tPertinencias: " << nada->getPertinence() << ", " << muyPoco->getPertinence() << ", " << poco->getPertinence() << ", " << medio->getPertinence() << ", " << bastante->getPertinence() << ", " << mucho->getPertinence() << ", " << muchisimo->getPertinence() << std::endl;
 
     return 0;
 }

@@ -36,15 +36,68 @@ bool FuzzyOutput::truncate(){
 				this->fuzzyComposition.addPoint(aux->fuzzySet->getPointA(), 0.0);
 			}
 
-			if(this->fuzzyComposition.checkPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence()) == false){
-				this->fuzzyComposition.addPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence());
+			if(aux->fuzzySet->getPointB() == aux->fuzzySet->getPointC() && aux->fuzzySet->getPointA() != aux->fuzzySet->getPointD()){
+				// se trinagulo
+				if(aux->fuzzySet->getPertinence() == 1.0){
+					if(this->fuzzyComposition.checkPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence()) == false){
+						this->fuzzyComposition.addPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence());
+					}
+				}else{
+					float newPointB 		= aux->fuzzySet->getPointB();
+					float newPertinenceB 	= aux->fuzzySet->getPertinence();
+
+					rebuild(aux->fuzzySet->getPointA(), 0.0, aux->fuzzySet->getPointB(), 1.0, aux->fuzzySet->getPointA(), aux->fuzzySet->getPertinence(), aux->fuzzySet->getPointD(), aux->fuzzySet->getPertinence(), &newPointB, &newPertinenceB);
+
+					if(this->fuzzyComposition.checkPoint(newPointB, newPertinenceB) == false){
+						this->fuzzyComposition.addPoint(newPointB, newPertinenceB);
+					}
+
+					float newPointC 		= aux->fuzzySet->getPointB();
+					float newPertinenceC 	= aux->fuzzySet->getPertinence();
+
+					rebuild(aux->fuzzySet->getPointC(), 1.0, aux->fuzzySet->getPointD(), 0.0, aux->fuzzySet->getPointA(), aux->fuzzySet->getPertinence(), aux->fuzzySet->getPointD(), aux->fuzzySet->getPertinence(), &newPointC, &newPertinenceC);
+
+					if(this->fuzzyComposition.checkPoint(newPointC, newPertinenceC) == false){
+						this->fuzzyComposition.addPoint(newPointC, newPertinenceC);
+					}
+				}
+			}else if(aux->fuzzySet->getPointB() != aux->fuzzySet->getPointC()){
+				// se trapezio
+				if(aux->fuzzySet->getPertinence() == 1.0){
+					if(this->fuzzyComposition.checkPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence()) == false){
+						this->fuzzyComposition.addPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence());
+					}
+
+					if(this->fuzzyComposition.checkPoint(aux->fuzzySet->getPointC(), aux->fuzzySet->getPertinence()) == false){
+						this->fuzzyComposition.addPoint(aux->fuzzySet->getPointC(), aux->fuzzySet->getPertinence());
+					}
+				}else{
+					float newPointB 		= aux->fuzzySet->getPointB();
+					float newPertinenceB 	= aux->fuzzySet->getPertinence();
+
+					rebuild(aux->fuzzySet->getPointA(), 0.0, aux->fuzzySet->getPointB(), 1.0, aux->fuzzySet->getPointA(), aux->fuzzySet->getPertinence(), aux->fuzzySet->getPointD(), aux->fuzzySet->getPertinence(), &newPointB, &newPertinenceB);
+
+					if(this->fuzzyComposition.checkPoint(newPointB, newPertinenceB) == false){
+						this->fuzzyComposition.addPoint(newPointB, newPertinenceB);
+					}
+
+					float newPointC 		= aux->fuzzySet->getPointB();
+					float newPertinenceC 	= aux->fuzzySet->getPertinence();
+
+					rebuild(aux->fuzzySet->getPointC(), 1.0, aux->fuzzySet->getPointD(), 0.0, aux->fuzzySet->getPointA(), aux->fuzzySet->getPertinence(), aux->fuzzySet->getPointD(), aux->fuzzySet->getPertinence(), &newPointC, &newPertinenceC);
+
+					if(this->fuzzyComposition.checkPoint(newPointC, newPertinenceC) == false){
+						this->fuzzyComposition.addPoint(newPointC, newPertinenceC);
+					}
+				}
+			}else{
+				//senao singleton
+				if(this->fuzzyComposition.checkPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence()) == false){
+					this->fuzzyComposition.addPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence());
+				}
 			}
 
-			if(this->fuzzyComposition.checkPoint(aux->fuzzySet->getPointC(), aux->fuzzySet->getPertinence()) == false){
-				this->fuzzyComposition.addPoint(aux->fuzzySet->getPointC(), aux->fuzzySet->getPertinence());
-			}
-
-			if(this->fuzzyComposition.checkPoint(aux->fuzzySet->getPointD(), 0.0) == false){
+			if(this->fuzzyComposition.checkPoint(aux->fuzzySet->getPointD(), 0.0) == false || aux->fuzzySet->getPointD() == aux->fuzzySet->getPointA()){
 				this->fuzzyComposition.addPoint(aux->fuzzySet->getPointD(), 0.0);
 			}
 		}
@@ -92,4 +145,41 @@ bool FuzzyOutput::swap(fuzzySetArray* fuzzySetA, fuzzySetArray* fuzzySetB){
 	fuzzySetB->fuzzySet = aux;
 
 	return true;
+}
+
+bool FuzzyOutput::rebuild(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float* point, float* pertinence){
+	float denom, numera, numerb;
+	float mua, mub;
+
+	denom  = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+	numera = (x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3);
+	numerb = (x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3);
+
+	if(denom < 0.0){
+		denom *= -1.0;
+	}
+	if(numera < 0.0){
+		numera *= -1.0;
+	}
+	if(numerb < 0.0){
+		numerb *= -1.0;
+	}
+
+	// Se os seguimentos forem paralelos, retornar falso
+	if(denom < EPS){
+		return false;
+	}
+
+	// Verificar se há interseção ao longo do seguimento
+	mua = numera / denom;
+	mub = numerb / denom;
+	if(mua < 0.0 || mua > 1.0 || mub < 0.0 || mub > 1.0){
+		return false;
+	}else{
+		// Calculando o ponto e a pertinencia do novo elemento
+		*point 		= x1 + mua * (x2 - x1);
+		*pertinence 	= y1 + mua * (y2 - y1);
+
+		return true;
+	}
 }

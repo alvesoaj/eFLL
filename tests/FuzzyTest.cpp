@@ -19,7 +19,7 @@ TEST(FuzzySet, setPertinenceAndgetPertinence){
 
   float result = fuzzySet->getPertinence();
 
-  EXPECT_EQ(result, 0.5);
+  EXPECT_EQ(0.5, result);
 }
 
 TEST(FuzzySet, calculatePertinenceAndgetPertinence){
@@ -45,11 +45,11 @@ TEST(FuzzySet, calculatePertinenceAndgetPertinence){
   fuzzySet->calculatePertinence(25);
   float result5 = fuzzySet->getPertinence();
 
-  EXPECT_EQ(result1, 0.0);
-  EXPECT_EQ(result2, 0.5);
-  EXPECT_EQ(result3, 1.0);
-  EXPECT_EQ(result4, 0.5);
-  EXPECT_EQ(result5, 0.0);
+  EXPECT_EQ(0.0, result1);
+  EXPECT_EQ(0.5, result2);
+  EXPECT_EQ(1.0, result3);
+  EXPECT_EQ(0.5, result4);
+  EXPECT_EQ(0.0, result5);
 }
 
 // ############### FUZZYINPUT
@@ -733,7 +733,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify04){
 
   float output = fuzzy->defuzzify(1);
 
-  EXPECT_EQ(output, 0.0);
+  EXPECT_EQ(0.0, output);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify05){
@@ -809,7 +809,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify05){
 
   float output = fuzzy->defuzzify(1);
 
-  EXPECT_EQ(output, 0.0);
+  EXPECT_EQ(0.0, output);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify06){
@@ -931,7 +931,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify06){
   float output2 = fuzzy->defuzzify(2);
 
   EXPECT_EQ(80.0, output1);
-  EXPECT_EQ(10.5, output2);
+  EXPECT_EQ(10.3889, output2);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify07){
@@ -1379,10 +1379,10 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify09){
 
   fuzzy->fuzzify(); // Executing the fuzzification
 
-  // float output1 = fuzzy->defuzzify(1);  // steering angle
+  float output1 = fuzzy->defuzzify(1);  // steering angle
   float output2 = fuzzy->defuzzify(2);  // running speed
 
-  // EXPECT_EQ(70, output1);
+  EXPECT_EQ(70, output1);
   EXPECT_EQ(75, output2);
 }
 

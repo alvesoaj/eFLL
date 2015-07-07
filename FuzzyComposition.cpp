@@ -26,7 +26,7 @@ FuzzyComposition::~FuzzyComposition(){
 bool FuzzyComposition::addPoint(float point, float pertinence){
 	pointsArray* aux;
 	// Alocando espaço na memória
-	if((aux = (pointsArray *) malloc(sizeof(pointsArray))) == NULL){
+	if((aux = (pointsArray* ) malloc(sizeof(pointsArray))) == NULL){
 		return false;
 	}
 	aux->previous = NULL;
@@ -46,7 +46,7 @@ bool FuzzyComposition::addPoint(float point, float pertinence){
 }
 
 bool FuzzyComposition::checkPoint(float point, float pertinence){
-	pointsArray *aux;
+	pointsArray* aux;
 	aux = this->pointsCursor;
 	while(aux != NULL){
 		if(aux->point == point && aux->pertinence == pertinence){
@@ -58,11 +58,11 @@ bool FuzzyComposition::checkPoint(float point, float pertinence){
 }
 
 bool FuzzyComposition::build(){
-	pointsArray *aux;
+	pointsArray* aux;
 
 	aux = this->points;
 	while(aux != NULL){
-		pointsArray *temp = aux;
+		pointsArray* temp = aux;
 		while(temp->previous != NULL){
 			if(temp->point < temp->previous->point){
 				break;
@@ -90,7 +90,7 @@ bool FuzzyComposition::build(){
 }
 
 float FuzzyComposition::avaliate(){
-	pointsArray *aux;
+	pointsArray* aux;
 	float numerator 	= 0.0;
 	float denominator 	= 0.0;
 
@@ -112,7 +112,11 @@ float FuzzyComposition::avaliate(){
 					pertinence = aux->next->pertinence;
 				}
 				area 	= ((aux->next->point - aux->point) * pertinence) / 2.0;
-				middle 	= ((aux->next->point - aux->point) / 2.0) + aux->point;
+				if(aux->pertinence < aux->next->pertinence){
+					middle 	= ((aux->next->point - aux->point) / 1.5) + aux->point;
+				}else{
+					middle 	= ((aux->next->point - aux->point) / 3.0) + aux->point;
+				}
 			}else if((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && (aux->pertinence == aux->next->pertinence)){
 				// Se quadrado
 				area 	= (aux->next->point - aux->point) * aux->pertinence;

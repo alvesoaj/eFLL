@@ -16,6 +16,14 @@
 #include "FuzzyIO.h"
 #include "FuzzyComposition.h"
 
+// Estrutura de uma linha
+struct line{
+	float xBegin;
+	float yBegin;
+	float xEnd;
+	float yEnd;
+};
+
 class FuzzyOutput : public FuzzyIO {
 	public:
 		// CONSTRUTORES
@@ -33,5 +41,6 @@ class FuzzyOutput : public FuzzyIO {
 		FuzzyComposition fuzzyComposition;
 		// MÉTODOS PRIVADOS
 		bool swap(fuzzySetArray* fuzzySetA, fuzzySetArray* fuzzySetB);
+		bool rebuild(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float* point, float* pertinence);
 };
 #endif
