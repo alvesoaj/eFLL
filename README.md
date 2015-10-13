@@ -80,3 +80,8 @@ Co authors: Douglas S. Kridi <douglaskridi@gmail.com>
             Kannya Leal <kannyal@hotmail.com>
 
 [![Creative Commons](http://i.creativecommons.org/l/by-nd/3.0/88x31.png)](http://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR)
+
+## Special Thanks to contributors:
+
+#### @mikebutrimov (https://github.com/mikebutrimov)
+#### @tzikis (https://github.com/tzikis)
