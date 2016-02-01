@@ -18,7 +18,17 @@ It uses the process:
 
 Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
-## How to install
+## How to install (general use)
+
+Step 1: Go to the official project page on GitHub (Here)
+
+Step 2: Make a clone of the project using Git or download at Donwload on the button "Download as zip."
+
+Step 3: Clone or unzip (For safety, rename the folder to "eFLL") the files into some folder
+
+Step 4: Compile and link it to your code (See Makefile)
+
+## How to install (and import to use with Arduino)
 
 Step 1: Go to the official project page on GitHub (Here)
 
@@ -30,11 +40,9 @@ Ubuntu (/usr/share/arduino/libraries/) if installed via apt-get, if not, on Wind
 
 Ok! The library is ready to be used.
 
-## How to import
+If the installation of the library has been successfully held, to import the library is easy:
 
-If the installation of the library has been successfully held,  to import the library is easy:
-
-Step 1: Open your Arduino IDE, check out the tab on the top menu SKETCKS → LIBRARY  → Import eFLL
+Step 4: Open your Arduino IDE, check out the tab on the top menu SKETCKS → LIBRARY → Import eFLL
 
 ## Brief documentation
 
@@ -74,14 +82,12 @@ float defuzzify(int id);
 
 ## REFERENCES
 
-Author: Msc. Marvin Lemos <marvinlemos@gmail.com>
-        AJ Alves <aj.alves@zerokol.com>
-Co authors: Douglas S. Kridi <douglaskridi@gmail.com>
-            Kannya Leal <kannyal@hotmail.com>
+Authors: AJ Alves <aj.alves@zerokol.com>, Msc. Marvin Lemos <marvinlemos@gmail.com>;
+        Co authors: Douglas S. Kridi <douglaskridi@gmail.com>, Kannya Leal <kannyal@hotmail.com>
 
 [![Creative Commons](http://i.creativecommons.org/l/by-nd/3.0/88x31.png)](http://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR)
 
 ## Special Thanks to contributors:
 
-#### @mikebutrimov (https://github.com/mikebutrimov)
-#### @tzikis (https://github.com/tzikis)
+[@mikebutrimov](https://github.com/mikebutrimov)
+[@tzikis](https://github.com/tzikis)
