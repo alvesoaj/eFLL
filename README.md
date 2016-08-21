@@ -87,11 +87,7 @@ Authors: AJ Alves <aj.alves@zerokol.com>, Msc. Marvin Lemos <marvinlemos@gmail.c
 
 ## Special Thanks to contributors:
 
-[@mikebutrimov](https://github.com/mikebutrimov)
-
-[@tzikis](https://github.com/tzikis)
-
-[@na7an](https://github.com/na7an)
+[@mikebutrimov](https://github.com/mikebutrimov), [@tzikis](https://github.com/tzikis), [@na7an](https://github.com/na7an)
 
 ## LICENSE
 
