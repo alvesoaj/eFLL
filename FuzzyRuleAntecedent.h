@@ -25,28 +25,28 @@
 #define MODE_FRA_FRA 4
 
 class FuzzyRuleAntecedent {
-	public:
-		// CONSTRUTORES
-		FuzzyRuleAntecedent();
-		// MÉTODOS PÚBLICOS
-		bool joinSingle(FuzzySet* fuzzySet);
-		bool joinWithAND(FuzzySet* fuzzySet1, FuzzySet* fuzzySet2);
-		bool joinWithOR(FuzzySet* fuzzySet1, FuzzySet* fuzzySet2);
-		bool joinWithAND(FuzzySet* fuzzySet, FuzzyRuleAntecedent* fuzzyRuleAntecedent);
-		bool joinWithAND(FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzySet* fuzzySet);
-		bool joinWithOR(FuzzySet* fuzzySet, FuzzyRuleAntecedent* fuzzyRuleAntecedent);
-		bool joinWithOR(FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzySet* fuzzySet);
-		bool joinWithAND(FuzzyRuleAntecedent* fuzzyRuleAntecedent1, FuzzyRuleAntecedent* fuzzyRuleAntecedent2);
-		bool joinWithOR(FuzzyRuleAntecedent* fuzzyRuleAntecedent1, FuzzyRuleAntecedent* fuzzyRuleAntecedent2);
-		float evaluate();
+    public:
+        // CONSTRUTORES
+        FuzzyRuleAntecedent();
+        // MÉTODOS PÚBLICOS
+        bool joinSingle(FuzzySet* fuzzySet);
+        bool joinWithAND(FuzzySet* fuzzySet1, FuzzySet* fuzzySet2);
+        bool joinWithOR(FuzzySet* fuzzySet1, FuzzySet* fuzzySet2);
+        bool joinWithAND(FuzzySet* fuzzySet, FuzzyRuleAntecedent* fuzzyRuleAntecedent);
+        bool joinWithAND(FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzySet* fuzzySet);
+        bool joinWithOR(FuzzySet* fuzzySet, FuzzyRuleAntecedent* fuzzyRuleAntecedent);
+        bool joinWithOR(FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzySet* fuzzySet);
+        bool joinWithAND(FuzzyRuleAntecedent* fuzzyRuleAntecedent1, FuzzyRuleAntecedent* fuzzyRuleAntecedent2);
+        bool joinWithOR(FuzzyRuleAntecedent* fuzzyRuleAntecedent1, FuzzyRuleAntecedent* fuzzyRuleAntecedent2);
+        float evaluate();
 
-	private:
-		// VARIÁVEIS PRIVADAS
-		int op; // operador lógico
-		int mode;
-		FuzzySet* fuzzySet1;
-		FuzzySet* fuzzySet2;
-		FuzzyRuleAntecedent* fuzzyRuleAntecedent1;
-		FuzzyRuleAntecedent* fuzzyRuleAntecedent2;
+    private:
+        // VARIÁVEIS PRIVADAS
+        int op; // operador lógico
+        int mode;
+        FuzzySet* fuzzySet1;
+        FuzzySet* fuzzySet2;
+        FuzzyRuleAntecedent* fuzzyRuleAntecedent1;
+        FuzzyRuleAntecedent* fuzzyRuleAntecedent2;
 };
 #endif

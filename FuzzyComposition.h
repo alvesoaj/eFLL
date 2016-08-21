@@ -20,33 +20,33 @@
 
 // Estrutura de uma lista para guardar os pontos
 struct pointsArray{
-	pointsArray* previous;
-	float point;
-	float pertinence;
-	pointsArray* next;
+    pointsArray* previous;
+    float point;
+    float pertinence;
+    pointsArray* next;
 };
 
 class FuzzyComposition{
-	public:
-		// CONSTRUTORES
-		FuzzyComposition();
-		// DESTRUTOR
-		~FuzzyComposition();
-		// MÉTODOS PÚBLICOS
-		bool addPoint(float point, float pertinence);
-		bool checkPoint(float point, float pertinence);
-		bool build();
-		float avaliate();
-		bool empty();
+    public:
+        // CONSTRUTORES
+        FuzzyComposition();
+        // DESTRUTOR
+        ~FuzzyComposition();
+        // MÉTODOS PÚBLICOS
+        bool addPoint(float point, float pertinence);
+        bool checkPoint(float point, float pertinence);
+        bool build();
+        float avaliate();
+        bool empty();
 
-	private:
-		// VARIÁVEIS PRIVADAS
-		pointsArray* pointsCursor;
-		pointsArray* points;
+    private:
+        // VARIÁVEIS PRIVADAS
+        pointsArray* pointsCursor;
+        pointsArray* points;
 
-		// MÉTODOS PRIVADOS
-		void cleanPoints(pointsArray* aux);
-		bool rebuild(pointsArray* aSegmentBegin, pointsArray* aSegmentEnd, pointsArray* bSegmentBegin, pointsArray* bSegmentEnd);
-		bool rmvPoint(pointsArray* point);
+        // MÉTODOS PRIVADOS
+        void cleanPoints(pointsArray* aux);
+        bool rebuild(pointsArray* aSegmentBegin, pointsArray* aSegmentEnd, pointsArray* bSegmentBegin, pointsArray* bSegmentEnd);
+        bool rmvPoint(pointsArray* point);
 };
 #endif

@@ -20,52 +20,52 @@
 
 // Estrutura de uma matriz de fuzzyInputArray
 struct fuzzyInputArray{
-	FuzzyInput* fuzzyInput;
-	fuzzyInputArray* next;
+    FuzzyInput* fuzzyInput;
+    fuzzyInputArray* next;
 };
 
 // Estrutura de uma matriz de fuzzyOutputArray
 struct fuzzyOutputArray{
-	FuzzyOutput* fuzzyOutput;
-	fuzzyOutputArray* next;
+    FuzzyOutput* fuzzyOutput;
+    fuzzyOutputArray* next;
 };
 
 // Estrutura de uma lista de FuzzyRule
 struct fuzzyRuleArray{
-	FuzzyRule* fuzzyRule;
-	fuzzyRuleArray* next;
+    FuzzyRule* fuzzyRule;
+    fuzzyRuleArray* next;
 };
 
 class Fuzzy {
-	public:
-		// CONSTRUTORES
-		Fuzzy();
-		// DESTRUTOR
-		~Fuzzy();
-		// MÉTODOS PÚBLICOS
-		bool addFuzzyInput(FuzzyInput* fuzzyInput);
-		bool addFuzzyOutput(FuzzyOutput* fuzzyOutput);
-		bool addFuzzyRule(FuzzyRule* fuzzyRule);
-		bool setInput(int fuzzyInputIndex, float crispValue);
-		bool fuzzify();
-		bool isFiredRule(int fuzzyRuleIndex);
-		float defuzzify(int fuzzyOutputIndex);
+    public:
+        // CONSTRUTORES
+        Fuzzy();
+        // DESTRUTOR
+        ~Fuzzy();
+        // MÉTODOS PÚBLICOS
+        bool addFuzzyInput(FuzzyInput* fuzzyInput);
+        bool addFuzzyOutput(FuzzyOutput* fuzzyOutput);
+        bool addFuzzyRule(FuzzyRule* fuzzyRule);
+        bool setInput(int fuzzyInputIndex, float crispValue);
+        bool fuzzify();
+        bool isFiredRule(int fuzzyRuleIndex);
+        float defuzzify(int fuzzyOutputIndex);
 
-	private:
-		// VARIÁVEIS PRIVADAS
-		// ponteiros para gerenciar os arrays de FuzzyInput
-		fuzzyInputArray* fuzzyInputsCursor;
-		fuzzyInputArray* fuzzyInputs;
-		// ponteiros para gerenciar os arrays de FuzzyOutput
-		fuzzyOutputArray* fuzzyOutputsCursor;
-		fuzzyOutputArray* fuzzyOutputs;
-		// ponteiros para gerenciar os arrays de FuzzyRule
-		fuzzyRuleArray* fuzzyRulesCursor;
-		fuzzyRuleArray* fuzzyRules;
+    private:
+        // VARIÁVEIS PRIVADAS
+        // ponteiros para gerenciar os arrays de FuzzyInput
+        fuzzyInputArray* fuzzyInputsCursor;
+        fuzzyInputArray* fuzzyInputs;
+        // ponteiros para gerenciar os arrays de FuzzyOutput
+        fuzzyOutputArray* fuzzyOutputsCursor;
+        fuzzyOutputArray* fuzzyOutputs;
+        // ponteiros para gerenciar os arrays de FuzzyRule
+        fuzzyRuleArray* fuzzyRulesCursor;
+        fuzzyRuleArray* fuzzyRules;
 
-		// MÉTODOS PRIVADOS
-		void cleanFuzzyInputs(fuzzyInputArray* aux);
-		void cleanFuzzyOutputs(fuzzyOutputArray* aux);
-		void cleanFuzzyRules(fuzzyRuleArray* aux);
+        // MÉTODOS PRIVADOS
+        void cleanFuzzyInputs(fuzzyInputArray* aux);
+        void cleanFuzzyOutputs(fuzzyOutputArray* aux);
+        void cleanFuzzyRules(fuzzyRuleArray* aux);
 };
 #endif

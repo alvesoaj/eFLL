@@ -18,31 +18,31 @@
 
 // Estrutura de uma lista de FuzzySet
 struct fuzzySetArray{
-	FuzzySet* fuzzySet;
-	fuzzySetArray* next;
+    FuzzySet* fuzzySet;
+    fuzzySetArray* next;
 };
 
 class FuzzyIO {
-	public:
-		// CONSTRUTORES
-		FuzzyIO();
-		FuzzyIO(int index);
-		// DESTRUTOR
-		~FuzzyIO();
-		// MÉTODOS PÚBLICOS
-		int getIndex();
-		void setCrispInput(float crispInput);
-		float getCrispInput();
-		bool addFuzzySet(FuzzySet* fuzzySet);
-		void resetFuzzySets();
+    public:
+        // CONSTRUTORES
+        FuzzyIO();
+        FuzzyIO(int index);
+        // DESTRUTOR
+        ~FuzzyIO();
+        // MÉTODOS PÚBLICOS
+        int getIndex();
+        void setCrispInput(float crispInput);
+        float getCrispInput();
+        bool addFuzzySet(FuzzySet* fuzzySet);
+        void resetFuzzySets();
 
-	protected:
-		// VARIÁVEIS PROTEGIDAS
-		int index;
-		float crispInput;
-		fuzzySetArray* fuzzySets;
-		fuzzySetArray* fuzzySetsCursor;
-		// MÉTODOS PROTEGIDOS
-		void cleanFuzzySets(fuzzySetArray* aux);
+    protected:
+        // VARIÁVEIS PROTEGIDAS
+        int index;
+        float crispInput;
+        fuzzySetArray* fuzzySets;
+        fuzzySetArray* fuzzySetsCursor;
+        // MÉTODOS PROTEGIDOS
+        void cleanFuzzySets(fuzzySetArray* aux);
 };
 #endif

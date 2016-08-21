@@ -24,15 +24,15 @@ FuzzyInput::~FuzzyInput(){
 
 // MÉTODOS PÚBLICOS
 bool FuzzyInput::calculateFuzzySetPertinences(){
-	fuzzySetArray *aux;
-	aux = this->fuzzySets;
+    fuzzySetArray *aux;
+    aux = this->fuzzySets;
 
-	while(aux != NULL){
-		if (aux->fuzzySet != NULL){
-			aux->fuzzySet->calculatePertinence(this->crispInput);
-		}
-		aux = aux->next;
-	}
-	
-	return true;
+    while(aux != NULL){
+        if (aux->fuzzySet != NULL){
+            aux->fuzzySet->calculatePertinence(this->crispInput);
+        }
+        aux = aux->next;
+    }
+    
+    return true;
 }

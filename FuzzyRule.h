@@ -17,20 +17,20 @@
 #include "FuzzyRuleConsequent.h"
 
 class FuzzyRule {
-	public:
-		// CONSTRUTORES
-		FuzzyRule();
-		FuzzyRule(int index, FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzyRuleConsequent* fuzzyRuleConsequent);
-		// MÉTODOS PÚBLICOS
-		int getIndex();
-		bool evaluateExpression();
-		bool isFired();
+    public:
+        // CONSTRUTORES
+        FuzzyRule();
+        FuzzyRule(int index, FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzyRuleConsequent* fuzzyRuleConsequent);
+        // MÉTODOS PÚBLICOS
+        int getIndex();
+        bool evaluateExpression();
+        bool isFired();
 
-	private:
-		// VARIÁVEIS PRIVADAS
-		int index;
-		bool fired;
-		FuzzyRuleAntecedent* fuzzyRuleAntecedent;
-		FuzzyRuleConsequent* fuzzyRuleConsequent;
+    private:
+        // VARIÁVEIS PRIVADAS
+        int index;
+        bool fired;
+        FuzzyRuleAntecedent* fuzzyRuleAntecedent;
+        FuzzyRuleConsequent* fuzzyRuleConsequent;
 };
 #endif

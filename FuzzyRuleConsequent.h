@@ -18,25 +18,25 @@
 
 // Estrutura de uma lista de FuzzySet
 struct fuzzySetOutputArray{
-	FuzzySet* fuzzySet;
-	fuzzySetOutputArray* next;
+    FuzzySet* fuzzySet;
+    fuzzySetOutputArray* next;
 };
 
 class FuzzyRuleConsequent {
-	public:
-		// CONSTRUTORES
-		FuzzyRuleConsequent();
-		// DESTRUTOR
-		~FuzzyRuleConsequent();
-		// MÉTODOS PÚBLICOS
-		bool addOutput(FuzzySet* fuzzySet);
-		bool evaluate(float power);
+    public:
+        // CONSTRUTORES
+        FuzzyRuleConsequent();
+        // DESTRUTOR
+        ~FuzzyRuleConsequent();
+        // MÉTODOS PÚBLICOS
+        bool addOutput(FuzzySet* fuzzySet);
+        bool evaluate(float power);
 
-	private:
-		// VARIÁVEIS PRIVADAS
-		fuzzySetOutputArray* fuzzySetOutputsCursor;
-		fuzzySetOutputArray* fuzzySetOutputs;
-		// MÉTODOS PRIVADOS
-		void cleanFuzzySets(fuzzySetOutputArray* aux);
+    private:
+        // VARIÁVEIS PRIVADAS
+        fuzzySetOutputArray* fuzzySetOutputsCursor;
+        fuzzySetOutputArray* fuzzySetOutputs;
+        // MÉTODOS PRIVADOS
+        void cleanFuzzySets(fuzzySetOutputArray* aux);
 };
 #endif

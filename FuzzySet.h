@@ -13,26 +13,26 @@
 #define FUZZYSET_H
 
 class FuzzySet {
-	public:
-		// CONSTRUTORES
-		FuzzySet();
-		FuzzySet(float a, float b, float c, float d);
-		// MÉTODOS PÚBLICOS
-		float getPointA();
-		float getPointB();
-		float getPointC();
-		float getPointD();
-		bool calculatePertinence(float crispValue);
-		void setPertinence(float pertinence);
-		float getPertinence();
-		void reset();
+    public:
+        // CONSTRUTORES
+        FuzzySet();
+        FuzzySet(float a, float b, float c, float d);
+        // MÉTODOS PÚBLICOS
+        float getPointA();
+        float getPointB();
+        float getPointC();
+        float getPointD();
+        bool calculatePertinence(float crispValue);
+        void setPertinence(float pertinence);
+        float getPertinence();
+        void reset();
 
-	private:
-		// VARIÁVEIS
-		float a;
-		float b;
-		float c;
-		float d;
-		float pertinence;
+    private:
+        // VARIÁVEIS
+        float a;
+        float b;
+        float c;
+        float d;
+        float pertinence;
 };
 #endif

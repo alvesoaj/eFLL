@@ -16,13 +16,13 @@
 #include "FuzzyIO.h"
 
 class FuzzyInput : public FuzzyIO {
-	public:
-		// CONSTRUTORES
+    public:
+        // CONSTRUTORES
         FuzzyInput();
-		FuzzyInput(int index);
-		// DESTRUTOR
-		~FuzzyInput();
-		// MÉTODOS PÚBLICOS
-		bool calculateFuzzySetPertinences();
+        FuzzyInput(int index);
+        // DESTRUTOR
+        ~FuzzyInput();
+        // MÉTODOS PÚBLICOS
+        bool calculateFuzzySetPertinences();
 };
 #endif

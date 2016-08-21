@@ -18,29 +18,29 @@
 
 // Estrutura de uma linha
 struct line{
-	float xBegin;
-	float yBegin;
-	float xEnd;
-	float yEnd;
+    float xBegin;
+    float yBegin;
+    float xEnd;
+    float yEnd;
 };
 
 class FuzzyOutput : public FuzzyIO {
-	public:
-		// CONSTRUTORES
-		FuzzyOutput();
-		FuzzyOutput(int index);
-		// DESTRUTOR
-		~FuzzyOutput();
-		// MÉTODOS PÚBLICOS
-		bool truncate();
-		float getCrispOutput();
-		bool order();
+    public:
+        // CONSTRUTORES
+        FuzzyOutput();
+        FuzzyOutput(int index);
+        // DESTRUTOR
+        ~FuzzyOutput();
+        // MÉTODOS PÚBLICOS
+        bool truncate();
+        float getCrispOutput();
+        bool order();
 
-	private:
-		// VARIÁVEIS PRIVADAS
-		FuzzyComposition fuzzyComposition;
-		// MÉTODOS PRIVADOS
-		bool swap(fuzzySetArray* fuzzySetA, fuzzySetArray* fuzzySetB);
-		bool rebuild(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float* point, float* pertinence);
+    private:
+        // VARIÁVEIS PRIVADAS
+        FuzzyComposition fuzzyComposition;
+        // MÉTODOS PRIVADOS
+        bool swap(fuzzySetArray* fuzzySetA, fuzzySetArray* fuzzySetB);
+        bool rebuild(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float* point, float* pertinence);
 };
 #endif
