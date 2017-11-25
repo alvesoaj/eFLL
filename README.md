@@ -91,4 +91,4 @@ Authors: AJ Alves <aj.alves@zerokol.com>, Msc. Marvin Lemos <marvinlemos@gmail.c
 
 ## LICENSE
 
-![Creative Commons](http://i.creativecommons.org/l/by-nd/3.0/88x31.png) [in English](https://creativecommons.org/licenses/by-nd/3.0/deed) [em Português](http://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR)
+MIT License
