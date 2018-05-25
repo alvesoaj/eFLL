@@ -4,9 +4,9 @@
  *
  * FuzzyInput.cpp
  *
- *      Author: Msc. Marvin Lemos <marvinlemos@gmail.com>
- *              AJ Alves <aj.alves@zerokol.com>
- *          Co authors: Douglas S. Kridi <douglaskridi@gmail.com>
+ *      Author: AJ Alves <aj.alves@zerokol.com>
+ *          Co authors: Msc. Marvin Lemos <marvinlemos@gmail.com>
+ *                      Douglas S. Kridi <douglaskridi@gmail.com>
  *                      Kannya Leal <kannyal@hotmail.com>
  */
 #include "FuzzyInput.h"
