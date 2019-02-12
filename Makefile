@@ -7,6 +7,7 @@ all:
 	g++ ./tests/FuzzyTest.cpp Fuzzy.o FuzzyComposition.o FuzzyIO.o FuzzyInput.o FuzzyOutput.o FuzzyRule.o FuzzyRuleAntecedent.o FuzzyRuleConsequent.o FuzzySet.o /usr/lib/libgtest.a -o tests/FuzzyTest.bin -fPIC -O2 -g -Wall -lpthread
 
 clean:
-	rm *.o
-	rm ./examples/*/*.bin
-	rm ./tests/*.bin
+	rm -f *.o
+	rm -f ./examples/*/*.bin
+	rm -f ./tests/*.bin
+	rm -rf ./tests/*.bin.*

@@ -5,32 +5,34 @@
  * FuzzyRule.h
  *
  *      Author: AJ Alves <aj.alves@zerokol.com>
- *          Co authors: Msc. Marvin Lemos <marvinlemos@gmail.com>
+ *          Co authors: Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>
+ *                      Msc. Marvin Lemos <marvinlemos@gmail.com>
  *                      Douglas S. Kridi <douglaskridi@gmail.com>
  *                      Kannya Leal <kannyal@hotmail.com>
  */
 #ifndef FUZZYRULE_H
 #define FUZZYRULE_H
 
-// IMPORTANDO AS BIBLIOTECAS NECESSÁRIAS
+// IMPORTING NECESSARY LIBRARIES
 #include "FuzzyRuleAntecedent.h"
 #include "FuzzyRuleConsequent.h"
 
-class FuzzyRule {
-    public:
-        // CONSTRUTORES
-        FuzzyRule();
-        FuzzyRule(int index, FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzyRuleConsequent* fuzzyRuleConsequent);
-        // MÉTODOS PÚBLICOS
-        int getIndex();
-        bool evaluateExpression();
-        bool isFired();
+class FuzzyRule
+{
+public:
+  // CONTRUCTORS
+  FuzzyRule();
+  FuzzyRule(int index, FuzzyRuleAntecedent *fuzzyRuleAntecedent, FuzzyRuleConsequent *fuzzyRuleConsequent);
+  // PUBLIC METHODS
+  int getIndex();
+  bool evaluateExpression();
+  bool isFired();
 
-    private:
-        // VARIÁVEIS PRIVADAS
-        int index;
-        bool fired;
-        FuzzyRuleAntecedent* fuzzyRuleAntecedent;
-        FuzzyRuleConsequent* fuzzyRuleConsequent;
+private:
+  // PRIVATE VARIABLES
+  int index;
+  bool fired;
+  FuzzyRuleAntecedent *fuzzyRuleAntecedent;
+  FuzzyRuleConsequent *fuzzyRuleConsequent;
 };
 #endif

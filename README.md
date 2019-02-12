@@ -46,10 +46,6 @@ If the installation of the library has been successfully held, to import the lib
 
 ## Brief Documentation
 
-_PARA MAIORES INFORMAÇÕES VISITE OS LINKS NO TOPO_
-
-_FOR MORE INFORMATIONS VISITE THE LINKS ON THE TOP_
-
 **Fuzzy object** - This object includes all the Fuzzy System, through it, you can manipulate the Fuzzy Sets, Linguistic Rules, inputs and outputs.
 
 **FuzzyInput** object - This object groups all entries Fuzzy Sets that belongs to the same domain.
@@ -82,7 +78,7 @@ And finally:
 
 ## REFERENCES
 
-**Authors:** AJ Alves <aj.alves@zerokol.com>; **Co authors:** Msc. Marvin Lemos <marvinlemos@gmail.com>, Douglas S. Kridi <douglaskridi@gmail.com>, Kannya Leal <kannyal@hotmail.com>
+**Authors:** AJ Alves <aj.alves@zerokol.com>; **Co authors:** Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>, Msc. Marvin Lemos <marvinlemos@gmail.com>, Douglas S. Kridi <douglaskridi@gmail.com>, Kannya Leal <kannyal@hotmail.com>
 
 ## Special Thanks to Contributors:
 

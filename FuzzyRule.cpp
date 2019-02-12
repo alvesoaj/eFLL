@@ -5,37 +5,44 @@
  * FuzzyOutput.cpp
  *
  *      Author: AJ Alves <aj.alves@zerokol.com>
- *          Co authors: Msc. Marvin Lemos <marvinlemos@gmail.com>
+ *          Co authors: Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>
+ *                      Msc. Marvin Lemos <marvinlemos@gmail.com>
  *                      Douglas S. Kridi <douglaskridi@gmail.com>
  *                      Kannya Leal <kannyal@hotmail.com>
  */
 #include "FuzzyRule.h"
 
-FuzzyRule::FuzzyRule(){
+FuzzyRule::FuzzyRule()
+{
 }
 
-FuzzyRule::FuzzyRule(int index, FuzzyRuleAntecedent* fuzzyRuleAntecedent, FuzzyRuleConsequent* fuzzyRuleConsequent){
+FuzzyRule::FuzzyRule(int index, FuzzyRuleAntecedent *fuzzyRuleAntecedent, FuzzyRuleConsequent *fuzzyRuleConsequent)
+{
     this->index = index;
     this->fuzzyRuleAntecedent = fuzzyRuleAntecedent;
     this->fuzzyRuleConsequent = fuzzyRuleConsequent;
     this->fired = false;
 }
 
-int FuzzyRule::getIndex(){
+int FuzzyRule::getIndex()
+{
     return this->index;
 }
 
-bool FuzzyRule::evaluateExpression(){
-    if (this->fuzzyRuleAntecedent != NULL){
+bool FuzzyRule::evaluateExpression()
+{
+    if (this->fuzzyRuleAntecedent != NULL)
+    {
         float powerOfAntecedent = this->fuzzyRuleAntecedent->evaluate();
 
-        (powerOfAntecedent > 0.0) ?    (this->fired = true) : (this->fired = false);
-        
+        (powerOfAntecedent > 0.0) ? (this->fired = true) : (this->fired = false);
+
         this->fuzzyRuleConsequent->evaluate(powerOfAntecedent);
     }
     return this->fired;
 }
 
-bool FuzzyRule::isFired(){
+bool FuzzyRule::isFired()
+{
     return this->fired;
 }
