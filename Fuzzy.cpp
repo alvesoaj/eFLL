@@ -1,6 +1,6 @@
 /*
  * Robotic Research Group (RRG)
- * State University of Piaui (UESPI), Brazil - Piauí - Teresina
+ * State University of Piauí (UESPI), Brazil - Piauí - Teresina
  *
  * Fuzzy.cpp
  *
@@ -80,7 +80,7 @@ bool Fuzzy::addFuzzyOutput(FuzzyOutput *fuzzyOutput)
     // building the object
     aux->fuzzyOutput = fuzzyOutput;
     aux->next = NULL;
-    // Sorting the fuzzyOutput
+    // sorting the fuzzyOutput
     fuzzyOutput->order();
     // if the array is empty, initiate
     if (this->fuzzyOutputs == NULL)
@@ -131,7 +131,7 @@ bool Fuzzy::setInput(int fuzzyInputIndex, float crispValue)
 {
     // auxiliary variable to handle the operation
     fuzzyInputArray *aux;
-    // seting the first element from array
+    // setting the first element from array
     aux = this->fuzzyInputs;
     // while not in end of the array, iterate
     while (aux != NULL)

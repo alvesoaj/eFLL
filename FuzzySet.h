@@ -1,6 +1,6 @@
 /*
  * Robotic Research Group (RRG)
- * State University of Piaui (UESPI), Brazil - Piauí - Teresina
+ * State University of Piauí (UESPI), Brazil - Piauí - Teresina
  *
  * FuzzySet.h
  *

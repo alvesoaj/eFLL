@@ -10,51 +10,29 @@
 #include "../FuzzySet.h"
 #include "gtest/gtest.h"
 
-// ############### FUZZYSET
+// ##### FUZZYSET
 
-TEST(FuzzySet, setPertinenceAndgetPertinence)
+TEST(FuzzySet, calculateAndGetPertinence)
 {
     FuzzySet *fuzzySet = new FuzzySet(0, 10, 10, 20);
 
-    fuzzySet->setPertinence(0.5);
-
-    float result = fuzzySet->getPertinence();
-
-    EXPECT_EQ(0.5, result);
-}
-
-TEST(FuzzySet, calculatePertinenceAndgetPertinence)
-{
-    FuzzySet *fuzzySet = new FuzzySet(0, 10, 10, 20);
-
-    // Valor 1
     fuzzySet->calculatePertinence(-5);
-    float result1 = fuzzySet->getPertinence();
+    ASSERT_EQ(0.0, fuzzySet->getPertinence());
 
-    // Valor 2
     fuzzySet->calculatePertinence(5);
-    float result2 = fuzzySet->getPertinence();
+    ASSERT_EQ(0.5, fuzzySet->getPertinence());
 
-    // Valor 3
     fuzzySet->calculatePertinence(10);
-    float result3 = fuzzySet->getPertinence();
+    ASSERT_EQ(1.0, fuzzySet->getPertinence());
 
-    // Valor 4
     fuzzySet->calculatePertinence(15);
-    float result4 = fuzzySet->getPertinence();
+    ASSERT_EQ(0.5, fuzzySet->getPertinence());
 
-    // Valor 5
     fuzzySet->calculatePertinence(25);
-    float result5 = fuzzySet->getPertinence();
-
-    EXPECT_EQ(0.0, result1);
-    EXPECT_EQ(0.5, result2);
-    EXPECT_EQ(1.0, result3);
-    EXPECT_EQ(0.5, result4);
-    EXPECT_EQ(0.0, result5);
+    ASSERT_EQ(0.0, fuzzySet->getPertinence());
 }
 
-// ############### FUZZYINPUT
+// ##### FUZZYINPUT
 
 TEST(FuzzyInput, addFuzzySet)
 {
@@ -62,9 +40,7 @@ TEST(FuzzyInput, addFuzzySet)
 
     FuzzySet *fuzzySetTest = new FuzzySet(0, 10, 10, 20);
 
-    bool result = fuzzyInput->addFuzzySet(fuzzySetTest);
-
-    EXPECT_TRUE(result);
+    ASSERT_TRUE(fuzzyInput->addFuzzySet(fuzzySetTest));
 }
 
 TEST(FuzzyInput, setCrispInputAndGetCrispInput)
@@ -73,7 +49,7 @@ TEST(FuzzyInput, setCrispInputAndGetCrispInput)
 
     fuzzyInput->setCrispInput(10.190);
 
-    EXPECT_FLOAT_EQ(10.190, fuzzyInput->getCrispInput());
+    ASSERT_FLOAT_EQ(10.190, fuzzyInput->getCrispInput());
 }
 
 TEST(FuzzyInput, calculateFuzzySetPertinences)
@@ -84,12 +60,87 @@ TEST(FuzzyInput, calculateFuzzySetPertinences)
 
     fuzzyInput->addFuzzySet(fuzzySetTest);
 
-    bool result = fuzzyInput->calculateFuzzySetPertinences();
-
-    EXPECT_TRUE(result);
+    ASSERT_TRUE(fuzzyInput->calculateFuzzySetPertinences());
 }
 
-// ############### FUZZYOUTPUT
+// ##### FUZZYCOMPOSITION
+
+TEST(FuzzyComposition, addPoint)
+{
+    FuzzyComposition *fuzzyComposition = new FuzzyComposition();
+
+    bool result1 = fuzzyComposition->addPoint(1, 0.1);
+
+    bool result2 = fuzzyComposition->addPoint(5, 0.5);
+
+    bool result3 = fuzzyComposition->addPoint(9, 0.9);
+
+    ASSERT_TRUE(result1);
+    ASSERT_TRUE(result2);
+    ASSERT_TRUE(result3);
+}
+
+TEST(FuzzyComposition, checkPoint)
+{
+    FuzzyComposition *fuzzyComposition = new FuzzyComposition();
+
+    fuzzyComposition->addPoint(5, 0.5);
+
+    bool result1 = fuzzyComposition->checkPoint(5, 0.5);
+
+    bool result2 = fuzzyComposition->checkPoint(5, 0.1);
+
+    ASSERT_TRUE(result1);
+    ASSERT_FALSE(result2);
+}
+
+TEST(FuzzyComposition, build)
+{
+    FuzzyComposition *fuzzyComposition = new FuzzyComposition();
+
+    fuzzyComposition->addPoint(0, 0);
+    fuzzyComposition->addPoint(20, 0.7);
+    fuzzyComposition->addPoint(40, 0);
+
+    fuzzyComposition->addPoint(20, 0);
+    fuzzyComposition->addPoint(40, 0.3);
+    fuzzyComposition->addPoint(70, 0.3);
+    fuzzyComposition->addPoint(80, 0);
+
+    fuzzyComposition->addPoint(50, 0);
+    fuzzyComposition->addPoint(80, 0.7);
+    fuzzyComposition->addPoint(90, 0);
+
+    bool result = fuzzyComposition->build();
+
+    ASSERT_TRUE(result);
+}
+
+TEST(FuzzyComposition, avaliate)
+{
+    FuzzyComposition *fuzzyComposition = new FuzzyComposition();
+
+    fuzzyComposition->addPoint(0, 0);
+    fuzzyComposition->addPoint(20, 0.7);
+    fuzzyComposition->addPoint(40, 0);
+
+    fuzzyComposition->addPoint(20, 0);
+    fuzzyComposition->addPoint(40, 0.3);
+    fuzzyComposition->addPoint(70, 0.3);
+    fuzzyComposition->addPoint(80, 0);
+
+    fuzzyComposition->addPoint(50, 0);
+    fuzzyComposition->addPoint(80, 0.7);
+    fuzzyComposition->addPoint(90, 0);
+
+    fuzzyComposition->build();
+
+    float result = fuzzyComposition->avaliate();
+
+    ASSERT_GT(result, 0.0);
+}
+
+// ##### FUZZYOUTPUT
 
 TEST(FuzzyOutput, addFuzzySet)
 {
@@ -97,9 +148,7 @@ TEST(FuzzyOutput, addFuzzySet)
 
     FuzzySet *fuzzySetTest = new FuzzySet(0, 10, 10, 20);
 
-    bool result = fuzzyOutput->addFuzzySet(fuzzySetTest);
-
-    EXPECT_TRUE(result);
+    ASSERT_TRUE(fuzzyOutput->addFuzzySet(fuzzySetTest));
 }
 
 TEST(FuzzyOutput, setCrispInputAndGetCrispInput)
@@ -108,28 +157,10 @@ TEST(FuzzyOutput, setCrispInputAndGetCrispInput)
 
     fuzzyOutput->setCrispInput(10.190);
 
-    EXPECT_FLOAT_EQ(10.190, fuzzyOutput->getCrispInput());
+    ASSERT_FLOAT_EQ(10.190, fuzzyOutput->getCrispInput());
 }
 
-TEST(FuzzyOutput, truncate)
-{
-    FuzzyOutput *fuzzyOutput = new FuzzyOutput(1);
-
-    FuzzySet *fuzzySetTest1 = new FuzzySet(0, 10, 10, 20);
-    fuzzyOutput->addFuzzySet(fuzzySetTest1);
-
-    FuzzySet *fuzzySetTest2 = new FuzzySet(10, 20, 20, 30);
-    fuzzyOutput->addFuzzySet(fuzzySetTest2);
-
-    FuzzySet *fuzzySetTest3 = new FuzzySet(20, 30, 30, 40);
-    fuzzyOutput->addFuzzySet(fuzzySetTest3);
-
-    bool result = fuzzyOutput->truncate();
-
-    EXPECT_TRUE(result);
-}
-
-TEST(FuzzyOutput, getCrispOutput)
+TEST(FuzzyOutput, truncateAndGetCrispOutput)
 {
     FuzzyOutput *fuzzyOutput = new FuzzyOutput(1);
 
@@ -145,15 +176,12 @@ TEST(FuzzyOutput, getCrispOutput)
     fuzzySetTest3->setPertinence(0.5);
     fuzzyOutput->addFuzzySet(fuzzySetTest3);
 
-    fuzzyOutput->truncate();
+    ASSERT_TRUE(fuzzyOutput->truncate());
 
-    float result = fuzzyOutput->getCrispOutput();
-
-    EXPECT_GT(result, 0.0);
-    EXPECT_GT(result, 15);
+    ASSERT_FLOAT_EQ(15.0, fuzzyOutput->getCrispOutput());
 }
 
-// ############### FUZZYRULEANTECEDENT
+// ##### FUZZYRULEANTECEDENT
 
 TEST(FuzzyRuleAntecedent, joinSingle)
 {
@@ -163,7 +191,7 @@ TEST(FuzzyRuleAntecedent, joinSingle)
 
     bool result = fuzzyRuleAntecedent->joinSingle(fuzzySet);
 
-    EXPECT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
 TEST(FuzzyRuleAntecedent, joinWithAND)
@@ -186,11 +214,11 @@ TEST(FuzzyRuleAntecedent, joinWithAND)
     FuzzyRuleAntecedent *fuzzyRuleAntecedent5 = new FuzzyRuleAntecedent();
     bool result5 = fuzzyRuleAntecedent5->joinWithAND(temperatureLow, fuzzyRuleAntecedent2);
 
-    EXPECT_TRUE(result1);
-    EXPECT_TRUE(result2);
-    EXPECT_TRUE(result3);
-    EXPECT_TRUE(result4);
-    EXPECT_TRUE(result5);
+    ASSERT_TRUE(result1);
+    ASSERT_TRUE(result2);
+    ASSERT_TRUE(result3);
+    ASSERT_TRUE(result4);
+    ASSERT_TRUE(result5);
 }
 
 TEST(FuzzyRuleAntecedent, joinWithOR)
@@ -213,11 +241,11 @@ TEST(FuzzyRuleAntecedent, joinWithOR)
 
     bool result5 = fuzzyRuleAntecedent5->joinWithOR(temperatureLow, fuzzyRuleAntecedent2);
 
-    EXPECT_TRUE(result1);
-    EXPECT_TRUE(result2);
-    EXPECT_TRUE(result3);
-    EXPECT_TRUE(result4);
-    EXPECT_TRUE(result5);
+    ASSERT_TRUE(result1);
+    ASSERT_TRUE(result2);
+    ASSERT_TRUE(result3);
+    ASSERT_TRUE(result4);
+    ASSERT_TRUE(result5);
 }
 
 TEST(FuzzyRuleAntecedent, evaluate)
@@ -240,10 +268,10 @@ TEST(FuzzyRuleAntecedent, evaluate)
 
     float result = fuzzyRuleAntecedent3->evaluate();
 
-    EXPECT_GT(result, 0.0);
+    ASSERT_GT(result, 0.0);
 }
 
-// ############### FUZZYRULECONSEQUENTE
+// ##### FUZZYRULECONSEQUENTE
 
 TEST(FuzzyRuleConsequent, addOutput)
 {
@@ -253,7 +281,7 @@ TEST(FuzzyRuleConsequent, addOutput)
 
     bool result = fuzzyRuleConsequent->addOutput(fuzzySetTest);
 
-    EXPECT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
 TEST(FuzzyRuleConsequent, evaluate)
@@ -266,10 +294,10 @@ TEST(FuzzyRuleConsequent, evaluate)
 
     bool result = fuzzyRuleConsequent->evaluate(0.5);
 
-    EXPECT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
-// ############### FUZZYRULE
+// ##### FUZZYRULE
 
 TEST(FuzzyRule, getIndex)
 {
@@ -280,7 +308,7 @@ TEST(FuzzyRule, getIndex)
 
     int result = fuzzyRule->getIndex();
 
-    EXPECT_EQ(1, result);
+    ASSERT_EQ(1, result);
 }
 
 TEST(FuzzyRule, evaluateExpressionAndIsFired)
@@ -312,88 +340,11 @@ TEST(FuzzyRule, evaluateExpressionAndIsFired)
 
     bool result2 = fuzzyRule->isFired();
 
-    EXPECT_TRUE(result1);
-    EXPECT_TRUE(result2);
+    ASSERT_TRUE(result1);
+    ASSERT_TRUE(result2);
 }
 
-// ############### FUZZYCOMPOSITION
-
-TEST(FuzzyComposition, addPoint)
-{
-    FuzzyComposition *fuzzyComposition = new FuzzyComposition();
-
-    bool result1 = fuzzyComposition->addPoint(1, 0.1);
-
-    bool result2 = fuzzyComposition->addPoint(5, 0.5);
-
-    bool result3 = fuzzyComposition->addPoint(9, 0.9);
-
-    EXPECT_TRUE(result1);
-    EXPECT_TRUE(result2);
-    EXPECT_TRUE(result3);
-}
-
-TEST(FuzzyComposition, checkPoint)
-{
-    FuzzyComposition *fuzzyComposition = new FuzzyComposition();
-
-    fuzzyComposition->addPoint(5, 0.5);
-
-    bool result1 = fuzzyComposition->checkPoint(5, 0.5);
-
-    bool result2 = fuzzyComposition->checkPoint(5, 0.1);
-
-    EXPECT_TRUE(result1);
-    EXPECT_FALSE(result2);
-}
-
-TEST(FuzzyComposition, build)
-{
-    FuzzyComposition *fuzzyComposition = new FuzzyComposition();
-
-    fuzzyComposition->addPoint(0, 0);
-    fuzzyComposition->addPoint(20, 0.7);
-    fuzzyComposition->addPoint(40, 0);
-
-    fuzzyComposition->addPoint(20, 0);
-    fuzzyComposition->addPoint(40, 0.3);
-    fuzzyComposition->addPoint(70, 0.3);
-    fuzzyComposition->addPoint(80, 0);
-
-    fuzzyComposition->addPoint(50, 0);
-    fuzzyComposition->addPoint(80, 0.7);
-    fuzzyComposition->addPoint(90, 0);
-
-    bool result = fuzzyComposition->build();
-
-    EXPECT_TRUE(result);
-}
-
-TEST(FuzzyComposition, avaliate)
-{
-    FuzzyComposition *fuzzyComposition = new FuzzyComposition();
-
-    fuzzyComposition->addPoint(0, 0);
-    fuzzyComposition->addPoint(20, 0.7);
-    fuzzyComposition->addPoint(40, 0);
-
-    fuzzyComposition->addPoint(20, 0);
-    fuzzyComposition->addPoint(40, 0.3);
-    fuzzyComposition->addPoint(70, 0.3);
-    fuzzyComposition->addPoint(80, 0);
-
-    fuzzyComposition->addPoint(50, 0);
-    fuzzyComposition->addPoint(80, 0.7);
-    fuzzyComposition->addPoint(90, 0);
-
-    fuzzyComposition->build();
-
-    float result = fuzzyComposition->avaliate();
-
-    EXPECT_GT(result, 0.0);
-}
-
-// ############### FUZZY
+// ##### FUZZY
 
 TEST(Fuzzy, addFuzzyInput)
 {
@@ -410,7 +361,7 @@ TEST(Fuzzy, addFuzzyInput)
 
     bool result = fuzzy->addFuzzyInput(temperature);
 
-    EXPECT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
 TEST(Fuzzy, addFuzzyOutput)
@@ -428,7 +379,7 @@ TEST(Fuzzy, addFuzzyOutput)
 
     bool result = fuzzy->addFuzzyOutput(climate);
 
-    EXPECT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
 TEST(Fuzzy, addFuzzyRule)
@@ -460,7 +411,7 @@ TEST(Fuzzy, addFuzzyRule)
 
     bool result = fuzzy->addFuzzyRule(fuzzyRule);
 
-    EXPECT_TRUE(result);
+    ASSERT_TRUE(result);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify01)
@@ -524,9 +475,9 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify01)
 
     float output = fuzzy->defuzzify(1);
 
-    EXPECT_TRUE(result1);
-    EXPECT_TRUE(result2);
-    EXPECT_GT(output, 0.0);
+    ASSERT_TRUE(result1);
+    ASSERT_TRUE(result2);
+    ASSERT_GT(output, 0.0);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify02)
@@ -603,7 +554,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify02)
 
     float output = fuzzy->defuzzify(1);
 
-    EXPECT_GT(output, 0.0);
+    ASSERT_GT(output, 0.0);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify03)
@@ -682,8 +633,8 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify03)
 
     float output = fuzzy->defuzzify(1);
 
-    EXPECT_GT(0.0, output);
-    EXPECT_TRUE(fuzzyRule1IsFired);
+    ASSERT_GT(0.0, output);
+    ASSERT_TRUE(fuzzyRule1IsFired);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify04)
@@ -760,7 +711,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify04)
 
     float output = fuzzy->defuzzify(1);
 
-    EXPECT_EQ(0.0, output);
+    ASSERT_EQ(0.0, output);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify05)
@@ -837,7 +788,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify05)
 
     float output = fuzzy->defuzzify(1);
 
-    EXPECT_EQ(0.0, output);
+    ASSERT_EQ(0.0, output);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify06)
@@ -959,8 +910,8 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify06)
     float output1 = fuzzy->defuzzify(1);
     float output2 = fuzzy->defuzzify(2);
 
-    EXPECT_NEAR(80.0, output1, 0.01);
-    EXPECT_NEAR(10.3889, output2, 0.01);
+    ASSERT_NEAR(80.0, output1, 0.01);
+    ASSERT_NEAR(10.3889, output2, 0.01);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify07)
@@ -1040,7 +991,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify07)
 
     float output = fuzzy->defuzzify(1);
 
-    EXPECT_EQ(20.0, output);
+    ASSERT_EQ(20.0, output);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify08)
@@ -1083,7 +1034,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify08)
 
     // cout << "Entrada: " << dist << ", Saida: " << output << endl;
 
-    EXPECT_EQ(months->getPertinence(), fuzzyAntecedentEvaluate);
+    ASSERT_EQ(months->getPertinence(), fuzzyAntecedentEvaluate);
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify09)
@@ -1414,11 +1365,11 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify09)
     float output1 = fuzzy->defuzzify(1); // steering angle
     float output2 = fuzzy->defuzzify(2); // running speed
 
-    EXPECT_NEAR(70.0, output1, 0.01);
-    EXPECT_NEAR(75.0, output2, 0.01);
+    ASSERT_NEAR(70.0, output1, 0.01);
+    ASSERT_NEAR(75.0, output2, 0.01);
 }
 
-// ############### MAIN
+// ##### MAIN
 
 int main(int argc, char **argv)
 {
