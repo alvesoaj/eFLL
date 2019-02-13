@@ -65,33 +65,20 @@ TEST(FuzzyInput, calculateFuzzySetPertinences)
 
 // ##### FUZZYCOMPOSITION
 
-TEST(FuzzyComposition, addPoint)
+TEST(FuzzyComposition, addPointAndCheckPoint)
 {
     FuzzyComposition *fuzzyComposition = new FuzzyComposition();
 
-    bool result1 = fuzzyComposition->addPoint(1, 0.1);
+    ASSERT_TRUE(fuzzyComposition->addPoint(1, 0.1));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(1, 0.1));
 
-    bool result2 = fuzzyComposition->addPoint(5, 0.5);
+    ASSERT_TRUE(fuzzyComposition->addPoint(5, 0.5));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(5, 0.5));
 
-    bool result3 = fuzzyComposition->addPoint(9, 0.9);
+    ASSERT_TRUE(fuzzyComposition->addPoint(9, 0.9));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(9, 0.9));
 
-    ASSERT_TRUE(result1);
-    ASSERT_TRUE(result2);
-    ASSERT_TRUE(result3);
-}
-
-TEST(FuzzyComposition, checkPoint)
-{
-    FuzzyComposition *fuzzyComposition = new FuzzyComposition();
-
-    fuzzyComposition->addPoint(5, 0.5);
-
-    bool result1 = fuzzyComposition->checkPoint(5, 0.5);
-
-    bool result2 = fuzzyComposition->checkPoint(5, 0.1);
-
-    ASSERT_TRUE(result1);
-    ASSERT_FALSE(result2);
+    ASSERT_FALSE(fuzzyComposition->checkPoint(5, 0.1));
 }
 
 TEST(FuzzyComposition, build)
@@ -99,45 +86,57 @@ TEST(FuzzyComposition, build)
     FuzzyComposition *fuzzyComposition = new FuzzyComposition();
 
     fuzzyComposition->addPoint(0, 0);
-    fuzzyComposition->addPoint(20, 0.7);
-    fuzzyComposition->addPoint(40, 0);
-
+    fuzzyComposition->addPoint(10, 1);
     fuzzyComposition->addPoint(20, 0);
-    fuzzyComposition->addPoint(40, 0.3);
-    fuzzyComposition->addPoint(70, 0.3);
-    fuzzyComposition->addPoint(80, 0);
 
-    fuzzyComposition->addPoint(50, 0);
-    fuzzyComposition->addPoint(80, 0.7);
-    fuzzyComposition->addPoint(90, 0);
+    fuzzyComposition->addPoint(10, 0);
+    fuzzyComposition->addPoint(20, 1);
+    fuzzyComposition->addPoint(30, 0);
 
-    bool result = fuzzyComposition->build();
+    ASSERT_TRUE(fuzzyComposition->build());
 
-    ASSERT_TRUE(result);
+    ASSERT_TRUE(fuzzyComposition->checkPoint(0, 0));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(10, 1));
+    ASSERT_FALSE(fuzzyComposition->checkPoint(20, 0));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(15, 0.5));
+    ASSERT_FALSE(fuzzyComposition->checkPoint(10, 0));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(20, 1));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(30, 0));
 }
 
-TEST(FuzzyComposition, avaliate)
+TEST(FuzzyComposition, calculateAndEmpty)
 {
     FuzzyComposition *fuzzyComposition = new FuzzyComposition();
 
-    fuzzyComposition->addPoint(0, 0);
-    fuzzyComposition->addPoint(20, 0.7);
-    fuzzyComposition->addPoint(40, 0);
+    fuzzyComposition->addPoint(25, 1);
+    fuzzyComposition->addPoint(25, 1);
+    fuzzyComposition->build();
+    ASSERT_FLOAT_EQ(25, fuzzyComposition->calculate());
+    ASSERT_TRUE(fuzzyComposition->empty());
+
+    fuzzyComposition->addPoint(10, 0);
+    fuzzyComposition->addPoint(20, 1);
+    fuzzyComposition->addPoint(30, 0);
+    fuzzyComposition->build();
+    ASSERT_FLOAT_EQ(20, fuzzyComposition->calculate());
+    ASSERT_TRUE(fuzzyComposition->empty());
 
     fuzzyComposition->addPoint(20, 0);
-    fuzzyComposition->addPoint(40, 0.3);
-    fuzzyComposition->addPoint(70, 0.3);
-    fuzzyComposition->addPoint(80, 0);
-
-    fuzzyComposition->addPoint(50, 0);
-    fuzzyComposition->addPoint(80, 0.7);
-    fuzzyComposition->addPoint(90, 0);
-
+    fuzzyComposition->addPoint(30, 1);
+    fuzzyComposition->addPoint(50, 1);
+    fuzzyComposition->addPoint(60, 0);
     fuzzyComposition->build();
+    ASSERT_FLOAT_EQ(40, fuzzyComposition->calculate());
+    ASSERT_TRUE(fuzzyComposition->empty());
 
-    float result = fuzzyComposition->avaliate();
-
-    ASSERT_GT(result, 0.0);
+    fuzzyComposition->addPoint(0, 0);
+    fuzzyComposition->addPoint(10, 1);
+    fuzzyComposition->addPoint(20, 0);
+    fuzzyComposition->addPoint(10, 0);
+    fuzzyComposition->addPoint(20, 1);
+    fuzzyComposition->addPoint(30, 0);
+    fuzzyComposition->build();
+    ASSERT_FLOAT_EQ(15, fuzzyComposition->calculate());
 }
 
 // ##### FUZZYOUTPUT

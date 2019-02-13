@@ -147,7 +147,7 @@ bool FuzzyOutput::truncate()
 
 float FuzzyOutput::getCrispOutput()
 {
-    return this->fuzzyComposition.avaliate();
+    return this->fuzzyComposition.calculate();
 }
 
 // Um simples Bubble Sort

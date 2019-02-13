@@ -39,12 +39,11 @@ public:
   bool addPoint(float point, float pertinence);
   bool checkPoint(float point, float pertinence);
   bool build();
-  float avaliate();
+  float calculate();
   bool empty();
 
 private:
   // PRIVATE VARIABLES
-  pointsArray *pointsCursor;
   pointsArray *points;
 
   // PRIVATE METHODS

@@ -62,13 +62,10 @@ public:
 private:
   // PRIVATE VARIABLES
   // pointers to manage the array of FuzzyInput
-  fuzzyInputArray *fuzzyInputsCursor; // TODO - Do I really need this cursor?
   fuzzyInputArray *fuzzyInputs;
   // pointers to manage the array of FuzzyOutput
-  fuzzyOutputArray *fuzzyOutputsCursor; // TODO - Do I really need this cursor?
   fuzzyOutputArray *fuzzyOutputs;
   // pointers to manage the array of FuzzyRule
-  fuzzyRuleArray *fuzzyRulesCursor; // TODO - Do I really need this cursor?
   fuzzyRuleArray *fuzzyRules;
 
   // PRIVATE METHODS

@@ -18,13 +18,10 @@ Fuzzy::Fuzzy()
     // Initializing pointers with NULL
     // FuzzyInput
     this->fuzzyInputs = NULL;
-    this->fuzzyInputsCursor = NULL;
     // FuzzyOutput
     this->fuzzyOutputs = NULL;
-    this->fuzzyOutputsCursor = NULL;
     // FuzzyRule
     this->fuzzyRules = NULL;
-    this->fuzzyRulesCursor = NULL;
 }
 
 // DESTRUCTOR
@@ -37,103 +34,130 @@ Fuzzy::~Fuzzy()
 
 // PUBLIC METHODS
 
-// Function to include a new FuzzyInput into Fuzzy
+// Method to include a new FuzzyInput into Fuzzy
 bool Fuzzy::addFuzzyInput(FuzzyInput *fuzzyInput)
 {
     // auxiliary variable to handle the operation
-    fuzzyInputArray *aux;
+    fuzzyInputArray *newOne;
     // allocating in memory
-    if ((aux = (fuzzyInputArray *)malloc(sizeof(fuzzyInputArray))) == NULL)
+    if ((newOne = (fuzzyInputArray *)malloc(sizeof(fuzzyInputArray))) == NULL)
     {
         // return false if in out of memory
         return false;
     }
     // building the object
-    aux->fuzzyInput = fuzzyInput;
-    aux->next = NULL;
-    // if the array is empty, initiate
+    newOne->fuzzyInput = fuzzyInput;
+    newOne->next = NULL;
+    // if it is the first FuzzyInput, set it as the head
     if (this->fuzzyInputs == NULL)
     {
-        this->fuzzyInputs = aux;
-        this->fuzzyInputsCursor = aux;
+        this->fuzzyInputs = newOne;
     }
-    // else, set the first element refference and queue the last one
     else
     {
-        this->fuzzyInputsCursor->next = aux;
-        this->fuzzyInputsCursor = aux;
+        // auxiliary variable to handle the operation
+        fuzzyInputArray *aux = this->fuzzyInputs;
+        // find the last element of the array
+        while (aux != NULL)
+        {
+            if (aux->next == NULL)
+            {
+                // make the ralations between them
+                aux->next = newOne;
+                return true;
+            }
+            aux = aux->next;
+        }
     }
     return true;
 }
 
-// Function to include a new FuzzyOutput into Fuzzy
+// Method to include a new FuzzyOutput into Fuzzy
 bool Fuzzy::addFuzzyOutput(FuzzyOutput *fuzzyOutput)
 {
     // auxiliary variable to handle the operation
-    fuzzyOutputArray *aux;
+    fuzzyOutputArray *newOne;
     // allocating in memory
-    if ((aux = (fuzzyOutputArray *)malloc(sizeof(fuzzyOutputArray))) == NULL)
+    if ((newOne = (fuzzyOutputArray *)malloc(sizeof(fuzzyOutputArray))) == NULL)
     {
         // return false if in out of memory
         return false;
     }
     // building the object
-    aux->fuzzyOutput = fuzzyOutput;
-    aux->next = NULL;
+    newOne->fuzzyOutput = fuzzyOutput;
+    newOne->next = NULL;
     // sorting the fuzzyOutput
     fuzzyOutput->order();
-    // if the array is empty, initiate
+    // if it is the first FuzzyOutput, set it as the head
     if (this->fuzzyOutputs == NULL)
     {
-        this->fuzzyOutputs = aux;
-        this->fuzzyOutputsCursor = aux;
+        this->fuzzyOutputs = newOne;
     }
-    // else, set the first element refference and queue the last one
     else
     {
-        this->fuzzyOutputsCursor->next = aux;
-        this->fuzzyOutputsCursor = aux;
+        // auxiliary variable to handle the operation
+        fuzzyOutputArray *aux = this->fuzzyOutputs;
+        // find the last element of the array
+        while (aux != NULL)
+        {
+            if (aux->next == NULL)
+            {
+                // make the ralations between them
+                aux->next = newOne;
+                return true;
+            }
+            aux = aux->next;
+        }
     }
     return true;
 }
 
-// Function to include a new FuzzyRule into Fuzzy
+// Method to include a new FuzzyRule into Fuzzy
 bool Fuzzy::addFuzzyRule(FuzzyRule *fuzzyRule)
 {
     // auxiliary variable to handle the operation
-    fuzzyRuleArray *aux;
+    fuzzyRuleArray *newOne;
     // allocating in memory
-    if ((aux = (fuzzyRuleArray *)malloc(sizeof(fuzzyRuleArray))) == NULL)
+    if ((newOne = (fuzzyRuleArray *)malloc(sizeof(fuzzyRuleArray))) == NULL)
     {
         // return false if in out of memory
         return false;
     }
     // building the object
-    aux->fuzzyRule = fuzzyRule;
-    aux->next = NULL;
-    // if the array is empty, initiate
+    newOne->fuzzyRule = fuzzyRule;
+    newOne->next = NULL;
+    // if it is the first FuzzyOutput, set it as the head
     if (this->fuzzyRules == NULL)
     {
-        this->fuzzyRules = aux;
-        this->fuzzyRulesCursor = aux;
+        this->fuzzyRules = newOne;
     }
-    // else, set the first element refference and queue the last one
     else
     {
-        this->fuzzyRulesCursor->next = aux;
-        this->fuzzyRulesCursor = aux;
+        // auxiliary variable to handle the operation
+        fuzzyRuleArray *aux = this->fuzzyRules;
+        // find the last element of the array
+        while (aux != NULL)
+        {
+            if (aux->next == NULL)
+            {
+                // make the ralations between them
+                aux->next = newOne;
+                return true;
+            }
+            aux = aux->next;
+        }
     }
     return true;
 }
 
-// Function to set a crisp value to one FuzzyInput
+// Method to set a crisp value to one FuzzyInput
 bool Fuzzy::setInput(int fuzzyInputIndex, float crispValue)
 {
     // auxiliary variable to handle the operation
     fuzzyInputArray *aux;
-    // setting the first element from array
+    // instantiate with the first element from array
     aux = this->fuzzyInputs;
-    // while not in end of the array, iterate
+    // while not in the end of the array, iterate
     while (aux != NULL)
     {
         // if the FuzzyInput index match with the desired
@@ -149,7 +173,7 @@ bool Fuzzy::setInput(int fuzzyInputIndex, float crispValue)
     return false;
 }
 
-// Function to start the calculate of the result
+// Method to start the calculate of the result
 bool Fuzzy::fuzzify()
 {
     // auxiliary variable to handle the operation
@@ -159,7 +183,7 @@ bool Fuzzy::fuzzify()
     // to reset the data of all FuzzyInput and FuzzyOutput objects
     // instantiate with first element of the array
     fuzzyInputAux = this->fuzzyInputs;
-    // while not in end of the array, iterate
+    // while not in the end of the array, iterate
     while (fuzzyInputAux != NULL)
     {
         // for each FuzzyInput, reset its data
@@ -168,7 +192,7 @@ bool Fuzzy::fuzzify()
     }
     // instantiate with first element of the array
     fuzzyOutputAux = this->fuzzyOutputs;
-    // while not in end of the array, iterate
+    // while not in the end of the array, iterate
     while (fuzzyOutputAux != NULL)
     {
         // for each FuzzyOutput, reset its data
@@ -178,7 +202,7 @@ bool Fuzzy::fuzzify()
     // to calculate the pertinence of all FuzzyInput objects
     // instantiate with first element of the array
     fuzzyInputAux = this->fuzzyInputs;
-    // while not in end of the array, iterate
+    // while not in the end of the array, iterate
     while (fuzzyInputAux != NULL)
     {
         // for each FuzzyInput, calculate its pertinence
@@ -188,18 +212,17 @@ bool Fuzzy::fuzzify()
     // to evaluate which rules were triggered
     // instantiate with first element of the array
     fuzzyRuleAux = this->fuzzyRules;
-    // while not in end of the array, iterate
+    // while not in the end of the array, iterate
     while (fuzzyRuleAux != NULL)
     {
         // for each FuzzyRule, evaluate its expressions
         fuzzyRuleAux->fuzzyRule->evaluateExpression();
         fuzzyRuleAux = fuzzyRuleAux->next;
     }
-
     // to truncate the output sets
     // instantiate with first element of the array
     fuzzyOutputAux = this->fuzzyOutputs;
-    // while not in end of the array, iterate
+    // while not in the end of the array, iterate
     while (fuzzyOutputAux != NULL)
     {
         // for each FuzzyOutput, truncate the result
@@ -209,14 +232,14 @@ bool Fuzzy::fuzzify()
     return true;
 }
 
-// Function to verify if one specific FuzzyRule was triggered
+// Method to verify if one specific FuzzyRule was triggered
 bool Fuzzy::isFiredRule(int fuzzyRuleIndex)
 {
     // auxiliary variable to handle the operation
     fuzzyRuleArray *aux;
     // instantiate with first element of the array
     aux = this->fuzzyRules;
-    // while not in end of the array, iterate
+    // while not in the end of the array, iterate
     while (aux != NULL)
     {
         // if the FuzzyRule index match with the desired
@@ -231,14 +254,14 @@ bool Fuzzy::isFiredRule(int fuzzyRuleIndex)
     return false;
 }
 
-// Function to retrieve the result of the process for one specific FuzzyOutput
+// Method to retrieve the result of the process for one specific FuzzyOutput
 float Fuzzy::defuzzify(int fuzzyOutputIndex)
 {
     // auxiliary variable to handle the operation
     fuzzyOutputArray *aux;
     // instantiate with first element of the array
     aux = this->fuzzyOutputs;
-    // while not in end of the array, iterate
+    // while not in the end of the array, iterate
     while (aux != NULL)
     {
         // if the FuzzyOutput index match with the desired
@@ -254,7 +277,7 @@ float Fuzzy::defuzzify(int fuzzyOutputIndex)
 
 // PRIVATE METHODS
 
-// Function to recursively clean all FuzzyInput from memory
+// Method to recursively clean all FuzzyInput from memory
 void Fuzzy::cleanFuzzyInputs(fuzzyInputArray *aux)
 {
     if (aux != NULL)
@@ -265,7 +288,7 @@ void Fuzzy::cleanFuzzyInputs(fuzzyInputArray *aux)
     }
 }
 
-// Function to recursively clean all FuzzyOutput from memory
+// Method to recursively clean all FuzzyOutput from memory
 void Fuzzy::cleanFuzzyOutputs(fuzzyOutputArray *aux)
 {
     if (aux != NULL)
@@ -276,7 +299,7 @@ void Fuzzy::cleanFuzzyOutputs(fuzzyOutputArray *aux)
     }
 }
 
-// Function to recursively clean all FuzzyRule from memory
+// Method to recursively clean all FuzzyRule from memory
 void Fuzzy::cleanFuzzyRules(fuzzyRuleArray *aux)
 {
     if (aux != NULL)
