@@ -20,9 +20,8 @@ FuzzyIO::FuzzyIO()
 FuzzyIO::FuzzyIO(int index)
 {
     this->index = index;
-    // Iniciando os ponteiros como nulo
+    // Initializing pointers with NULL
     this->fuzzySets = NULL;
-    this->fuzzySetsCursor = NULL;
 }
 
 // DESTRUCTOR
@@ -32,50 +31,69 @@ FuzzyIO::~FuzzyIO()
 }
 
 // PUBLIC METHODS
+
+// Method to get the value of index
 int FuzzyIO::getIndex()
 {
     return this->index;
 }
 
+// Method to set the value of crispInput
 void FuzzyIO::setCrispInput(float crispInput)
 {
     this->crispInput = crispInput;
 }
 
+// Method to get the value of crispInput
 float FuzzyIO::getCrispInput()
 {
     return this->crispInput;
 }
 
+// Method to include a new FuzzySet into FuzzyIO
 bool FuzzyIO::addFuzzySet(FuzzySet *fuzzySet)
 {
-    fuzzySetArray *aux;
-    // Allocating in memory
-    if ((aux = (fuzzySetArray *)malloc(sizeof(fuzzySetArray))) == NULL)
+    // auxiliary variable to handle the operation
+    fuzzySetArray *newOne;
+    // allocating in memory
+    if ((newOne = (fuzzySetArray *)malloc(sizeof(fuzzySetArray))) == NULL)
     {
+        // return false if in out of memory
         return false;
     }
-    aux->fuzzySet = fuzzySet;
-    aux->next = NULL;
-
+    // building the object
+    newOne->fuzzySet = fuzzySet;
+    newOne->next = NULL;
+    // if it is the first FuzzySet, set it as the head
     if (this->fuzzySets == NULL)
     {
-        this->fuzzySets = aux;
-        this->fuzzySetsCursor = aux;
+        this->fuzzySets = newOne;
     }
     else
     {
-        this->fuzzySetsCursor->next = aux;
-        this->fuzzySetsCursor = aux;
+        // auxiliary variable to handle the operation
+        fuzzySetArray *aux = this->fuzzySets;
+        // find the last element of the array
+        while (aux != NULL)
+        {
+            if (aux->next == NULL)
+            {
+                // make the ralations between them
+                aux->next = newOne;
+                return true;
+            }
+            aux = aux->next;
+        }
     }
     return true;
 }
 
+// Method to reset all FuzzySet of this collection
 void FuzzyIO::resetFuzzySets()
 {
-    fuzzySetArray *fuzzySetsAux;
-    fuzzySetsAux = this->fuzzySets;
-    // Calculando as pertinências de totos os FuzzyInputs
+    // auxiliary variable to handle the operation
+    fuzzySetArray *fuzzySetsAux = this->fuzzySets;
+    // while not in the end of the array, iterate
     while (fuzzySetsAux != NULL)
     {
         fuzzySetsAux->fuzzySet->reset();
@@ -83,13 +101,15 @@ void FuzzyIO::resetFuzzySets()
     }
 }
 
-// MÉTODOS PROTEGIDOS
+// PROTECTED METHODS
+
+// Method to recursively clean all FuzzySet from memory
 void FuzzyIO::cleanFuzzySets(fuzzySetArray *aux)
 {
     if (aux != NULL)
     {
-        // emptying allocated memory
         this->cleanFuzzySets(aux->next);
+        // emptying allocated memory
         free(aux);
     }
 }

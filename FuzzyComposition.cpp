@@ -106,16 +106,16 @@ bool FuzzyComposition::build()
             }
             temp = temp->previous;
         }
-        // if some possible intersection found
+        // if some possible intersection found (temp may be null)
         if (temp != NULL)
         {
             // one more auxiliary variable
             pointsArray *zPoint = temp;
-            // iterate over the previos pointsArray
+            // iterate over the previous pointsArray
             while (zPoint->previous != NULL)
             {
-                // if previos of previos point is not NULL, and some intersection was fixed
-                if (zPoint->previous->previous != NULL && rebuild(temp, temp->next, zPoint->previous, zPoint->previous->previous) == true)
+                // if previous of previous point is not NULL, and some intersection was fixed by rebuild
+                if (zPoint->previous->previous != NULL && this->rebuild(temp, temp->next, zPoint->previous, zPoint->previous->previous) == true)
                 {
                     // move the first auxiliary to beginning of the array for a new validation, and breaks
                     aux = this->points;
@@ -209,6 +209,22 @@ bool FuzzyComposition::empty()
     return true;
 }
 
+// Method to count the amount of points used in this FuzzyComposition
+int FuzzyComposition::countPoints()
+{
+    // variable to hold the count
+    int count = 0;
+    // auxiliary variable to handle the operation
+    pointsArray *aux = this->points;
+    // while not in the end of the array, iterate
+    while (aux != NULL)
+    {
+        count = count + 1;
+        aux = aux->next;
+    }
+    return count;
+}
+
 // PRIVATE METHODS
 
 // Method to recursively clean all pointsArray structs from memory
@@ -246,6 +262,7 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
     // If the denomenator is zero or close to it, it means that the lines are parallels, so return false for intersection
     if (denom < EPS)
     {
+        // return false for intersection
         return false;
     }
     // if negative, convert to positive
@@ -291,7 +308,6 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
         float stopPertinence = bSegmentBegin->pertinence;
         // some variables to help in this proccess, the start pointsArray
         pointsArray *temp = aSegmentBegin;
-        pointsArray *excl;
         // do, while
         do
         {
@@ -299,7 +315,7 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
             float pointToCompare = temp->point;
             float pertinenceToCompare = temp->pertinence;
             // navigate to previour
-            excl = temp->previous;
+            pointsArray *excl = temp->previous;
             // remove it from array
             this->rmvPoint(temp);
             // set new current

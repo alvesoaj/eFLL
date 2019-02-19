@@ -10,45 +10,60 @@
 #include "../FuzzySet.h"
 #include "gtest/gtest.h"
 
-// ##### FUZZYSET
+// ##### Tests of FuzzySet
+
+TEST(FuzzySet, getPoints)
+{
+    FuzzySet *fuzzySet = new FuzzySet(0, 10, 20, 30);
+    ASSERT_EQ(0, fuzzySet->getPointA());
+    ASSERT_EQ(10, fuzzySet->getPointB());
+    ASSERT_EQ(20, fuzzySet->getPointC());
+    ASSERT_EQ(30, fuzzySet->getPointD());
+}
 
 TEST(FuzzySet, calculateAndGetPertinence)
 {
-    FuzzySet *fuzzySet = new FuzzySet(0, 10, 10, 20);
+    FuzzySet *fuzzySet1 = new FuzzySet(0, 10, 10, 20);
 
-    fuzzySet->calculatePertinence(-5);
-    ASSERT_EQ(0.0, fuzzySet->getPertinence());
+    fuzzySet1->calculatePertinence(-5);
+    ASSERT_FLOAT_EQ(0.0, fuzzySet1->getPertinence());
 
-    fuzzySet->calculatePertinence(5);
-    ASSERT_EQ(0.5, fuzzySet->getPertinence());
+    fuzzySet1->calculatePertinence(5);
+    ASSERT_FLOAT_EQ(0.5, fuzzySet1->getPertinence());
 
-    fuzzySet->calculatePertinence(10);
-    ASSERT_EQ(1.0, fuzzySet->getPertinence());
+    fuzzySet1->calculatePertinence(10);
+    ASSERT_FLOAT_EQ(1.0, fuzzySet1->getPertinence());
 
-    fuzzySet->calculatePertinence(15);
-    ASSERT_EQ(0.5, fuzzySet->getPertinence());
+    fuzzySet1->calculatePertinence(15);
+    ASSERT_FLOAT_EQ(0.5, fuzzySet1->getPertinence());
 
-    fuzzySet->calculatePertinence(25);
-    ASSERT_EQ(0.0, fuzzySet->getPertinence());
+    fuzzySet1->calculatePertinence(25);
+    ASSERT_FLOAT_EQ(0.0, fuzzySet1->getPertinence());
+
+    FuzzySet *fuzzySet2 = new FuzzySet(0, 0, 20, 30);
+
+    fuzzySet2->calculatePertinence(-5);
+    ASSERT_FLOAT_EQ(1.0, fuzzySet2->getPertinence());
+
+    FuzzySet *fuzzySet3 = new FuzzySet(0, 10, 20, 20);
+
+    fuzzySet3->calculatePertinence(25);
+    ASSERT_FLOAT_EQ(1.0, fuzzySet3->getPertinence());
 }
 
-// ##### FUZZYINPUT
+// ##### Tests of FuzzyInput (It tests FuzzyIO too)
 
 TEST(FuzzyInput, addFuzzySet)
 {
     FuzzyInput *fuzzyInput = new FuzzyInput(1);
-
-    FuzzySet *fuzzySetTest = new FuzzySet(0, 10, 10, 20);
-
-    ASSERT_TRUE(fuzzyInput->addFuzzySet(fuzzySetTest));
+    FuzzySet *fuzzySet = new FuzzySet(0, 10, 10, 20);
+    ASSERT_TRUE(fuzzyInput->addFuzzySet(fuzzySet));
 }
 
 TEST(FuzzyInput, setCrispInputAndGetCrispInput)
 {
     FuzzyInput *fuzzyInput = new FuzzyInput(1);
-
     fuzzyInput->setCrispInput(10.190);
-
     ASSERT_FLOAT_EQ(10.190, fuzzyInput->getCrispInput());
 }
 
@@ -56,14 +71,24 @@ TEST(FuzzyInput, calculateFuzzySetPertinences)
 {
     FuzzyInput *fuzzyInput = new FuzzyInput(1);
 
-    FuzzySet *fuzzySetTest = new FuzzySet(0, 10, 10, 20);
+    FuzzySet *fuzzySet1 = new FuzzySet(0, 10, 10, 20);
 
-    fuzzyInput->addFuzzySet(fuzzySetTest);
+    fuzzyInput->addFuzzySet(fuzzySet1);
+
+    FuzzySet *fuzzySet2 = new FuzzySet(10, 20, 20, 30);
+
+    fuzzyInput->addFuzzySet(fuzzySet2);
+
+    fuzzyInput->setCrispInput(5);
 
     ASSERT_TRUE(fuzzyInput->calculateFuzzySetPertinences());
+
+    ASSERT_FLOAT_EQ(0.5, fuzzySet1->getPertinence());
+
+    ASSERT_FLOAT_EQ(0.0, fuzzySet2->getPertinence());
 }
 
-// ##### FUZZYCOMPOSITION
+// ##### Tests of FuzzyComposition
 
 TEST(FuzzyComposition, addPointAndCheckPoint)
 {
@@ -104,13 +129,14 @@ TEST(FuzzyComposition, build)
     ASSERT_TRUE(fuzzyComposition->checkPoint(30, 0));
 }
 
-TEST(FuzzyComposition, calculateAndEmpty)
+TEST(FuzzyComposition, calculateAndEmptyAndCountPoints)
 {
     FuzzyComposition *fuzzyComposition = new FuzzyComposition();
 
     fuzzyComposition->addPoint(25, 1);
     fuzzyComposition->addPoint(25, 1);
     fuzzyComposition->build();
+    ASSERT_EQ(2, fuzzyComposition->countPoints());
     ASSERT_FLOAT_EQ(25, fuzzyComposition->calculate());
     ASSERT_TRUE(fuzzyComposition->empty());
 
@@ -118,6 +144,7 @@ TEST(FuzzyComposition, calculateAndEmpty)
     fuzzyComposition->addPoint(20, 1);
     fuzzyComposition->addPoint(30, 0);
     fuzzyComposition->build();
+    ASSERT_EQ(3, fuzzyComposition->countPoints());
     ASSERT_FLOAT_EQ(20, fuzzyComposition->calculate());
     ASSERT_TRUE(fuzzyComposition->empty());
 
@@ -126,6 +153,7 @@ TEST(FuzzyComposition, calculateAndEmpty)
     fuzzyComposition->addPoint(50, 1);
     fuzzyComposition->addPoint(60, 0);
     fuzzyComposition->build();
+    ASSERT_EQ(4, fuzzyComposition->countPoints());
     ASSERT_FLOAT_EQ(40, fuzzyComposition->calculate());
     ASSERT_TRUE(fuzzyComposition->empty());
 
@@ -135,49 +163,88 @@ TEST(FuzzyComposition, calculateAndEmpty)
     fuzzyComposition->addPoint(10, 0);
     fuzzyComposition->addPoint(20, 1);
     fuzzyComposition->addPoint(30, 0);
+    fuzzyComposition->addPoint(20, 0);
+    fuzzyComposition->addPoint(30, 1);
+    fuzzyComposition->addPoint(40, 0);
     fuzzyComposition->build();
-    ASSERT_FLOAT_EQ(15, fuzzyComposition->calculate());
+    ASSERT_EQ(7, fuzzyComposition->countPoints());
+    ASSERT_FLOAT_EQ(20, fuzzyComposition->calculate());
 }
 
-// ##### FUZZYOUTPUT
+// ##### Test of FuzzyOutput (It tests FuzzyIO too)
 
-TEST(FuzzyOutput, addFuzzySet)
+TEST(FuzzyOutput, getIndex)
+{
+    FuzzyOutput *fuzzyOutput = new FuzzyOutput(1);
+    ASSERT_EQ(1, fuzzyOutput->getIndex());
+}
+
+TEST(FuzzyOutput, setCrispInputAndGetCrispInput)
+{
+    FuzzyOutput *fuzzyOutput = new FuzzyOutput(1);
+    fuzzyOutput->setCrispInput(10.190);
+    ASSERT_FLOAT_EQ(10.190, fuzzyOutput->getCrispInput());
+}
+
+TEST(FuzzyOutput, addFuzzySetAndResetFuzzySets)
 {
     FuzzyOutput *fuzzyOutput = new FuzzyOutput(1);
 
     FuzzySet *fuzzySetTest = new FuzzySet(0, 10, 10, 20);
 
     ASSERT_TRUE(fuzzyOutput->addFuzzySet(fuzzySetTest));
+
+    fuzzySetTest->setPertinence(0.242);
+    ASSERT_FLOAT_EQ(0.242, fuzzySetTest->getPertinence());
+
+    fuzzyOutput->resetFuzzySets();
+
+    ASSERT_FLOAT_EQ(0.0, fuzzySetTest->getPertinence());
 }
 
-TEST(FuzzyOutput, setCrispInputAndGetCrispInput)
+TEST(FuzzyOutput, truncateAndGetCrispOutputAndGetFuzzyComposition)
 {
     FuzzyOutput *fuzzyOutput = new FuzzyOutput(1);
 
-    fuzzyOutput->setCrispInput(10.190);
-
-    ASSERT_FLOAT_EQ(10.190, fuzzyOutput->getCrispInput());
-}
-
-TEST(FuzzyOutput, truncateAndGetCrispOutput)
-{
-    FuzzyOutput *fuzzyOutput = new FuzzyOutput(1);
+    ASSERT_EQ(1, fuzzyOutput->getIndex());
 
     FuzzySet *fuzzySetTest1 = new FuzzySet(0, 10, 10, 20);
-    fuzzySetTest1->setPertinence(0.5);
+    fuzzySetTest1->setPertinence(1);
     fuzzyOutput->addFuzzySet(fuzzySetTest1);
 
     FuzzySet *fuzzySetTest2 = new FuzzySet(10, 20, 20, 30);
-    fuzzySetTest2->setPertinence(0.5);
+    fuzzySetTest2->setPertinence(1);
     fuzzyOutput->addFuzzySet(fuzzySetTest2);
 
     FuzzySet *fuzzySetTest3 = new FuzzySet(20, 30, 30, 40);
-    fuzzySetTest3->setPertinence(0.5);
+    fuzzySetTest3->setPertinence(1);
     fuzzyOutput->addFuzzySet(fuzzySetTest3);
 
     ASSERT_TRUE(fuzzyOutput->truncate());
 
-    ASSERT_FLOAT_EQ(15.0, fuzzyOutput->getCrispOutput());
+    FuzzyComposition *fuzzyComposition = fuzzyOutput->getFuzzyComposition();
+
+    ASSERT_NE(nullptr, fuzzyComposition);
+
+    ASSERT_EQ(7, fuzzyComposition->countPoints());
+
+    ASSERT_TRUE(fuzzyComposition->checkPoint(0, 0));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(10, 1));
+    ASSERT_FALSE(fuzzyComposition->checkPoint(20, 0));
+
+    ASSERT_TRUE(fuzzyComposition->checkPoint(15, 0.5));
+
+    ASSERT_FALSE(fuzzyComposition->checkPoint(10, 0));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(20, 1));
+    ASSERT_FALSE(fuzzyComposition->checkPoint(30, 0));
+
+    ASSERT_TRUE(fuzzyComposition->checkPoint(25, 0.5));
+
+    ASSERT_FALSE(fuzzyComposition->checkPoint(20, 0));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(30, 1));
+    ASSERT_TRUE(fuzzyComposition->checkPoint(40, 0));
+
+    ASSERT_FLOAT_EQ(20.0, fuzzyOutput->getCrispOutput());
 }
 
 // ##### FUZZYRULEANTECEDENT

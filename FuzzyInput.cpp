@@ -15,31 +15,33 @@
 // CONTRUCTORS
 FuzzyInput::FuzzyInput() : FuzzyIO()
 {
+    // no custom contruction, using the father (FuzzyIO) constructor
 }
 
 FuzzyInput::FuzzyInput(int index) : FuzzyIO(index)
 {
+    // no custom contruction, using the father (FuzzyIO) constructor
 }
 
 // DESTRUCTOR
 FuzzyInput::~FuzzyInput()
 {
+    // no custom destruction, using the father (FuzzyIO) destructor
 }
 
 // PUBLIC METHODS
+
+// Method to calculate the pertinence of all FuzzySet
 bool FuzzyInput::calculateFuzzySetPertinences()
 {
-    fuzzySetArray *aux;
-    aux = this->fuzzySets;
-
+    // auxiliary variable to handle the operation
+    fuzzySetArray *aux = this->fuzzySets;
+    // while not in the end of the array, iterate
     while (aux != NULL)
     {
-        if (aux->fuzzySet != NULL)
-        {
-            aux->fuzzySet->calculatePertinence(this->crispInput);
-        }
+        // call calculatePertinence for each FuzzySet
+        aux->fuzzySet->calculatePertinence(this->crispInput);
         aux = aux->next;
     }
-
     return true;
 }

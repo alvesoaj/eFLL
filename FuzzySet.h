@@ -30,7 +30,7 @@ public:
   void reset();
 
 private:
-  // VARIÁVEIS
+  // PRIVATE VARIABLES
   float a;
   float b;
   float c;

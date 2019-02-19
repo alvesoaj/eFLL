@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include "FuzzySet.h"
 
-// Estrutura de uma lista de FuzzySet
+// Array struct for FuzzySet objects
 struct fuzzySetArray
 {
   FuzzySet *fuzzySet;
@@ -40,12 +40,12 @@ public:
   void resetFuzzySets();
 
 protected:
-  // VARIÁVEIS PROTEGIDAS
+  // PROTECTED VARIABLES
   int index;
   float crispInput;
   fuzzySetArray *fuzzySets;
-  fuzzySetArray *fuzzySetsCursor;
-  // MÉTODOS PROTEGIDOS
+
+  // PROTECTED METHODS
   void cleanFuzzySets(fuzzySetArray *aux);
 };
 #endif

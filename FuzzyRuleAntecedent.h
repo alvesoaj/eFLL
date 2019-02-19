@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include "FuzzySet.h"
 
-// CONSTANTES
+// CONSTANTS
 #define OP_AND 1
 #define OP_OR 2
 #define MODE_FS 1

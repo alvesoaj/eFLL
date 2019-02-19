@@ -16,10 +16,10 @@
 // IMPORTING NECESSARY LIBRARIES
 #include <stdlib.h>
 
-// CONSTANTES
+// CONSTANTS
 #define EPS 1.0E-3
 
-// Estrutura de uma lista para guardar os pontos
+// Array struct for points objects
 struct pointsArray
 {
   pointsArray *previous;
@@ -41,6 +41,7 @@ public:
   bool build();
   float calculate();
   bool empty();
+  int countPoints();
 
 private:
   // PRIVATE VARIABLES
