@@ -18,8 +18,10 @@
 #include "FuzzySet.h"
 
 // CONSTANTS
+// possible logic operators
 #define OP_AND 1
 #define OP_OR 2
+// possible join associations modes
 #define MODE_FS 1
 #define MODE_FS_FS 2
 #define MODE_FS_FRA 3
@@ -44,7 +46,7 @@ public:
 
 private:
   // PRIVATE VARIABLES
-  int op; // operador lógico
+  int op;
   int mode;
   FuzzySet *fuzzySet1;
   FuzzySet *fuzzySet2;
