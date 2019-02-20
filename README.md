@@ -46,6 +46,8 @@ If the installation of the library has been successfully held, to import the lib
 
 ## Brief Documentation
 
+![Class Diagram](https://raw.githubusercontent.com/zerokol/eFLL/master/uml/class-diagram.png)
+
 **Fuzzy object** - This object includes all the Fuzzy System, through it, you can manipulate the Fuzzy Sets, Linguistic Rules, inputs and outputs.
 
 **FuzzyInput** object - This object groups all entries Fuzzy Sets that belongs to the same domain.
