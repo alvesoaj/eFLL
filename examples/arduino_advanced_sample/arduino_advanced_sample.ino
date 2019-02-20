@@ -8,7 +8,6 @@
 #include <FuzzySet.h>
 #include <FuzzyRuleAntecedent.h>
 
-// Instanciando um objeto da biblioteca
 Fuzzy *fuzzy = new Fuzzy();
 
 FuzzySet *close = new FuzzySet(0, 20, 20, 40);
@@ -66,7 +65,6 @@ void setup()
   fuzzy->addFuzzyOutput(risk);
 
   // FuzzyOutput
-  // adicionando speed como output também
   FuzzyOutput *outputSpeed = new FuzzyOutput(2);
 
   FuzzySet *stopedOut = new FuzzySet(0, 0, 0, 0);
@@ -130,14 +128,14 @@ void loop()
 
   fuzzy->fuzzify();
 
-  Serial.print("Distancia: ");
+  Serial.print("Distance: ");
   Serial.print(close->getPertinence());
   Serial.print(", ");
   Serial.print(safe->getPertinence());
   Serial.print(", ");
   Serial.println(distante->getPertinence());
 
-  Serial.print("Velocidade: ");
+  Serial.print("Speed: ");
   Serial.print(stoped->getPertinence());
   Serial.print(", ");
   Serial.print(slow->getPertinence());
@@ -146,7 +144,7 @@ void loop()
   Serial.print(", ");
   Serial.println(quick->getPertinence());
 
-  Serial.print("Temperatura: ");
+  Serial.print("Temperature: ");
   Serial.print(cold->getPertinence());
   Serial.print(", ");
   Serial.print(good->getPertinence());
@@ -156,9 +154,9 @@ void loop()
   float output1 = fuzzy->defuzzify(1);
   float output2 = fuzzy->defuzzify(2);
 
-  Serial.print("Saida risco: ");
+  Serial.print("(Output) Risk: ");
   Serial.print(output1);
-  Serial.print(", Saida velocidade: ");
+  Serial.print(", and Speed: ");
   Serial.println(output2);
 
   delay(100000);

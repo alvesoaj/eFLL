@@ -11,11 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- CHARGELOG.md file to document this project.
+- CHANGELOG.md file to document this project.
 
 ### Changed
 
-- The way that FuzzyOutput truncate trapezoidals funcctions, improve the acurace.
+- The way that FuzzyOutput truncate trapezoidal functions, improve the accuracy.
 - File headers with author references.
 
 ### Removed

@@ -1,10 +1,10 @@
-## eFLL (Embedded Fuzzy Logic Library) v1.0.10 [Updated at: 21 august 2016]
+## eFLL (Embedded Fuzzy Logic Library) v1.1.0
 
-eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and eficient Fuzzy Systems.
+eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and efficient Fuzzy Systems.
 
 Para informações avançadas, documentação e exemplos de uso em PORTUGUÊS: [eFLL - Uma Biblioteca Fuzzy para Arduino e Sistemas Embarcados](https://blog.zerokol.com/2012/09/arduinofuzzy-uma-biblioteca-fuzzy-para.html)
 
-For advanced information, documentation, and usage examples in ENGLISH: [eFLL - A Fuzzy Library for Arduino and Embeded Systems](https://blog.zerokol.com/2012/09/arduinofuzzy-fuzzy-library-for-arduino.html)
+For advanced information, documentation, and usage examples in ENGLISH: [eFLL - A Fuzzy Library for Arduino and Embedded Systems](https://blog.zerokol.com/2012/09/arduinofuzzy-fuzzy-library-for-arduino.html)
 
 ## Characteristics
 
@@ -22,7 +22,7 @@ Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
 **Step 1:** Go to the official project page on GitHub (Here)
 
-**Step 2:** Make a clone of the project using Git or download at Donwload on the button "Download as zip."
+**Step 2:** Make a clone of the project using Git or download at Download on the button "Download as zip."
 
 **Step 3:** Clone or unzip (For safety, rename the folder to "eFLL") the files into some folder
 
@@ -32,7 +32,7 @@ Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
 **Step 1:** Go to the official project page on GitHub (Here)
 
-**Step 2:** Make a clone of the project using Git or download at Donwload on the button "Download as zip."
+**Step 2:** Make a clone of the project using Git or download at Download on the button "Download as zip."
 
 **Step 3:** Clone or unzip (For safety, rename the folder to "eFLL") the files into Arduino libraries' folder:
 
@@ -42,7 +42,7 @@ _Ok! The library is ready to be used._
 
 If the installation of the library has been successfully held, to import the library is easy:
 
-**Step 4:** Open your Arduino IDE, check out the tab on the top menu SKETCKS → LIBRARY → Import eFLL
+**Step 4:** Open your Arduino IDE, check out the tab on the top menu SKETCH → LIBRARY → Import eFLL
 
 ## Brief Documentation
 
@@ -58,7 +58,7 @@ If the installation of the library has been successfully held, to import the lib
 
 **FuzzyRuleAntecedent** object - This object is used to compound the object FuzzyRule, responsible for assembling the antecedent of the conditional expression of a FuzzyRule.
 
-**FuzzyRuleConsequente** object - This object is used to render the object FuzzyRule, responsible for assembling the output expression of a FuzzyRule.
+**FuzzyRuleConsequent** object - This object is used to render the object FuzzyRule, responsible for assembling the output expression of a FuzzyRule.
 
 ## Tips
 

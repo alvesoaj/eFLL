@@ -81,7 +81,7 @@ bool FuzzyOutput::truncate()
                 }
             }
             // if until now, it was not a triangle
-            // check if (B <> C), if true, it is a trapeze (this code is the same of the triangle, except when the pertinence is 1.0, here we include the two points [B and C], becouse they are not equal)
+            // check if (B <> C), if true, it is a trapeze (this code is the same of the triangle, except when the pertinence is 1.0, here we include the two points [B and C], because they are not equal)
             else if (aux->fuzzySet->getPointB() != aux->fuzzySet->getPointC())
             {
                 // check if the pertinence is the max
@@ -177,7 +177,7 @@ FuzzyComposition *FuzzyOutput::getFuzzyComposition()
 
 // PRIVATE METHODS
 
-// Method to invert the values (referênces) of two FuzzySet
+// Method to invert the values (references) of two FuzzySet
 bool FuzzyOutput::swap(fuzzySetArray *fuzzySetA, fuzzySetArray *fuzzySetB)
 {
     // put the first into an auxiliary variable
@@ -204,7 +204,7 @@ bool FuzzyOutput::rebuild(float x1, float y1, float x2, float y2, float x3, floa
     {
         denom *= -1.0;
     }
-    // If the denomenator is zero or close to it, it means that the lines are parallels, so return false for intersection
+    // If the denominator is zero or close to it, it means that the lines are parallels, so return false for intersection
     if (denom < EPS)
     {
         // return false for intersection
@@ -230,7 +230,7 @@ bool FuzzyOutput::rebuild(float x1, float y1, float x2, float y2, float x3, floa
     }
     else
     {
-        // calculatins ans setting the new point and pertinence
+        // calculate and setting the new point and pertinence
         *point = x1 + mua * (x2 - x1);
         *pertinence = y1 + mua * (y2 - y1);
         // return true for intersection

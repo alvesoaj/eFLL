@@ -15,12 +15,12 @@
 // CONTRUCTORS
 FuzzyInput::FuzzyInput() : FuzzyIO()
 {
-    // no custom contruction, using the father (FuzzyIO) constructor
+    // no custom construction, using the father (FuzzyIO) constructor
 }
 
 FuzzyInput::FuzzyInput(int index) : FuzzyIO(index)
 {
-    // no custom contruction, using the father (FuzzyIO) constructor
+    // no custom construction, using the father (FuzzyIO) constructor
 }
 
 // DESTRUCTOR

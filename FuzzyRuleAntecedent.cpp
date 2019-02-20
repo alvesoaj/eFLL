@@ -26,7 +26,7 @@ FuzzyRuleAntecedent::FuzzyRuleAntecedent()
 
 // PUBLIC METHODS
 
-// Method to create a FuzzyRuleAntecedent with just one sigle FuzzySet
+// Method to create a FuzzyRuleAntecedent with just one single FuzzySet
 bool FuzzyRuleAntecedent::joinSingle(FuzzySet *fuzzySet)
 {
     // check if FuzzySet is not null

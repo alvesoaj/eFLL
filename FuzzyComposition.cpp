@@ -36,7 +36,7 @@ bool FuzzyComposition::addPoint(float point, float pertinence)
         // return false if in out of memory
         return false;
     }
-    // populatind the struct
+    // populate the struct
     newOne->previous = NULL;
     newOne->point = point;
     newOne->pertinence = pertinence;
@@ -56,7 +56,7 @@ bool FuzzyComposition::addPoint(float point, float pertinence)
             if (aux->next == NULL)
             {
 
-                // make the ralations between them
+                // make the relations between them
                 newOne->previous = aux;
                 aux->next = newOne;
                 return true;
@@ -75,7 +75,7 @@ bool FuzzyComposition::checkPoint(float point, float pertinence)
     // while not in the end of the array, iterate
     while (aux != NULL)
     {
-        // if params matchs with this point
+        // if params match with this point
         if (aux->point == point && aux->pertinence == pertinence)
         {
             return true;
@@ -177,7 +177,7 @@ float FuzzyComposition::calculate()
                 area = (aux->next->point - aux->point) * aux->pertinence;
                 middle = ((aux->next->point - aux->point) / 2.0) + aux->point;
             }
-            // esle if a trapeze (Not properly a membership function)
+            // else if a trapeze (Not properly a membership function)
             else if ((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && (aux->pertinence != aux->next->pertinence))
             {
                 area = ((aux->pertinence + aux->next->pertinence) / 2.0) * (aux->next->point - aux->point);
@@ -259,7 +259,7 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
     {
         denom *= -1.0;
     }
-    // If the denomenator is zero or close to it, it means that the lines are parallels, so return false for intersection
+    // If the denominator is zero or close to it, it means that the lines are parallels, so return false for intersection
     if (denom < EPS)
     {
         // return false for intersection
@@ -314,7 +314,7 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
             // get point (y) and pertinence (x) from current pointer
             float pointToCompare = temp->point;
             float pertinenceToCompare = temp->pertinence;
-            // navigate to previour
+            // navigate to previous
             pointsArray *excl = temp->previous;
             // remove it from array
             this->rmvPoint(temp);

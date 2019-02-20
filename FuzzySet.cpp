@@ -112,7 +112,7 @@ bool FuzzySet::calculatePertinence(float crispValue)
 // Method to set the value of pertinence
 void FuzzySet::setPertinence(float pertinence)
 {
-    // TODO - May it be a problem?
+    // check if the new pertinence is bigger then the current value because it can be called more then once by different FuzzyRuleConsequent
     if (this->pertinence < pertinence)
     {
         this->pertinence = pertinence;
@@ -128,6 +128,5 @@ float FuzzySet::getPertinence()
 // Method to reset the value of pertinence
 void FuzzySet::reset()
 {
-    // TODO - It exists because the setPertinence only grows the value, Check It!
     this->pertinence = 0.0;
 }

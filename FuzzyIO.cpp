@@ -78,7 +78,7 @@ bool FuzzyIO::addFuzzySet(FuzzySet *fuzzySet)
         {
             if (aux->next == NULL)
             {
-                // make the ralations between them
+                // make the relations between them
                 aux->next = newOne;
                 return true;
             }
