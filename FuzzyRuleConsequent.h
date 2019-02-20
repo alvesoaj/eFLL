@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include "FuzzySet.h"
 
-// Estrutura de uma lista de FuzzySet
+// Array struct for fuzzySet (for Output) objects
 struct fuzzySetOutputArray
 {
   FuzzySet *fuzzySet;
@@ -37,8 +37,8 @@ public:
 
 private:
   // PRIVATE VARIABLES
-  fuzzySetOutputArray *fuzzySetOutputsCursor;
   fuzzySetOutputArray *fuzzySetOutputs;
+
   // PRIVATE METHODS
   void cleanFuzzySets(fuzzySetOutputArray *aux);
 };

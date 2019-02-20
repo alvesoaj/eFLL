@@ -12,6 +12,7 @@
  */
 #include "FuzzyRule.h"
 
+// CONTRUCTORS
 FuzzyRule::FuzzyRule()
 {
 }
@@ -19,29 +20,36 @@ FuzzyRule::FuzzyRule()
 FuzzyRule::FuzzyRule(int index, FuzzyRuleAntecedent *fuzzyRuleAntecedent, FuzzyRuleConsequent *fuzzyRuleConsequent)
 {
     this->index = index;
+    this->fired = false;
     this->fuzzyRuleAntecedent = fuzzyRuleAntecedent;
     this->fuzzyRuleConsequent = fuzzyRuleConsequent;
-    this->fired = false;
 }
 
+// PUBLIC METHODS
+
+// Method to get the value of index
 int FuzzyRule::getIndex()
 {
     return this->index;
 }
 
+// Method to evaluate the total expression
 bool FuzzyRule::evaluateExpression()
 {
-    if (this->fuzzyRuleAntecedent != NULL)
+    // check if the FuzzyRuleAntecedent and FuzzyRuleConsequent are valid
+    if (this->fuzzyRuleAntecedent != NULL && this->fuzzyRuleConsequent != NULL)
     {
+        // call the evaluator in the FuzzyRuleAntecedent
         float powerOfAntecedent = this->fuzzyRuleAntecedent->evaluate();
-
+        // if the power of FuzzyRuleAntecedent is bigget the 0.0, this rule was fired, else, no
         (powerOfAntecedent > 0.0) ? (this->fired = true) : (this->fired = false);
-
+        // pass the power of FuzzyRuleAntecedent to FuzzyRuleConsequent by its evaluator
         this->fuzzyRuleConsequent->evaluate(powerOfAntecedent);
     }
     return this->fired;
 }
 
+// Method to get the value of fired
 bool FuzzyRule::isFired()
 {
     return this->fired;

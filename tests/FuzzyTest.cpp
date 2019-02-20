@@ -247,167 +247,133 @@ TEST(FuzzyOutput, truncateAndGetCrispOutputAndGetFuzzyComposition)
     ASSERT_FLOAT_EQ(20.0, fuzzyOutput->getCrispOutput());
 }
 
-// ##### FUZZYRULEANTECEDENT
+// ##### Tests for FuzzyRuleAntecedent
 
-TEST(FuzzyRuleAntecedent, joinSingle)
+TEST(FuzzyRuleAntecedent, joinSingleAndEvaluate)
 {
     FuzzyRuleAntecedent *fuzzyRuleAntecedent = new FuzzyRuleAntecedent();
 
     FuzzySet *fuzzySet = new FuzzySet(0, 10, 10, 20);
+    fuzzySet->setPertinence(0.25);
 
-    bool result = fuzzyRuleAntecedent->joinSingle(fuzzySet);
-
-    ASSERT_TRUE(result);
+    ASSERT_TRUE(fuzzyRuleAntecedent->joinSingle(fuzzySet));
+    ASSERT_FLOAT_EQ(0.25, fuzzyRuleAntecedent->evaluate());
 }
 
-TEST(FuzzyRuleAntecedent, joinWithAND)
+TEST(FuzzyRuleAntecedent, joinTwoFuzzySetAndEvaluate)
 {
+    FuzzySet *fuzzySet1 = new FuzzySet(0, 10, 10, 20);
+    fuzzySet1->setPertinence(0.25);
+    FuzzySet *fuzzySet2 = new FuzzySet(10, 20, 20, 30);
+    fuzzySet2->setPertinence(0.75);
+
     FuzzyRuleAntecedent *fuzzyRuleAntecedent1 = new FuzzyRuleAntecedent();
-    FuzzySet *riskMinimum = new FuzzySet(0, 10, 10, 20);
-    bool result1 = fuzzyRuleAntecedent1->joinSingle(riskMinimum);
+    ASSERT_TRUE(fuzzyRuleAntecedent1->joinWithAND(fuzzySet1, fuzzySet2));
+    ASSERT_FLOAT_EQ(0.25, fuzzyRuleAntecedent1->evaluate());
 
     FuzzyRuleAntecedent *fuzzyRuleAntecedent2 = new FuzzyRuleAntecedent();
-    FuzzySet *temperatureLow = new FuzzySet(0, 10, 10, 20);
-    FuzzySet *pressureSmall = new FuzzySet(0, 10, 10, 20);
-    bool result2 = fuzzyRuleAntecedent2->joinWithAND(temperatureLow, pressureSmall);
+    ASSERT_TRUE(fuzzyRuleAntecedent2->joinWithOR(fuzzySet1, fuzzySet2));
+    ASSERT_FLOAT_EQ(0.75, fuzzyRuleAntecedent2->evaluate());
+}
+
+TEST(FuzzyRuleAntecedent, joinOneFuzzySetAndOneFuzzyAntecedentAndEvaluate)
+{
+    FuzzySet *fuzzySet1 = new FuzzySet(0, 10, 10, 20);
+    fuzzySet1->setPertinence(0.25);
+
+    FuzzyRuleAntecedent *fuzzyRuleAntecedent1 = new FuzzyRuleAntecedent();
+    FuzzySet *fuzzySet2 = new FuzzySet(10, 20, 20, 30);
+    fuzzySet2->setPertinence(0.75);
+    fuzzyRuleAntecedent1->joinSingle(fuzzySet2);
+
+    FuzzyRuleAntecedent *fuzzyRuleAntecedent2 = new FuzzyRuleAntecedent();
+    ASSERT_TRUE(fuzzyRuleAntecedent2->joinWithAND(fuzzySet1, fuzzyRuleAntecedent1));
+    ASSERT_FLOAT_EQ(0.25, fuzzyRuleAntecedent2->evaluate());
 
     FuzzyRuleAntecedent *fuzzyRuleAntecedent3 = new FuzzyRuleAntecedent();
-    bool result3 = fuzzyRuleAntecedent3->joinWithAND(fuzzyRuleAntecedent1, fuzzyRuleAntecedent2);
+    ASSERT_TRUE(fuzzyRuleAntecedent3->joinWithAND(fuzzyRuleAntecedent1, fuzzySet1));
+    ASSERT_FLOAT_EQ(0.25, fuzzyRuleAntecedent3->evaluate());
 
     FuzzyRuleAntecedent *fuzzyRuleAntecedent4 = new FuzzyRuleAntecedent();
-    bool result4 = fuzzyRuleAntecedent4->joinWithAND(fuzzyRuleAntecedent1, pressureSmall);
+    ASSERT_TRUE(fuzzyRuleAntecedent4->joinWithOR(fuzzySet1, fuzzyRuleAntecedent1));
+    ASSERT_FLOAT_EQ(0.75, fuzzyRuleAntecedent4->evaluate());
 
     FuzzyRuleAntecedent *fuzzyRuleAntecedent5 = new FuzzyRuleAntecedent();
-    bool result5 = fuzzyRuleAntecedent5->joinWithAND(temperatureLow, fuzzyRuleAntecedent2);
-
-    ASSERT_TRUE(result1);
-    ASSERT_TRUE(result2);
-    ASSERT_TRUE(result3);
-    ASSERT_TRUE(result4);
-    ASSERT_TRUE(result5);
+    ASSERT_TRUE(fuzzyRuleAntecedent5->joinWithOR(fuzzyRuleAntecedent1, fuzzySet1));
+    ASSERT_FLOAT_EQ(0.75, fuzzyRuleAntecedent5->evaluate());
 }
 
-TEST(FuzzyRuleAntecedent, joinWithOR)
+TEST(FuzzyRuleAntecedent, joinTwoFuzzyAntecedentAndEvaluate)
 {
     FuzzyRuleAntecedent *fuzzyRuleAntecedent1 = new FuzzyRuleAntecedent();
-    FuzzySet *riskMinimum = new FuzzySet(0, 10, 10, 20);
-    bool result1 = fuzzyRuleAntecedent1->joinSingle(riskMinimum);
+    FuzzySet *fuzzySet1 = new FuzzySet(0, 10, 10, 20);
+    fuzzySet1->setPertinence(0.25);
+    fuzzyRuleAntecedent1->joinSingle(fuzzySet1);
 
     FuzzyRuleAntecedent *fuzzyRuleAntecedent2 = new FuzzyRuleAntecedent();
-    FuzzySet *temperatureLow = new FuzzySet(0, 10, 10, 20);
-    FuzzySet *pressureSmall = new FuzzySet(0, 10, 10, 20);
-    bool result2 = fuzzyRuleAntecedent2->joinWithOR(temperatureLow, pressureSmall);
+    FuzzySet *fuzzySet2 = new FuzzySet(10, 20, 20, 30);
+    fuzzySet2->setPertinence(0.75);
+    FuzzySet *fuzzySet3 = new FuzzySet(30, 40, 40, 50);
+    fuzzySet3->setPertinence(0.5);
+    fuzzyRuleAntecedent2->joinWithOR(fuzzySet2, fuzzySet3);
 
     FuzzyRuleAntecedent *fuzzyRuleAntecedent3 = new FuzzyRuleAntecedent();
-    bool result3 = fuzzyRuleAntecedent3->joinWithOR(fuzzyRuleAntecedent1, fuzzyRuleAntecedent2);
+    ASSERT_TRUE(fuzzyRuleAntecedent3->joinWithAND(fuzzyRuleAntecedent1, fuzzyRuleAntecedent2));
+    ASSERT_FLOAT_EQ(0.25, fuzzyRuleAntecedent3->evaluate());
+
     FuzzyRuleAntecedent *fuzzyRuleAntecedent4 = new FuzzyRuleAntecedent();
-
-    bool result4 = fuzzyRuleAntecedent4->joinWithOR(fuzzyRuleAntecedent1, pressureSmall);
-    FuzzyRuleAntecedent *fuzzyRuleAntecedent5 = new FuzzyRuleAntecedent();
-
-    bool result5 = fuzzyRuleAntecedent5->joinWithOR(temperatureLow, fuzzyRuleAntecedent2);
-
-    ASSERT_TRUE(result1);
-    ASSERT_TRUE(result2);
-    ASSERT_TRUE(result3);
-    ASSERT_TRUE(result4);
-    ASSERT_TRUE(result5);
-}
-
-TEST(FuzzyRuleAntecedent, evaluate)
-{
-    FuzzyRuleAntecedent *fuzzyRuleAntecedent1 = new FuzzyRuleAntecedent();
-
-    FuzzySet *riskMinimum = new FuzzySet(0, 10, 10, 20);
-    riskMinimum->setPertinence(0.5);
-    fuzzyRuleAntecedent1->joinSingle(riskMinimum);
-
-    FuzzyRuleAntecedent *fuzzyRuleAntecedent2 = new FuzzyRuleAntecedent();
-    FuzzySet *temperatureLow = new FuzzySet(0, 10, 10, 20);
-    temperatureLow->setPertinence(0.0);
-    FuzzySet *pressureSmall = new FuzzySet(0, 10, 10, 20);
-    pressureSmall->setPertinence(0.5);
-    fuzzyRuleAntecedent2->joinWithOR(temperatureLow, pressureSmall);
-
-    FuzzyRuleAntecedent *fuzzyRuleAntecedent3 = new FuzzyRuleAntecedent();
-    fuzzyRuleAntecedent3->joinWithAND(fuzzyRuleAntecedent1, fuzzyRuleAntecedent2);
-
-    float result = fuzzyRuleAntecedent3->evaluate();
-
-    ASSERT_GT(result, 0.0);
+    ASSERT_TRUE(fuzzyRuleAntecedent4->joinWithOR(fuzzyRuleAntecedent1, fuzzyRuleAntecedent2));
+    ASSERT_FLOAT_EQ(0.75, fuzzyRuleAntecedent4->evaluate());
 }
 
 // ##### FUZZYRULECONSEQUENTE
 
-TEST(FuzzyRuleConsequent, addOutput)
+TEST(FuzzyRuleConsequent, addOutputAndEvaluate)
 {
     FuzzyRuleConsequent *fuzzyRuleConsequent = new FuzzyRuleConsequent();
 
-    FuzzySet *fuzzySetTest = new FuzzySet(0, 10, 10, 20);
+    FuzzySet *fuzzySet1 = new FuzzySet(0, 10, 10, 20);
+    FuzzySet *fuzzySet2 = new FuzzySet(10, 20, 20, 30);
 
-    bool result = fuzzyRuleConsequent->addOutput(fuzzySetTest);
+    ASSERT_TRUE(fuzzyRuleConsequent->addOutput(fuzzySet1));
 
-    ASSERT_TRUE(result);
-}
+    fuzzyRuleConsequent->addOutput(fuzzySet2);
 
-TEST(FuzzyRuleConsequent, evaluate)
-{
-    FuzzyRuleConsequent *fuzzyRuleConsequent = new FuzzyRuleConsequent();
+    ASSERT_TRUE(fuzzyRuleConsequent->evaluate(0.5));
 
-    FuzzySet *fuzzySetTest = new FuzzySet(0, 10, 10, 20);
-
-    fuzzyRuleConsequent->addOutput(fuzzySetTest);
-
-    bool result = fuzzyRuleConsequent->evaluate(0.5);
-
-    ASSERT_TRUE(result);
+    ASSERT_FLOAT_EQ(0.5, fuzzySet1->getPertinence());
+    ASSERT_FLOAT_EQ(0.5, fuzzySet2->getPertinence());
 }
 
 // ##### FUZZYRULE
 
-TEST(FuzzyRule, getIndex)
+TEST(FuzzyRule, getIndexAndEvaluateExpressionAndIsFired)
 {
-    FuzzyRuleAntecedent *fuzzyRuleAntecedent = new FuzzyRuleAntecedent();
-    FuzzyRuleConsequent *fuzzyRuleConsequent = new FuzzyRuleConsequent();
-
-    FuzzyRule *fuzzyRule = new FuzzyRule(1, fuzzyRuleAntecedent, fuzzyRuleConsequent);
-
-    int result = fuzzyRule->getIndex();
-
-    ASSERT_EQ(1, result);
-}
-
-TEST(FuzzyRule, evaluateExpressionAndIsFired)
-{
-    FuzzyRuleAntecedent *fuzzyRuleAntecedent2 = new FuzzyRuleAntecedent();
-    FuzzySet *temperatureLow = new FuzzySet(0, 10, 10, 20);
-    temperatureLow->setPertinence(0.5);
-    FuzzySet *pressureSmall = new FuzzySet(0, 10, 10, 20);
-    pressureSmall->setPertinence(0.5);
-    fuzzyRuleAntecedent2->joinWithOR(temperatureLow, pressureSmall);
-
     FuzzyRuleAntecedent *fuzzyRuleAntecedent1 = new FuzzyRuleAntecedent();
-    FuzzySet *riskMinimum = new FuzzySet(0, 10, 10, 20);
-    riskMinimum->setPertinence(0.7);
-    fuzzyRuleAntecedent1->joinSingle(riskMinimum);
+    FuzzySet *fuzzySet = new FuzzySet(0, 10, 10, 20);
+    fuzzySet->setPertinence(0.75);
+    fuzzyRuleAntecedent1->joinSingle(fuzzySet);
+
+    FuzzyRuleAntecedent *fuzzyRuleAntecedent2 = new FuzzyRuleAntecedent();
+    FuzzySet *fuzzySet2 = new FuzzySet(0, 10, 10, 20);
+    fuzzySet2->setPertinence(0.25);
+    fuzzyRuleAntecedent2->joinSingle(fuzzySet2);
 
     FuzzyRuleAntecedent *fuzzyRuleAntecedent3 = new FuzzyRuleAntecedent();
-    fuzzyRuleAntecedent3->joinWithAND(fuzzyRuleAntecedent2, fuzzyRuleAntecedent1);
+    fuzzyRuleAntecedent3->joinWithAND(fuzzyRuleAntecedent1, fuzzyRuleAntecedent2);
 
     FuzzyRuleConsequent *fuzzyRuleConsequent = new FuzzyRuleConsequent();
-
-    FuzzySet *dangerLow = new FuzzySet(0, 10, 10, 20);
-
-    fuzzyRuleConsequent->addOutput(dangerLow);
+    FuzzySet *fuzzySet3 = new FuzzySet(0, 10, 10, 20);
+    fuzzyRuleConsequent->addOutput(fuzzySet3);
 
     FuzzyRule *fuzzyRule = new FuzzyRule(1, fuzzyRuleAntecedent3, fuzzyRuleConsequent);
 
-    bool result1 = fuzzyRule->evaluateExpression();
+    ASSERT_EQ(1, fuzzyRule->getIndex());
+    ASSERT_FALSE(fuzzyRule->isFired());
 
-    bool result2 = fuzzyRule->isFired();
+    ASSERT_TRUE(fuzzyRule->evaluateExpression());
 
-    ASSERT_TRUE(result1);
-    ASSERT_TRUE(result2);
+    ASSERT_TRUE(fuzzyRule->isFired());
 }
 
 // ##### FUZZY

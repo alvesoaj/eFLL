@@ -16,7 +16,6 @@
 FuzzyRuleConsequent::FuzzyRuleConsequent()
 {
     this->fuzzySetOutputs = NULL;
-    this->fuzzySetOutputsCursor = NULL;
 }
 
 // DESTRUCTOR
@@ -26,36 +25,54 @@ FuzzyRuleConsequent::~FuzzyRuleConsequent()
 }
 
 // PUBLIC METHODS
+
+// Method to include a new FuzzySet (for Output) into FuzzyRuleConsequent
 bool FuzzyRuleConsequent::addOutput(FuzzySet *fuzzySet)
 {
-    fuzzySetOutputArray *aux;
-    // Allocating in memory
-    if ((aux = (fuzzySetOutputArray *)malloc(sizeof(fuzzySetOutputArray))) == NULL)
+    // auxiliary variable to handle the operation
+    fuzzySetOutputArray *newOne;
+    // allocating in memory
+    if ((newOne = (fuzzySetOutputArray *)malloc(sizeof(fuzzySetOutputArray))) == NULL)
     {
+        // return false if in out of memory
         return false;
     }
-    aux->fuzzySet = fuzzySet;
-    aux->next = NULL;
-
+    // building the object
+    newOne->fuzzySet = fuzzySet;
+    newOne->next = NULL;
+    // if it is the first FuzzySet (for Output), set it as the head
     if (this->fuzzySetOutputs == NULL)
     {
-        this->fuzzySetOutputs = aux;
-        this->fuzzySetOutputsCursor = aux;
+        this->fuzzySetOutputs = newOne;
     }
     else
     {
-        this->fuzzySetOutputsCursor->next = aux;
-        this->fuzzySetOutputsCursor = aux;
+        // auxiliary variable to handle the operation
+        fuzzySetOutputArray *aux = this->fuzzySetOutputs;
+        // find the last element of the array
+        while (aux != NULL)
+        {
+            if (aux->next == NULL)
+            {
+                // make the ralations between them
+                aux->next = newOne;
+                return true;
+            }
+            aux = aux->next;
+        }
     }
     return true;
 }
 
+// Method to evaluate this FuzzyRuleConsequent
 bool FuzzyRuleConsequent::evaluate(float power)
 {
-    fuzzySetOutputArray *aux;
-    aux = this->fuzzySetOutputs;
+    // auxiliary variable to handle the operation
+    fuzzySetOutputArray *aux = this->fuzzySetOutputs;
+    // while not in the end of the array, iterate
     while (aux != NULL)
     {
+        // set the pertinence of each FuzzySet with the power
         aux->fuzzySet->setPertinence(power);
         aux = aux->next;
     }
@@ -63,12 +80,14 @@ bool FuzzyRuleConsequent::evaluate(float power)
 }
 
 // PRIVATE METHODS
+
+// Method to recursively clean all fuzzySetOutputArray from memory
 void FuzzyRuleConsequent::cleanFuzzySets(fuzzySetOutputArray *aux)
 {
     if (aux != NULL)
     {
-        // emptying allocated memory
         this->cleanFuzzySets(aux->next);
+        // emptying allocated memory
         free(aux);
     }
 }

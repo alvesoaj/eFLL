@@ -166,7 +166,7 @@ float FuzzyRuleAntecedent::evaluate()
             // case the operator is AND, check if both has pertinence bigger then 0.0
             if (this->fuzzySet1->getPertinence() > 0.0 && this->fuzzySet2->getPertinence() > 0.0)
             {
-                // in this case, return the bigger pertinence between two FuzzySet
+                // in this case, return the small pertinence between two FuzzySet
                 if (this->fuzzySet1->getPertinence() < this->fuzzySet2->getPertinence())
                 {
                     return this->fuzzySet1->getPertinence();
@@ -210,7 +210,7 @@ float FuzzyRuleAntecedent::evaluate()
             // case the operator is AND, check if both has pertinence bigger then 0.0
             if (this->fuzzySet1->getPertinence() > 0.0 && fuzzyRuleAntecedent1->evaluate() > 0.0)
             {
-                // in this case, return the bigger pertinence between two FuzzySet
+                // in this case, return the small pertinence between two FuzzySet
                 if (this->fuzzySet1->getPertinence() < fuzzyRuleAntecedent1->evaluate())
                 {
                     return this->fuzzySet1->getPertinence();
@@ -254,7 +254,7 @@ float FuzzyRuleAntecedent::evaluate()
             // case the operator is AND, check if both has pertinence bigger then 0.0
             if (fuzzyRuleAntecedent1->evaluate() > 0.0 && fuzzyRuleAntecedent2->evaluate() > 0.0)
             {
-                // in this case, return the bigger pertinence between two FuzzySet
+                // in this case, return the small pertinence between two FuzzySet
                 if (fuzzyRuleAntecedent1->evaluate() < fuzzyRuleAntecedent2->evaluate())
                 {
                     return fuzzyRuleAntecedent1->evaluate();
