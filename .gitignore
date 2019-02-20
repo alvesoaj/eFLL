@@ -3,3 +3,4 @@
 *.bin.dSYM
 uml/*
 .DS_Store
+.vscode
