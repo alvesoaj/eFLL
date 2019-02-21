@@ -1,14 +1,5 @@
-#include <iostream>
 #include "gtest/gtest.h"
 #include "../Fuzzy.h"
-#include "../FuzzyComposition.h"
-#include "../FuzzyIO.h"
-#include "../FuzzyInput.h"
-#include "../FuzzyOutput.h"
-#include "../FuzzyRule.h"
-#include "../FuzzyRuleAntecedent.h"
-#include "../FuzzyRuleConsequent.h"
-#include "../FuzzySet.h"
 
 // ##### Tests of FuzzySet
 
@@ -503,9 +494,9 @@ TEST(Fuzzy, setInputAndFuzzifyAndIsFiredRuleAndDefuzzify)
 }
 
 // ##### Tests from explanation Fuzzy System
-// https://www.massey.ac.nz/~nhreyes/MASSEY/159741/Lectures/Lec2012-3-159741-FuzzyLogic-v.2.pdf
 
-TEST(Fuzzy, testFromLibraryUsersSystemsOne)
+// From: https://www.massey.ac.nz/~nhreyes/MASSEY/159741/Lectures/Lec2012-3-159741-FuzzyLogic-v.2.pdf
+TEST(Fuzzy, testFromLectureSystemsOne)
 {
     Fuzzy *fuzzy = new Fuzzy();
 
@@ -586,563 +577,344 @@ TEST(Fuzzy, testFromLibraryUsersSystemsOne)
     ASSERT_FLOAT_EQ(0.3698, fuzzy->defuzzify(1));
 }
 
+// From: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.486.1238&rep=rep1&type=pdf
+TEST(Fuzzy, testFromLectureSystemsTwo)
+{
+    Fuzzy *fuzzy = new Fuzzy();
+
+    // FuzzyInput
+    FuzzyInput *temperature = new FuzzyInput(1);
+
+    FuzzySet *veryLow = new FuzzySet(-5, -5, 0, 15);
+    temperature->addFuzzySet(veryLow);
+    FuzzySet *low = new FuzzySet(10, 20, 20, 30);
+    temperature->addFuzzySet(low);
+    FuzzySet *high = new FuzzySet(25, 30, 30, 35);
+    temperature->addFuzzySet(high);
+    FuzzySet *veryHigh = new FuzzySet(30, 45, 50, 50);
+    temperature->addFuzzySet(veryHigh);
+
+    fuzzy->addFuzzyInput(temperature);
+
+    // FuzzyInput
+    FuzzyInput *humidity = new FuzzyInput(2);
+
+    FuzzySet *dry = new FuzzySet(-5, -5, 0, 30);
+    humidity->addFuzzySet(dry);
+    FuzzySet *comfortable = new FuzzySet(20, 35, 35, 50);
+    humidity->addFuzzySet(comfortable);
+    FuzzySet *humid = new FuzzySet(40, 55, 55, 70);
+    humidity->addFuzzySet(humid);
+    FuzzySet *sticky = new FuzzySet(60, 100, 105, 105);
+    humidity->addFuzzySet(sticky);
+
+    fuzzy->addFuzzyInput(humidity);
+
+    // FuzzyOutput
+    FuzzyOutput *speed = new FuzzyOutput(1);
+
+    FuzzySet *off = new FuzzySet(0, 0, 0, 0);
+    speed->addFuzzySet(off);
+    FuzzySet *lowHumidity = new FuzzySet(30, 45, 45, 60);
+    speed->addFuzzySet(lowHumidity);
+    FuzzySet *medium = new FuzzySet(50, 65, 65, 80);
+    speed->addFuzzySet(medium);
+    FuzzySet *fast = new FuzzySet(70, 90, 95, 95);
+    speed->addFuzzySet(fast);
+
+    fuzzy->addFuzzyOutput(speed);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifVeryLowAndDry = new FuzzyRuleAntecedent();
+    ifVeryLowAndDry->joinWithAND(veryLow, dry);
+    FuzzyRuleConsequent *thenOff1 = new FuzzyRuleConsequent();
+    thenOff1->addOutput(off);
+    FuzzyRule *fuzzyRule1 = new FuzzyRule(1, ifVeryLowAndDry, thenOff1);
+    fuzzy->addFuzzyRule(fuzzyRule1);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifVeryLowAndComfortable = new FuzzyRuleAntecedent();
+    ifVeryLowAndComfortable->joinWithAND(veryLow, comfortable);
+    FuzzyRuleConsequent *thenOff2 = new FuzzyRuleConsequent();
+    thenOff2->addOutput(off);
+    FuzzyRule *fuzzyRule2 = new FuzzyRule(2, ifVeryLowAndComfortable, thenOff2);
+    fuzzy->addFuzzyRule(fuzzyRule2);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifVeryLowAndHumid = new FuzzyRuleAntecedent();
+    ifVeryLowAndHumid->joinWithAND(veryLow, humid);
+    FuzzyRuleConsequent *thenOff3 = new FuzzyRuleConsequent();
+    thenOff3->addOutput(off);
+    FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifVeryLowAndHumid, thenOff3);
+    fuzzy->addFuzzyRule(fuzzyRule3);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifVeryLowAndSticky = new FuzzyRuleAntecedent();
+    ifVeryLowAndSticky->joinWithAND(veryLow, sticky);
+    FuzzyRuleConsequent *thenLow1 = new FuzzyRuleConsequent();
+    thenLow1->addOutput(lowHumidity);
+    FuzzyRule *fuzzyRule4 = new FuzzyRule(4, ifVeryLowAndSticky, thenLow1);
+    fuzzy->addFuzzyRule(fuzzyRule4);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifLowAndDry = new FuzzyRuleAntecedent();
+    ifLowAndDry->joinWithAND(low, dry);
+    FuzzyRuleConsequent *thenOff4 = new FuzzyRuleConsequent();
+    thenOff4->addOutput(off);
+    FuzzyRule *fuzzyRule5 = new FuzzyRule(5, ifLowAndDry, thenOff4);
+    fuzzy->addFuzzyRule(fuzzyRule5);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifLowAndComfortable = new FuzzyRuleAntecedent();
+    ifLowAndComfortable->joinWithAND(low, comfortable);
+    FuzzyRuleConsequent *thenOff5 = new FuzzyRuleConsequent();
+    thenOff5->addOutput(off);
+    FuzzyRule *fuzzyRule6 = new FuzzyRule(6, ifLowAndComfortable, thenOff5);
+    fuzzy->addFuzzyRule(fuzzyRule6);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifLowAndHumid = new FuzzyRuleAntecedent();
+    ifLowAndHumid->joinWithAND(low, humid);
+    FuzzyRuleConsequent *thenLow2 = new FuzzyRuleConsequent();
+    thenLow2->addOutput(lowHumidity);
+    FuzzyRule *fuzzyRule7 = new FuzzyRule(7, ifLowAndHumid, thenLow2);
+    fuzzy->addFuzzyRule(fuzzyRule7);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifLowAndSticky = new FuzzyRuleAntecedent();
+    ifLowAndSticky->joinWithAND(low, sticky);
+    FuzzyRuleConsequent *thenMedium1 = new FuzzyRuleConsequent();
+    thenMedium1->addOutput(medium);
+    FuzzyRule *fuzzyRule8 = new FuzzyRule(8, ifLowAndSticky, thenMedium1);
+    fuzzy->addFuzzyRule(fuzzyRule8);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifHighAndDry = new FuzzyRuleAntecedent();
+    ifHighAndDry->joinWithAND(high, dry);
+    FuzzyRuleConsequent *thenLow3 = new FuzzyRuleConsequent();
+    thenLow3->addOutput(lowHumidity);
+    FuzzyRule *fuzzyRule9 = new FuzzyRule(9, ifHighAndDry, thenLow3);
+    fuzzy->addFuzzyRule(fuzzyRule9);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifHighAndComfortable = new FuzzyRuleAntecedent();
+    ifHighAndComfortable->joinWithAND(high, comfortable);
+    FuzzyRuleConsequent *thenMedium2 = new FuzzyRuleConsequent();
+    thenMedium2->addOutput(medium);
+    FuzzyRule *fuzzyRule10 = new FuzzyRule(10, ifHighAndComfortable, thenMedium2);
+    fuzzy->addFuzzyRule(fuzzyRule10);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifHighAndHumid = new FuzzyRuleAntecedent();
+    ifHighAndHumid->joinWithAND(high, humid);
+    FuzzyRuleConsequent *thenFast1 = new FuzzyRuleConsequent();
+    thenFast1->addOutput(fast);
+    FuzzyRule *fuzzyRule11 = new FuzzyRule(11, ifHighAndHumid, thenFast1);
+    fuzzy->addFuzzyRule(fuzzyRule11);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifHighAndSticky = new FuzzyRuleAntecedent();
+    ifHighAndSticky->joinWithAND(high, sticky);
+    FuzzyRuleConsequent *thenFast2 = new FuzzyRuleConsequent();
+    thenFast2->addOutput(fast);
+    FuzzyRule *fuzzyRule12 = new FuzzyRule(12, ifHighAndSticky, thenFast2);
+    fuzzy->addFuzzyRule(fuzzyRule12);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifVeryHighAndDry = new FuzzyRuleAntecedent();
+    ifVeryHighAndDry->joinWithAND(veryHigh, dry);
+    FuzzyRuleConsequent *thenMedium3 = new FuzzyRuleConsequent();
+    thenMedium3->addOutput(medium);
+    FuzzyRule *fuzzyRule13 = new FuzzyRule(13, ifVeryHighAndDry, thenMedium3);
+    fuzzy->addFuzzyRule(fuzzyRule13);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifVeryHighAndComfortable = new FuzzyRuleAntecedent();
+    ifVeryHighAndComfortable->joinWithAND(veryHigh, comfortable);
+    FuzzyRuleConsequent *thenFast3 = new FuzzyRuleConsequent();
+    thenFast3->addOutput(fast);
+    FuzzyRule *fuzzyRule14 = new FuzzyRule(14, ifVeryHighAndComfortable, thenFast3);
+    fuzzy->addFuzzyRule(fuzzyRule14);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifVeryHighAndHumid = new FuzzyRuleAntecedent();
+    ifVeryHighAndHumid->joinWithAND(veryHigh, humid);
+    FuzzyRuleConsequent *thenFast4 = new FuzzyRuleConsequent();
+    thenFast4->addOutput(fast);
+    FuzzyRule *fuzzyRule15 = new FuzzyRule(15, ifVeryHighAndHumid, thenFast4);
+    fuzzy->addFuzzyRule(fuzzyRule15);
+
+    // Building FuzzyRule
+    FuzzyRuleAntecedent *ifVeryHighAndSticky = new FuzzyRuleAntecedent();
+    ifVeryHighAndSticky->joinWithAND(veryHigh, sticky);
+    FuzzyRuleConsequent *thenFast5 = new FuzzyRuleConsequent();
+    thenFast5->addOutput(fast);
+    FuzzyRule *fuzzyRule16 = new FuzzyRule(16, ifVeryHighAndSticky, thenFast5);
+    fuzzy->addFuzzyRule(fuzzyRule16);
+
+    // run it
+    fuzzy->setInput(1, 2);
+    fuzzy->setInput(2, 25);
+    fuzzy->fuzzify();
+
+    ASSERT_FLOAT_EQ(0.3698, fuzzy->defuzzify(1));
+}
+
 // ##### Tests from real systems, received from eFLL users
 
-TEST(Fuzzy, testFromLibraryUsersSystemsTwo)
+// From miss Casco (Paraguay)
+TEST(Fuzzy, testFromLibraryUsersSystemsCasco)
 {
     Fuzzy *fuzzy = new Fuzzy();
 
     // FuzzyInput
-    FuzzyInput *temperature = new FuzzyInput(1);
+    FuzzyInput *humedad = new FuzzyInput(1);
 
-    FuzzySet *low = new FuzzySet(0, 10, 10, 20);
-    temperature->addFuzzySet(low);
-    FuzzySet *mean = new FuzzySet(10, 20, 30, 40);
-    temperature->addFuzzySet(mean);
-    FuzzySet *high = new FuzzySet(30, 40, 40, 50);
-    temperature->addFuzzySet(high);
+    FuzzySet *seco = new FuzzySet(0, 0, 0, 42.5);
+    humedad->addFuzzySet(seco);
+    FuzzySet *humedo = new FuzzySet(37.5, 60, 60, 82.5);
+    humedad->addFuzzySet(humedo);
+    FuzzySet *encharcado = new FuzzySet(77.5, 100, 100, 100);
+    humedad->addFuzzySet(encharcado);
 
-    fuzzy->addFuzzyInput(temperature);
+    fuzzy->addFuzzyInput(humedad);
 
     // FuzzyInput
-    FuzzyInput *pressure = new FuzzyInput(2);
+    FuzzyInput *temperatura = new FuzzyInput(2);
 
-    FuzzySet *small = new FuzzySet(0, 10, 10, 20);
-    pressure->addFuzzySet(small);
-    FuzzySet *normal = new FuzzySet(10, 20, 30, 40);
-    pressure->addFuzzySet(normal);
-    FuzzySet *big = new FuzzySet(30, 40, 40, 50);
-    pressure->addFuzzySet(big);
+    FuzzySet *frio = new FuzzySet(-5, -5, -5, 12.5);
+    temperatura->addFuzzySet(frio);
+    FuzzySet *templado = new FuzzySet(7.5, 17.5, 17.5, 27.5);
+    temperatura->addFuzzySet(templado);
+    FuzzySet *calor = new FuzzySet(22.5, 45, 45, 45);
+    temperatura->addFuzzySet(calor);
 
-    fuzzy->addFuzzyInput(pressure);
+    fuzzy->addFuzzyInput(temperatura);
 
     // FuzzyOutput
-    FuzzyOutput *risk = new FuzzyOutput(1);
+    FuzzyOutput *tiempo = new FuzzyOutput(1);
 
-    FuzzySet *minimum = new FuzzySet(0, 10, 10, 20);
-    risk->addFuzzySet(minimum);
-    FuzzySet *average = new FuzzySet(10, 20, 30, 40);
-    risk->addFuzzySet(average);
-    FuzzySet *maximum = new FuzzySet(30, 40, 40, 50);
-    risk->addFuzzySet(maximum);
+    FuzzySet *nada = new FuzzySet(0, 0, 0, 0);
+    tiempo->addFuzzySet(nada);
+    FuzzySet *muyPoco = new FuzzySet(0, 0, 0, 5.5);
+    tiempo->addFuzzySet(muyPoco);
+    FuzzySet *poco = new FuzzySet(4.5, 7.5, 7.5, 10.5);
+    tiempo->addFuzzySet(poco);
+    FuzzySet *medio = new FuzzySet(9.5, 12.5, 12.5, 15.5);
+    tiempo->addFuzzySet(medio);
+    FuzzySet *bastante = new FuzzySet(14.5, 17.5, 17.5, 20.5);
+    tiempo->addFuzzySet(bastante);
+    FuzzySet *mucho = new FuzzySet(19.5, 22.5, 22.5, 25.5);
+    tiempo->addFuzzySet(mucho);
+    FuzzySet *muchisimo = new FuzzySet(24.5, 30, 30, 30);
+    tiempo->addFuzzySet(muchisimo);
 
-    fuzzy->addFuzzyOutput(risk);
+    fuzzy->addFuzzyOutput(tiempo);
 
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureLowAndPressureSmall = new FuzzyRuleAntecedent();
-    ifTemperatureLowAndPressureSmall->joinWithAND(low, small);
-    FuzzyRuleConsequent *thenRiskMinimum = new FuzzyRuleConsequent();
-    thenRiskMinimum->addOutput(minimum);
+    // ############## Rule 1
+    FuzzyRuleAntecedent *humedadSecoandTemperaturaFrio = new FuzzyRuleAntecedent();
+    humedadSecoandTemperaturaFrio->joinWithAND(seco, frio);
+    FuzzyRuleConsequent *thenMedio_1 = new FuzzyRuleConsequent();
+    thenMedio_1->addOutput(medio);
 
-    FuzzyRule *fuzzyRule1 = new FuzzyRule(1, ifTemperatureLowAndPressureSmall, thenRiskMinimum);
+    FuzzyRule *fuzzyRule1 = new FuzzyRule(1, humedadSecoandTemperaturaFrio, thenMedio_1);
     fuzzy->addFuzzyRule(fuzzyRule1);
 
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureMeanAndPressureNormal = new FuzzyRuleAntecedent();
-    ifTemperatureMeanAndPressureNormal->joinWithAND(mean, normal);
-    FuzzyRuleConsequent *theRiskAverage = new FuzzyRuleConsequent();
-    theRiskAverage->addOutput(average);
+    // ############## Rule 2
+    FuzzyRuleAntecedent *humedadHumedoandTemperaturaFrio = new FuzzyRuleAntecedent();
+    humedadHumedoandTemperaturaFrio->joinWithAND(humedo, frio);
+    FuzzyRuleConsequent *thenMuyPoco_1 = new FuzzyRuleConsequent();
+    thenMuyPoco_1->addOutput(muyPoco);
 
-    FuzzyRule *fuzzyRule2 = new FuzzyRule(2, ifTemperatureMeanAndPressureNormal, theRiskAverage);
+    FuzzyRule *fuzzyRule2 = new FuzzyRule(2, humedadHumedoandTemperaturaFrio, thenMuyPoco_1);
     fuzzy->addFuzzyRule(fuzzyRule2);
 
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureHighAndPressureBig = new FuzzyRuleAntecedent();
-    ifTemperatureHighAndPressureBig->joinWithAND(high, big);
-    FuzzyRuleConsequent *thenRiskMaximum = new FuzzyRuleConsequent();
-    thenRiskMaximum->addOutput(maximum);
+    // ############## Rule 3
+    FuzzyRuleAntecedent *humedadEncharcadoandTemperaturaFrio = new FuzzyRuleAntecedent();
+    humedadEncharcadoandTemperaturaFrio->joinWithAND(encharcado, frio);
+    FuzzyRuleConsequent *thenNada_1 = new FuzzyRuleConsequent();
+    thenNada_1->addOutput(nada);
 
-    FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifTemperatureHighAndPressureBig, thenRiskMaximum);
+    FuzzyRule *fuzzyRule3 = new FuzzyRule(3, humedadEncharcadoandTemperaturaFrio, thenNada_1);
     fuzzy->addFuzzyRule(fuzzyRule3);
 
-    fuzzy->setInput(1, 15);
-    fuzzy->setInput(2, 35);
+    // ############## Rule 4
+    FuzzyRuleAntecedent *humedadSecoandTemperaturaTemplado = new FuzzyRuleAntecedent();
+    humedadSecoandTemperaturaTemplado->joinWithAND(seco, templado);
+    FuzzyRuleConsequent *thenBastante = new FuzzyRuleConsequent();
+    thenBastante->addOutput(bastante);
+
+    FuzzyRule *fuzzyRule4 = new FuzzyRule(4, humedadSecoandTemperaturaTemplado, thenBastante);
+    fuzzy->addFuzzyRule(fuzzyRule4);
+
+    // ############## Rule 5
+    FuzzyRuleAntecedent *humedadHumedoandTemperaturaTemplado = new FuzzyRuleAntecedent();
+    humedadHumedoandTemperaturaTemplado->joinWithAND(humedo, templado);
+    FuzzyRuleConsequent *thenMedio_2 = new FuzzyRuleConsequent();
+    thenMedio_2->addOutput(medio);
+
+    FuzzyRule *fuzzyRule5 = new FuzzyRule(5, humedadHumedoandTemperaturaTemplado, thenMedio_2);
+    fuzzy->addFuzzyRule(fuzzyRule5);
+
+    // ############## Rule 6
+    FuzzyRuleAntecedent *humedadEncharcadoandTemperaturaTemplado = new FuzzyRuleAntecedent();
+    humedadEncharcadoandTemperaturaTemplado->joinWithAND(encharcado, templado);
+    FuzzyRuleConsequent *thenMuyPoco_2 = new FuzzyRuleConsequent();
+    thenMuyPoco_2->addOutput(muyPoco);
+
+    FuzzyRule *fuzzyRule6 = new FuzzyRule(6, humedadEncharcadoandTemperaturaTemplado, thenMuyPoco_2);
+    fuzzy->addFuzzyRule(fuzzyRule6);
+
+    // ############## Rule 7
+    FuzzyRuleAntecedent *humedadSecoandTemperaturaCalor = new FuzzyRuleAntecedent();
+    humedadSecoandTemperaturaCalor->joinWithAND(seco, calor);
+    FuzzyRuleConsequent *thenMucho = new FuzzyRuleConsequent();
+    thenMucho->addOutput(mucho);
+
+    FuzzyRule *fuzzyRule7 = new FuzzyRule(7, humedadSecoandTemperaturaCalor, thenMucho);
+    fuzzy->addFuzzyRule(fuzzyRule7);
+
+    // ############## Rule 8
+    FuzzyRuleAntecedent *humedadHumedoandTemperaturaCalor = new FuzzyRuleAntecedent();
+    humedadHumedoandTemperaturaCalor->joinWithAND(humedo, calor);
+    FuzzyRuleConsequent *thenMuchisimo = new FuzzyRuleConsequent();
+    thenMuchisimo->addOutput(muchisimo);
+
+    FuzzyRule *fuzzyRule8 = new FuzzyRule(8, humedadHumedoandTemperaturaCalor, thenBastante);
+    fuzzy->addFuzzyRule(fuzzyRule8);
+
+    // ############## Rule 9
+    FuzzyRuleAntecedent *humedadEncharcadoandTemperaturaCalor = new FuzzyRuleAntecedent();
+    humedadEncharcadoandTemperaturaCalor->joinWithAND(encharcado, calor);
+    FuzzyRuleConsequent *thenNada_2 = new FuzzyRuleConsequent();
+    thenNada_2->addOutput(nada);
+
+    FuzzyRule *fuzzyRule9 = new FuzzyRule(9, humedadEncharcadoandTemperaturaCalor, thenNada_2);
+    fuzzy->addFuzzyRule(fuzzyRule9);
+
+    // TEST 01
+    fuzzy->setInput(1, 78.4);
+    fuzzy->setInput(2, 42.5);
 
     fuzzy->fuzzify();
 
-    float output = fuzzy->defuzzify(1);
+    EXPECT_FLOAT_EQ(17.3, fuzzy->defuzzify(1));
 
-    ASSERT_GT(output, 0.0);
-}
-
-TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify03)
-{
-    Fuzzy *fuzzy = new Fuzzy();
-
-    // FuzzyInput
-    FuzzyInput *temperature = new FuzzyInput(1);
-
-    FuzzySet *low = new FuzzySet(-30, -20, -20, -10);
-    temperature->addFuzzySet(low);
-    FuzzySet *mean = new FuzzySet(-20, -10, 10, 20);
-    temperature->addFuzzySet(mean);
-    FuzzySet *high = new FuzzySet(10, 20, 20, 30);
-    temperature->addFuzzySet(high);
-
-    fuzzy->addFuzzyInput(temperature);
-
-    // FuzzyInput
-    FuzzyInput *pressure = new FuzzyInput(2);
-
-    FuzzySet *small = new FuzzySet(-30, -20, -20, -10);
-    pressure->addFuzzySet(small);
-    FuzzySet *normal = new FuzzySet(-20, -10, 10, 20);
-    pressure->addFuzzySet(normal);
-    FuzzySet *big = new FuzzySet(10, 20, 20, 30);
-    pressure->addFuzzySet(big);
-
-    fuzzy->addFuzzyInput(pressure);
-
-    // FuzzyOutput
-    FuzzyOutput *risk = new FuzzyOutput(1);
-
-    FuzzySet *minimum = new FuzzySet(-30, -20, -20, -10);
-    risk->addFuzzySet(minimum);
-    FuzzySet *average = new FuzzySet(-20, -10, 10, 20);
-    risk->addFuzzySet(average);
-    FuzzySet *maximum = new FuzzySet(10, 20, 20, 30);
-    risk->addFuzzySet(maximum);
-
-    fuzzy->addFuzzyOutput(risk);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureLowAndPressureSmall = new FuzzyRuleAntecedent();
-    ifTemperatureLowAndPressureSmall->joinWithAND(low, small);
-    FuzzyRuleConsequent *thenRiskMinimum = new FuzzyRuleConsequent();
-    thenRiskMinimum->addOutput(minimum);
-
-    FuzzyRule *fuzzyRule1 = new FuzzyRule(1, ifTemperatureLowAndPressureSmall, thenRiskMinimum);
-    fuzzy->addFuzzyRule(fuzzyRule1);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureMeanAndPressureNormal = new FuzzyRuleAntecedent();
-    ifTemperatureMeanAndPressureNormal->joinWithAND(mean, normal);
-    FuzzyRuleConsequent *theRiskAverage = new FuzzyRuleConsequent();
-    theRiskAverage->addOutput(average);
-
-    FuzzyRule *fuzzyRule2 = new FuzzyRule(2, ifTemperatureMeanAndPressureNormal, theRiskAverage);
-    fuzzy->addFuzzyRule(fuzzyRule2);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureHighAndPressureBig = new FuzzyRuleAntecedent();
-    ifTemperatureHighAndPressureBig->joinWithAND(high, big);
-    FuzzyRuleConsequent *thenRiskMaximum = new FuzzyRuleConsequent();
-    thenRiskMaximum->addOutput(maximum);
-
-    FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifTemperatureHighAndPressureBig, thenRiskMaximum);
-    fuzzy->addFuzzyRule(fuzzyRule3);
-
-    fuzzy->setInput(1, -25);
-    fuzzy->setInput(2, -15);
+    // TEST 02
+    fuzzy->setInput(1, 81.2);
+    fuzzy->setInput(2, 26.1);
 
     fuzzy->fuzzify();
 
-    bool fuzzyRule1IsFired = fuzzy->isFiredRule(1);
+    EXPECT_FLOAT_EQ(8.28, fuzzy->defuzzify(1));
 
-    float output = fuzzy->defuzzify(1);
-
-    ASSERT_GT(0.0, output);
-    ASSERT_TRUE(fuzzyRule1IsFired);
-}
-
-TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify04)
-{
-    Fuzzy *fuzzy = new Fuzzy();
-
-    // FuzzyInput
-    FuzzyInput *temperature = new FuzzyInput(1);
-
-    FuzzySet *low = new FuzzySet(-20, -20, -20, -10);
-    temperature->addFuzzySet(low);
-    FuzzySet *mean = new FuzzySet(-20, -10, 10, 20);
-    temperature->addFuzzySet(mean);
-    FuzzySet *high = new FuzzySet(10, 20, 20, 20);
-    temperature->addFuzzySet(high);
-
-    fuzzy->addFuzzyInput(temperature);
-
-    // FuzzyInput
-    FuzzyInput *pressure = new FuzzyInput(2);
-
-    FuzzySet *small = new FuzzySet(-20, -20, -20, -10);
-    pressure->addFuzzySet(small);
-    FuzzySet *normal = new FuzzySet(-20, -10, 10, 20);
-    pressure->addFuzzySet(normal);
-    FuzzySet *big = new FuzzySet(10, 20, 20, 20);
-    pressure->addFuzzySet(big);
-
-    fuzzy->addFuzzyInput(pressure);
-
-    // FuzzyOutput
-    FuzzyOutput *risk = new FuzzyOutput(1);
-
-    FuzzySet *minimum = new FuzzySet(-20, -20, -20, -10);
-    risk->addFuzzySet(minimum);
-    FuzzySet *average = new FuzzySet(-20, -10, 10, 20);
-    risk->addFuzzySet(average);
-    FuzzySet *maximum = new FuzzySet(10, 20, 20, 20);
-    risk->addFuzzySet(maximum);
-
-    fuzzy->addFuzzyOutput(risk);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureLowAndPressureSmall = new FuzzyRuleAntecedent();
-    ifTemperatureLowAndPressureSmall->joinWithAND(low, small);
-    FuzzyRuleConsequent *thenRiskMinimum = new FuzzyRuleConsequent();
-    thenRiskMinimum->addOutput(minimum);
-
-    FuzzyRule *fuzzyRule1 = new FuzzyRule(1, ifTemperatureLowAndPressureSmall, thenRiskMinimum);
-    fuzzy->addFuzzyRule(fuzzyRule1);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureMeanAndPressureNormal = new FuzzyRuleAntecedent();
-    ifTemperatureMeanAndPressureNormal->joinWithAND(mean, normal);
-    FuzzyRuleConsequent *theRiskAverage = new FuzzyRuleConsequent();
-    theRiskAverage->addOutput(average);
-
-    FuzzyRule *fuzzyRule2 = new FuzzyRule(2, ifTemperatureMeanAndPressureNormal, theRiskAverage);
-    fuzzy->addFuzzyRule(fuzzyRule2);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureHighAndPressureBig = new FuzzyRuleAntecedent();
-    ifTemperatureHighAndPressureBig->joinWithAND(high, big);
-    FuzzyRuleConsequent *thenRiskMaximum = new FuzzyRuleConsequent();
-    thenRiskMaximum->addOutput(maximum);
-
-    FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifTemperatureHighAndPressureBig, thenRiskMaximum);
-    fuzzy->addFuzzyRule(fuzzyRule3);
-
-    fuzzy->setInput(1, -25);
-    fuzzy->setInput(2, -15);
+    // TEST 03
+    fuzzy->setInput(1, 81.2);
+    fuzzy->setInput(2, 33.9);
 
     fuzzy->fuzzify();
 
-    float output = fuzzy->defuzzify(1);
-
-    ASSERT_EQ(0.0, output);
-}
-
-TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify05)
-{
-    Fuzzy *fuzzy = new Fuzzy();
-
-    // FuzzyInput
-    FuzzyInput *temperature = new FuzzyInput(1);
-
-    FuzzySet *low = new FuzzySet(-20, -20, -20, -20);
-    temperature->addFuzzySet(low);
-    FuzzySet *mean = new FuzzySet(-10, -10, -10, -10);
-    temperature->addFuzzySet(mean);
-    FuzzySet *high = new FuzzySet(10, 10, 10, 10);
-    temperature->addFuzzySet(high);
-
-    fuzzy->addFuzzyInput(temperature);
-
-    // FuzzyInput
-    FuzzyInput *pressure = new FuzzyInput(2);
-
-    FuzzySet *small = new FuzzySet(-20, -20, -20, -20);
-    pressure->addFuzzySet(small);
-    FuzzySet *normal = new FuzzySet(-10, -10, -10, -10);
-    pressure->addFuzzySet(normal);
-    FuzzySet *big = new FuzzySet(10, 10, 10, 10);
-    pressure->addFuzzySet(big);
-
-    fuzzy->addFuzzyInput(pressure);
-
-    // FuzzyOutput
-    FuzzyOutput *risk = new FuzzyOutput(1);
-
-    FuzzySet *minimum = new FuzzySet(-20, -20, -20, -20);
-    risk->addFuzzySet(minimum);
-    FuzzySet *average = new FuzzySet(-10, -10, -10, -10);
-    risk->addFuzzySet(average);
-    FuzzySet *maximum = new FuzzySet(10, 10, 10, 10);
-    risk->addFuzzySet(maximum);
-
-    fuzzy->addFuzzyOutput(risk);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureLowAndPressureSmall = new FuzzyRuleAntecedent();
-    ifTemperatureLowAndPressureSmall->joinWithAND(low, small);
-    FuzzyRuleConsequent *thenRiskMinimum = new FuzzyRuleConsequent();
-    thenRiskMinimum->addOutput(minimum);
-
-    FuzzyRule *fuzzyRule1 = new FuzzyRule(1, ifTemperatureLowAndPressureSmall, thenRiskMinimum);
-    fuzzy->addFuzzyRule(fuzzyRule1);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureMeanAndPressureNormal = new FuzzyRuleAntecedent();
-    ifTemperatureMeanAndPressureNormal->joinWithAND(mean, normal);
-    FuzzyRuleConsequent *theRiskAverage = new FuzzyRuleConsequent();
-    theRiskAverage->addOutput(average);
-
-    FuzzyRule *fuzzyRule2 = new FuzzyRule(2, ifTemperatureMeanAndPressureNormal, theRiskAverage);
-    fuzzy->addFuzzyRule(fuzzyRule2);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifTemperatureHighAndPressureBig = new FuzzyRuleAntecedent();
-    ifTemperatureHighAndPressureBig->joinWithAND(high, big);
-    FuzzyRuleConsequent *thenRiskMaximum = new FuzzyRuleConsequent();
-    thenRiskMaximum->addOutput(maximum);
-
-    FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifTemperatureHighAndPressureBig, thenRiskMaximum);
-    fuzzy->addFuzzyRule(fuzzyRule3);
-
-    fuzzy->setInput(1, -20);
-    fuzzy->setInput(2, -15);
-
-    fuzzy->fuzzify();
-
-    float output = fuzzy->defuzzify(1);
-
-    ASSERT_EQ(0.0, output);
-}
-
-TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify06)
-{
-    Fuzzy *fuzzy = new Fuzzy();
-
-    // FuzzyInput
-    FuzzyInput *distance = new FuzzyInput(1);
-
-    FuzzySet *close = new FuzzySet(0, 20, 20, 40);
-    distance->addFuzzySet(close);
-    FuzzySet *safe = new FuzzySet(30, 50, 50, 70);
-    distance->addFuzzySet(safe);
-    FuzzySet *distante = new FuzzySet(60, 80, 100, 100);
-    distance->addFuzzySet(distante);
-
-    fuzzy->addFuzzyInput(distance);
-
-    // FuzzyInput
-    FuzzyInput *inputSpeed = new FuzzyInput(2);
-
-    FuzzySet *stoped = new FuzzySet(0, 0, 0, 0);
-    inputSpeed->addFuzzySet(stoped);
-    FuzzySet *slow = new FuzzySet(1, 10, 10, 20);
-    inputSpeed->addFuzzySet(slow);
-    FuzzySet *normal = new FuzzySet(15, 30, 30, 50);
-    inputSpeed->addFuzzySet(normal);
-    FuzzySet *quick = new FuzzySet(45, 60, 70, 70);
-    inputSpeed->addFuzzySet(quick);
-
-    fuzzy->addFuzzyInput(inputSpeed);
-
-    // FuzzyInput
-    FuzzyInput *temperature = new FuzzyInput(3);
-
-    FuzzySet *cold = new FuzzySet(-30, -30, -20, -10);
-    temperature->addFuzzySet(cold);
-    FuzzySet *good = new FuzzySet(-15, 0, 0, 15);
-    temperature->addFuzzySet(good);
-    FuzzySet *hot = new FuzzySet(10, 20, 30, 30);
-    temperature->addFuzzySet(hot);
-
-    fuzzy->addFuzzyInput(temperature);
-
-    // FuzzyOutput
-    FuzzyOutput *risk = new FuzzyOutput(1);
-
-    FuzzySet *minimum = new FuzzySet(0, 20, 20, 40);
-    risk->addFuzzySet(minimum);
-    FuzzySet *average = new FuzzySet(30, 50, 50, 70);
-    risk->addFuzzySet(average);
-    FuzzySet *maximum = new FuzzySet(60, 80, 80, 100);
-    risk->addFuzzySet(maximum);
-
-    fuzzy->addFuzzyOutput(risk);
-
-    // FuzzyOutput
-    // adicionando speed como output também
-    FuzzyOutput *outputSpeed = new FuzzyOutput(2);
-
-    FuzzySet *stopedOut = new FuzzySet(0, 0, 0, 0);
-    outputSpeed->addFuzzySet(stopedOut);
-    FuzzySet *slowOut = new FuzzySet(1, 10, 10, 20);
-    outputSpeed->addFuzzySet(slowOut);
-    FuzzySet *normalOut = new FuzzySet(15, 30, 30, 50);
-    outputSpeed->addFuzzySet(normalOut);
-    FuzzySet *quickOut = new FuzzySet(45, 60, 70, 70);
-    outputSpeed->addFuzzySet(quickOut);
-
-    fuzzy->addFuzzyOutput(outputSpeed);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *distanceCloseAndSpeedQuick = new FuzzyRuleAntecedent();
-    distanceCloseAndSpeedQuick->joinWithAND(close, quick);
-    FuzzyRuleAntecedent *temperatureCold = new FuzzyRuleAntecedent();
-    temperatureCold->joinSingle(cold);
-    FuzzyRuleAntecedent *ifDistanceCloseAndSpeedQuickOrTemperatureCold = new FuzzyRuleAntecedent();
-    ifDistanceCloseAndSpeedQuickOrTemperatureCold->joinWithOR(distanceCloseAndSpeedQuick, temperatureCold);
-
-    FuzzyRuleConsequent *thenRisMaximumAndSpeedSlow = new FuzzyRuleConsequent();
-    thenRisMaximumAndSpeedSlow->addOutput(maximum);
-    thenRisMaximumAndSpeedSlow->addOutput(slowOut);
-
-    FuzzyRule *fuzzyRule1 = new FuzzyRule(1, ifDistanceCloseAndSpeedQuickOrTemperatureCold, thenRisMaximumAndSpeedSlow);
-    fuzzy->addFuzzyRule(fuzzyRule1);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *distanceSafeAndSpeedNormal = new FuzzyRuleAntecedent();
-    distanceSafeAndSpeedNormal->joinWithAND(safe, normal);
-    FuzzyRuleAntecedent *ifDistanceSafeAndSpeedNormalOrTemperatureGood = new FuzzyRuleAntecedent();
-    ifDistanceSafeAndSpeedNormalOrTemperatureGood->joinWithOR(distanceSafeAndSpeedNormal, good);
-
-    FuzzyRuleConsequent *thenRiskAverageAndSpeedNormal = new FuzzyRuleConsequent();
-    thenRiskAverageAndSpeedNormal->addOutput(average);
-    thenRiskAverageAndSpeedNormal->addOutput(normalOut);
-
-    FuzzyRule *fuzzyRule2 = new FuzzyRule(2, ifDistanceSafeAndSpeedNormalOrTemperatureGood, thenRiskAverageAndSpeedNormal);
-    fuzzy->addFuzzyRule(fuzzyRule2);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *distanceDistanteAndSpeedSlow = new FuzzyRuleAntecedent();
-    distanceDistanteAndSpeedSlow->joinWithAND(distante, slow);
-    FuzzyRuleAntecedent *ifDistanceDistanteAndSpeedSlowOrTemperatureHot = new FuzzyRuleAntecedent();
-    ifDistanceDistanteAndSpeedSlowOrTemperatureHot->joinWithOR(distanceDistanteAndSpeedSlow, hot);
-
-    FuzzyRuleConsequent *thenRiskMinimumSpeedQuick = new FuzzyRuleConsequent();
-    thenRiskMinimumSpeedQuick->addOutput(minimum);
-    thenRiskMinimumSpeedQuick->addOutput(quickOut);
-
-    FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifDistanceDistanteAndSpeedSlowOrTemperatureHot, thenRiskMinimumSpeedQuick);
-    fuzzy->addFuzzyRule(fuzzyRule3);
-
-    fuzzy->setInput(1, 10);
-    fuzzy->setInput(2, 30);
-    fuzzy->setInput(3, -15);
-
-    fuzzy->fuzzify();
-
-    float output1 = fuzzy->defuzzify(1);
-    float output2 = fuzzy->defuzzify(2);
-
-    ASSERT_NEAR(80.0, output1, 0.01);
-    ASSERT_NEAR(10.3889, output2, 0.01);
-}
-
-TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify07)
-{
-    Fuzzy *fuzzy = new Fuzzy();
-
-    // FuzzyInput
-    FuzzyInput *distance = new FuzzyInput(1);
-
-    FuzzySet *close = new FuzzySet(0, 20, 20, 40);
-    distance->addFuzzySet(close);
-    FuzzySet *safe = new FuzzySet(30, 50, 50, 70);
-    distance->addFuzzySet(safe);
-    FuzzySet *distante = new FuzzySet(60, 80, 100, 100);
-    distance->addFuzzySet(distante);
-
-    fuzzy->addFuzzyInput(distance);
-
-    // FuzzyInput
-    FuzzyInput *temperature = new FuzzyInput(2);
-
-    FuzzySet *cold = new FuzzySet(-30, -30, -20, -10);
-    temperature->addFuzzySet(cold);
-    FuzzySet *good = new FuzzySet(-15, 0, 0, 15);
-    temperature->addFuzzySet(good);
-    FuzzySet *hot = new FuzzySet(10, 20, 30, 30);
-    temperature->addFuzzySet(hot);
-
-    fuzzy->addFuzzyInput(temperature);
-
-    // FuzzyOutput
-    FuzzyOutput *risk = new FuzzyOutput(1);
-
-    FuzzySet *minimum = new FuzzySet(0, 20, 20, 40);
-    risk->addFuzzySet(minimum);
-    FuzzySet *average = new FuzzySet(30, 50, 50, 70);
-    risk->addFuzzySet(average);
-    FuzzySet *maximum = new FuzzySet(60, 80, 80, 100);
-    risk->addFuzzySet(maximum);
-
-    fuzzy->addFuzzyOutput(risk);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifDistanceCloseAndTemperatureCold = new FuzzyRuleAntecedent();
-    ifDistanceCloseAndTemperatureCold->joinWithAND(close, cold);
-
-    FuzzyRuleConsequent *thenRiskMinimum1 = new FuzzyRuleConsequent();
-    thenRiskMinimum1->addOutput(minimum);
-
-    FuzzyRule *fuzzyRule1 = new FuzzyRule(1, ifDistanceCloseAndTemperatureCold, thenRiskMinimum1);
-    fuzzy->addFuzzyRule(fuzzyRule1);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifDistanceCloseAndTemperatureGood = new FuzzyRuleAntecedent();
-    ifDistanceCloseAndTemperatureGood->joinWithAND(close, good);
-
-    FuzzyRuleConsequent *thenRiskMinimum2 = new FuzzyRuleConsequent();
-    thenRiskMinimum2->addOutput(minimum);
-
-    FuzzyRule *fuzzyRule2 = new FuzzyRule(2, ifDistanceCloseAndTemperatureGood, thenRiskMinimum2);
-    fuzzy->addFuzzyRule(fuzzyRule2);
-
-    // Building FuzzyRule
-    FuzzyRuleAntecedent *ifDistanceSafeAndTemperatureCold = new FuzzyRuleAntecedent();
-    ifDistanceSafeAndTemperatureCold->joinWithAND(safe, cold);
-
-    FuzzyRuleConsequent *thenRiskMinimum3 = new FuzzyRuleConsequent();
-    thenRiskMinimum3->addOutput(minimum);
-
-    FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifDistanceSafeAndTemperatureCold, thenRiskMinimum3);
-    fuzzy->addFuzzyRule(fuzzyRule3);
-
-    fuzzy->setInput(1, 10);
-    fuzzy->setInput(2, -5);
-
-    fuzzy->fuzzify();
-
-    float output = fuzzy->defuzzify(1);
-
-    ASSERT_EQ(20.0, output);
-}
-
-TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify08)
-{
-    Fuzzy *fuzzy = new Fuzzy();
-
-    FuzzyInput *age = new FuzzyInput(1);
-
-    FuzzySet *months = new FuzzySet(-360, -6, 5, 1200);
-    age->addFuzzySet(months);
-
-    fuzzy->addFuzzyInput(age);
-
-    FuzzyOutput *quality = new FuzzyOutput(1);
-
-    FuzzySet *avaliation = new FuzzySet(0, 1, 1, 1);
-    quality->addFuzzySet(avaliation);
-
-    fuzzy->addFuzzyOutput(quality);
-
-    //-------------------- Montando as regras Fuzzy
-    FuzzyRuleAntecedent *ifMonths = new FuzzyRuleAntecedent();
-    ifMonths->joinSingle(months);
-
-    FuzzyRuleConsequent *thenAvaliation = new FuzzyRuleConsequent();
-    thenAvaliation->addOutput(avaliation);
-
-    // Instanciando um objeto FuzzyRule
-    FuzzyRule *fuzzyRule01 = new FuzzyRule(1, ifMonths, thenAvaliation);
-    fuzzy->addFuzzyRule(fuzzyRule01);
-
-    fuzzy->setInput(1, 50);
-
-    fuzzy->fuzzify();
-    // cout << "Pertinência (months): " << months->getPertinence() << endl;
-
-    // cout << "Pertinência (avaliation): " << avaliation->getPertinence() << endl;
-
-    float fuzzyAntecedentEvaluate = ifMonths->evaluate();
-
-    // cout << "Entrada: " << dist << ", Saida: " << output << endl;
-
-    ASSERT_EQ(months->getPertinence(), fuzzyAntecedentEvaluate);
+    EXPECT_FLOAT_EQ(15.3, fuzzy->defuzzify(1));
 }
 
 TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify09)
