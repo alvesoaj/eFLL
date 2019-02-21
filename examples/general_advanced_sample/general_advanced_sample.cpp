@@ -1,43 +1,44 @@
 #include <iostream>
-#include "../../FuzzyRule.h"
-#include "../../FuzzyComposition.h"
+#include <time.h>
 #include "../../Fuzzy.h"
-#include "../../FuzzyRuleConsequent.h"
-#include "../../FuzzyOutput.h"
-#include "../../FuzzyInput.h"
-#include "../../FuzzyIO.h"
-#include "../../FuzzySet.h"
-#include "../../FuzzyRuleAntecedent.h"
 
 using namespace std;
 
+int random(int from, int to)
+{
+  return (rand() % (to - from)) + from;
+}
+
 int main(int argc, char *argv[])
 {
+  // Set a seed to rand
+  srand((unsigned)time(0));
+
   Fuzzy *fuzzy = new Fuzzy();
 
   // FuzzyInput
   FuzzyInput *distance = new FuzzyInput(1);
 
-  FuzzySet *close = new FuzzySet(0, 20, 20, 40);
-  distance->addFuzzySet(close);
+  FuzzySet *near = new FuzzySet(0, 20, 20, 40);
+  distance->addFuzzySet(near);
   FuzzySet *safe = new FuzzySet(30, 50, 50, 70);
   distance->addFuzzySet(safe);
-  FuzzySet *distante = new FuzzySet(60, 80, 100, 100);
-  distance->addFuzzySet(distante);
+  FuzzySet *distant = new FuzzySet(60, 80, 100, 100);
+  distance->addFuzzySet(distant);
 
   fuzzy->addFuzzyInput(distance);
 
   // FuzzyInput
   FuzzyInput *inputSpeed = new FuzzyInput(2);
 
-  FuzzySet *stoped = new FuzzySet(0, 0, 0, 0);
-  inputSpeed->addFuzzySet(stoped);
-  FuzzySet *slow = new FuzzySet(1, 10, 10, 20);
-  inputSpeed->addFuzzySet(slow);
-  FuzzySet *normal = new FuzzySet(15, 30, 30, 50);
-  inputSpeed->addFuzzySet(normal);
-  FuzzySet *quick = new FuzzySet(45, 60, 70, 70);
-  inputSpeed->addFuzzySet(quick);
+  FuzzySet *stopedInput = new FuzzySet(0, 0, 0, 0);
+  inputSpeed->addFuzzySet(stopedInput);
+  FuzzySet *slowInput = new FuzzySet(1, 10, 10, 20);
+  inputSpeed->addFuzzySet(slowInput);
+  FuzzySet *normalInput = new FuzzySet(15, 30, 30, 50);
+  inputSpeed->addFuzzySet(normalInput);
+  FuzzySet *quickInput = new FuzzySet(45, 60, 70, 70);
+  inputSpeed->addFuzzySet(quickInput);
 
   fuzzy->addFuzzyInput(inputSpeed);
 
@@ -66,23 +67,22 @@ int main(int argc, char *argv[])
   fuzzy->addFuzzyOutput(risk);
 
   // FuzzyOutput
-  // adicionando speed como output também
-  FuzzyOutput *outputSpeed = new FuzzyOutput(2);
+  FuzzyOutput *speedOutput = new FuzzyOutput(2);
 
-  FuzzySet *stopedOut = new FuzzySet(0, 0, 0, 0);
-  outputSpeed->addFuzzySet(stopedOut);
-  FuzzySet *slowOut = new FuzzySet(1, 10, 10, 20);
-  outputSpeed->addFuzzySet(slowOut);
-  FuzzySet *normalOut = new FuzzySet(15, 30, 30, 50);
-  outputSpeed->addFuzzySet(normalOut);
-  FuzzySet *quickOut = new FuzzySet(45, 60, 70, 70);
-  outputSpeed->addFuzzySet(quickOut);
+  FuzzySet *stopedOutput = new FuzzySet(0, 0, 0, 0);
+  speedOutput->addFuzzySet(stopedOutput);
+  FuzzySet *slowOutput = new FuzzySet(1, 10, 10, 20);
+  speedOutput->addFuzzySet(slowOutput);
+  FuzzySet *normalOutput = new FuzzySet(15, 30, 30, 50);
+  speedOutput->addFuzzySet(normalOutput);
+  FuzzySet *quickOutput = new FuzzySet(45, 60, 70, 70);
+  speedOutput->addFuzzySet(quickOutput);
 
-  fuzzy->addFuzzyOutput(outputSpeed);
+  fuzzy->addFuzzyOutput(speedOutput);
 
   // Building FuzzyRule
   FuzzyRuleAntecedent *distanceCloseAndSpeedQuick = new FuzzyRuleAntecedent();
-  distanceCloseAndSpeedQuick->joinWithAND(close, quick);
+  distanceCloseAndSpeedQuick->joinWithAND(near, quickInput);
   FuzzyRuleAntecedent *temperatureCold = new FuzzyRuleAntecedent();
   temperatureCold->joinSingle(cold);
   FuzzyRuleAntecedent *ifDistanceCloseAndSpeedQuickOrTemperatureCold = new FuzzyRuleAntecedent();
@@ -90,53 +90,63 @@ int main(int argc, char *argv[])
 
   FuzzyRuleConsequent *thenRisMaximumAndSpeedSlow = new FuzzyRuleConsequent();
   thenRisMaximumAndSpeedSlow->addOutput(maximum);
-  thenRisMaximumAndSpeedSlow->addOutput(slowOut);
+  thenRisMaximumAndSpeedSlow->addOutput(slowOutput);
 
   FuzzyRule *fuzzyRule1 = new FuzzyRule(1, ifDistanceCloseAndSpeedQuickOrTemperatureCold, thenRisMaximumAndSpeedSlow);
   fuzzy->addFuzzyRule(fuzzyRule1);
 
   // Building FuzzyRule
   FuzzyRuleAntecedent *distanceSafeAndSpeedNormal = new FuzzyRuleAntecedent();
-  distanceSafeAndSpeedNormal->joinWithAND(safe, normal);
+  distanceSafeAndSpeedNormal->joinWithAND(safe, normalInput);
   FuzzyRuleAntecedent *ifDistanceSafeAndSpeedNormalOrTemperatureGood = new FuzzyRuleAntecedent();
   ifDistanceSafeAndSpeedNormalOrTemperatureGood->joinWithOR(distanceSafeAndSpeedNormal, good);
 
   FuzzyRuleConsequent *thenRiskAverageAndSpeedNormal = new FuzzyRuleConsequent();
   thenRiskAverageAndSpeedNormal->addOutput(average);
-  thenRiskAverageAndSpeedNormal->addOutput(normalOut);
+  thenRiskAverageAndSpeedNormal->addOutput(normalOutput);
 
   FuzzyRule *fuzzyRule2 = new FuzzyRule(2, ifDistanceSafeAndSpeedNormalOrTemperatureGood, thenRiskAverageAndSpeedNormal);
   fuzzy->addFuzzyRule(fuzzyRule2);
 
   // Building FuzzyRule
-  FuzzyRuleAntecedent *distanceDistanteAndSpeedSlow = new FuzzyRuleAntecedent();
-  distanceDistanteAndSpeedSlow->joinWithAND(distante, slow);
-  FuzzyRuleAntecedent *ifDistanceDistanteAndSpeedSlowOrTemperatureHot = new FuzzyRuleAntecedent();
-  ifDistanceDistanteAndSpeedSlowOrTemperatureHot->joinWithOR(distanceDistanteAndSpeedSlow, hot);
+  FuzzyRuleAntecedent *distanceDistantAndSpeedSlow = new FuzzyRuleAntecedent();
+  distanceDistantAndSpeedSlow->joinWithAND(distant, slowInput);
+  FuzzyRuleAntecedent *ifDistanceDistantAndSpeedSlowOrTemperatureHot = new FuzzyRuleAntecedent();
+  ifDistanceDistantAndSpeedSlowOrTemperatureHot->joinWithOR(distanceDistantAndSpeedSlow, hot);
 
   FuzzyRuleConsequent *thenRiskMinimumSpeedQuick = new FuzzyRuleConsequent();
   thenRiskMinimumSpeedQuick->addOutput(minimum);
-  thenRiskMinimumSpeedQuick->addOutput(quickOut);
+  thenRiskMinimumSpeedQuick->addOutput(quickOutput);
 
-  FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifDistanceDistanteAndSpeedSlowOrTemperatureHot, thenRiskMinimumSpeedQuick);
+  FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifDistanceDistantAndSpeedSlowOrTemperatureHot, thenRiskMinimumSpeedQuick);
   fuzzy->addFuzzyRule(fuzzyRule3);
 
-  fuzzy->setInput(1, 10);
-  fuzzy->setInput(2, 30);
-  fuzzy->setInput(3, -15);
+  // get random entrances
+  int input1 = random(0, 100);
+  int input2 = random(0, 70);
+  int input3 = random(-30, 30);
+
+  cout << "\n\n\nEntrance: \n\t\t\tDistance: " << input1 << ", Speed: " << input2 << ", and Temperature: " << input3 << endl;
+
+  fuzzy->setInput(1, input1);
+  fuzzy->setInput(2, input2);
+  fuzzy->setInput(3, input3);
 
   fuzzy->fuzzify();
 
-  cout << "Distância: " << close->getPertinence() << ", " << safe->getPertinence() << ", " << distante->getPertinence() << endl;
-  cout << "Velocidade: " << stoped->getPertinence() << ", " << slow->getPertinence() << ", " << normal->getPertinence() << ", " << quick->getPertinence() << endl;
-  cout << "Temperatura: " << cold->getPertinence() << ", " << good->getPertinence() << ", " << hot->getPertinence() << endl;
+  cout << "Input: \n\tDistance: Near-> " << near->getPertinence() << ", Safe->" << safe->getPertinence() << ", Distant-> " << distant->getPertinence() << endl;
+  cout << "\tSpeed: Stoped-> " << stopedInput->getPertinence() << ",  Slow-> " << slowInput->getPertinence() << ",  Normal-> " << normalInput->getPertinence() << ",  Quick-> " << quickInput->getPertinence() << endl;
+  cout << "\tTemperature: Cold->" << cold->getPertinence() << ", Good-> " << good->getPertinence() << ", Hot-> " << hot->getPertinence() << endl;
 
-  cout << "regra1: " << fuzzyRule1->isFired() << ", regra2: " << fuzzyRule2->isFired() << ", regra3: " << fuzzyRule3->isFired() << endl;
+  cout << "Roles: \n\tRole01-> " << fuzzyRule1->isFired() << ", Role02-> " << fuzzyRule2->isFired() << ", Role03-> " << fuzzyRule3->isFired() << endl;
 
   float output1 = fuzzy->defuzzify(1);
   float output2 = fuzzy->defuzzify(2);
 
-  cout << "Saída Risco: " << output1 << ", Saída Velocidade: " << output2 << endl;
+  cout << "Output: \n\tRisk: Minimum-> " << minimum->getPertinence() << ", Average->" << average->getPertinence() << ", Maximum-> " << maximum->getPertinence() << endl;
+  cout << "\tSpeed: Stoped-> " << stopedOutput->getPertinence() << ",  Slow-> " << slowOutput->getPertinence() << ",  Normal-> " << normalOutput->getPertinence() << ",  Quick-> " << quickOutput->getPertinence() << endl;
+
+  cout << "Result: \n\t\t\tRisk: " << output1 << ", and Speed: " << output2 << endl;
 
   return 0;
 }

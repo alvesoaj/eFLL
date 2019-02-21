@@ -114,16 +114,16 @@ void setup()
   fuzzy->addFuzzyRule(fuzzyRule2);
 
   // Building FuzzyRule
-  FuzzyRuleAntecedent *distanceDistanteAndSpeedSlow = new FuzzyRuleAntecedent();
-  distanceDistanteAndSpeedSlow->joinWithAND(distant, slowInput);
-  FuzzyRuleAntecedent *ifDistanceDistanteAndSpeedSlowOrTemperatureHot = new FuzzyRuleAntecedent();
-  ifDistanceDistanteAndSpeedSlowOrTemperatureHot->joinWithOR(distanceDistanteAndSpeedSlow, hot);
+  FuzzyRuleAntecedent *distanceDistantAndSpeedSlow = new FuzzyRuleAntecedent();
+  distanceDistantAndSpeedSlow->joinWithAND(distant, slowInput);
+  FuzzyRuleAntecedent *ifDistanceDistantAndSpeedSlowOrTemperatureHot = new FuzzyRuleAntecedent();
+  ifDistanceDistantAndSpeedSlowOrTemperatureHot->joinWithOR(distanceDistantAndSpeedSlow, hot);
 
   FuzzyRuleConsequent *thenRiskMinimumSpeedQuick = new FuzzyRuleConsequent();
   thenRiskMinimumSpeedQuick->addOutput(minimum);
   thenRiskMinimumSpeedQuick->addOutput(quickOutput);
 
-  FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifDistanceDistanteAndSpeedSlowOrTemperatureHot, thenRiskMinimumSpeedQuick);
+  FuzzyRule *fuzzyRule3 = new FuzzyRule(3, ifDistanceDistantAndSpeedSlowOrTemperatureHot, thenRiskMinimumSpeedQuick);
   fuzzy->addFuzzyRule(fuzzyRule3);
 }
 

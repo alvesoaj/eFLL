@@ -13,7 +13,6 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    // Instanciando um objeto da biblioteca
     Fuzzy *fuzzy = new Fuzzy();
 
     FuzzySet *seco = new FuzzySet(0, 0, 0, 42.5);

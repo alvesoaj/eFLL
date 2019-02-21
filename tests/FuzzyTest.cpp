@@ -1,4 +1,5 @@
 #include <iostream>
+#include "gtest/gtest.h"
 #include "../Fuzzy.h"
 #include "../FuzzyComposition.h"
 #include "../FuzzyIO.h"
@@ -8,7 +9,6 @@
 #include "../FuzzyRuleAntecedent.h"
 #include "../FuzzyRuleConsequent.h"
 #include "../FuzzySet.h"
-#include "gtest/gtest.h"
 
 // ##### Tests of FuzzySet
 
