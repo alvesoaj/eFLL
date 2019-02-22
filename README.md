@@ -1,5 +1,7 @@
 ## eFLL (Embedded Fuzzy Logic Library) v1.0.10 [Updated at: 21 august 2016]
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/eee0aac997684bd7959390bfbc3fd38a)](https://app.codacy.com/app/zerokol/eFLL?utm_source=github.com&utm_medium=referral&utm_content=zerokol/eFLL&utm_campaign=Badge_Grade_Settings)
+
 eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and eficient Fuzzy Systems.
 
 Para informações avançadas, documentação e exemplos de uso em PORTUGUÊS: [eFLL - Uma Biblioteca Fuzzy para Arduino e Sistemas Embarcados](https://blog.zerokol.com/2012/09/arduinofuzzy-uma-biblioteca-fuzzy-para.html)
