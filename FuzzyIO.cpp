@@ -20,6 +20,7 @@ FuzzyIO::FuzzyIO()
 FuzzyIO::FuzzyIO(int index)
 {
     this->index = index;
+    this->crispInput = 0.0;
     // Initializing pointers with NULL
     this->fuzzySets = NULL;
 }
