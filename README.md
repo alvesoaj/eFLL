@@ -1,10 +1,17 @@
-## eFLL (Embedded Fuzzy Logic Library) v1.0.10 [Updated at: 21 august 2016]
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/zerokol/eFLL.svg)
+![GitHub](https://img.shields.io/github/license/zerokol/eFLL.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ad6d2e4416f74e93a104b795d69e26c4)](https://www.codacy.com/app/zerokol/eFLL?utm_source=github.com&utm_medium=referral&utm_content=zerokol/eFLL&utm_campaign=Badge_Grade)
+![GitHub top language](https://img.shields.io/github/languages/top/zerokol/eFLL.svg)
+![GitHub search hit counter](https://img.shields.io/github/search/zerokol/eFLL/fuzzy.svg)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/zerokol/eFLL/master.svg)
 
-eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and eficient Fuzzy Systems.
+## eFLL (Embedded Fuzzy Logic Library)
+
+eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and efficient Fuzzy Systems.
 
 Para informações avançadas, documentação e exemplos de uso em PORTUGUÊS: [eFLL - Uma Biblioteca Fuzzy para Arduino e Sistemas Embarcados](https://blog.zerokol.com/2012/09/arduinofuzzy-uma-biblioteca-fuzzy-para.html)
 
-For advanced information, documentation, and usage examples in ENGLISH: [eFLL - A Fuzzy Library for Arduino and Embeded Systems](https://blog.zerokol.com/2012/09/arduinofuzzy-fuzzy-library-for-arduino.html)
+For advanced information, documentation, and usage examples in ENGLISH: [eFLL - A Fuzzy Library for Arduino and Embedded Systems](https://blog.zerokol.com/2012/09/arduinofuzzy-fuzzy-library-for-arduino.html)
 
 ## Characteristics
 
@@ -22,7 +29,7 @@ Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
 **Step 1:** Go to the official project page on GitHub (Here)
 
-**Step 2:** Make a clone of the project using Git or download at Donwload on the button "Download as zip."
+**Step 2:** Make a clone of the project using Git or download at Download on the button "Download as zip."
 
 **Step 3:** Clone or unzip (For safety, rename the folder to "eFLL") the files into some folder
 
@@ -32,23 +39,21 @@ Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
 **Step 1:** Go to the official project page on GitHub (Here)
 
-**Step 2:** Make a clone of the project using Git or download at Donwload on the button "Download as zip."
+**Step 2:** Make a clone of the project using Git or download at Download on the button "Download as zip."
 
 **Step 3:** Clone or unzip (For safety, rename the folder to "eFLL") the files into Arduino libraries' folder:
 
 Ubuntu (/usr/share/arduino/libraries/) if installed via apt-get, if not, on Windows, Mac or Linux (where you downloaded the Arduino IDE, the Library folder is inside)
 
-_Ok! The library is ready to be used._
+**Ok! The library is ready to be used!**
 
 If the installation of the library has been successfully held, to import the library is easy:
 
-**Step 4:** Open your Arduino IDE, check out the tab on the top menu SKETCKS → LIBRARY → Import eFLL
+**Step 4:** Open your Arduino IDE, check out the tab on the top menu SKETCH → LIBRARY → Import eFLL
 
 ## Brief Documentation
 
-_PARA MAIORES INFORMAÇÕES VISITE OS LINKS NO TOPO_
-
-_FOR MORE INFORMATIONS VISITE THE LINKS ON THE TOP_
+![Class Diagram](https://raw.githubusercontent.com/zerokol/eFLL/master/uml/class-diagram.png)
 
 **Fuzzy object** - This object includes all the Fuzzy System, through it, you can manipulate the Fuzzy Sets, Linguistic Rules, inputs and outputs.
 
@@ -62,7 +67,7 @@ _FOR MORE INFORMATIONS VISITE THE LINKS ON THE TOP_
 
 **FuzzyRuleAntecedent** object - This object is used to compound the object FuzzyRule, responsible for assembling the antecedent of the conditional expression of a FuzzyRule.
 
-**FuzzyRuleConsequente** object - This object is used to render the object FuzzyRule, responsible for assembling the output expression of a FuzzyRule.
+**FuzzyRuleConsequent** object - This object is used to render the object FuzzyRule, responsible for assembling the output expression of a FuzzyRule.
 
 ## Tips
 
@@ -82,9 +87,9 @@ And finally:
 
 ## REFERENCES
 
-**Authors:** AJ Alves <aj.alves@zerokol.com>; **Co authors:** Msc. Marvin Lemos <marvinlemos@gmail.com>, Douglas S. Kridi <douglaskridi@gmail.com>, Kannya Leal <kannyal@hotmail.com>
+**Authors:** AJ Alves <aj.alves@zerokol.com>; **Co authors:** Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>, Msc. Marvin Lemos <marvinlemos@gmail.com>, Douglas S. Kridi <douglaskridi@gmail.com>, Kannya Leal <kannyal@hotmail.com>
 
-## Special Thanks to Contributors:
+## Special Thanks to Contributors
 
 [@mikebutrimov](https://github.com/mikebutrimov), [@tzikis](https://github.com/tzikis), [@na7an](https://github.com/na7an)
 

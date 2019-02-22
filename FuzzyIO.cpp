@@ -1,79 +1,115 @@
 /*
  * Robotic Research Group (RRG)
- * State University of Piaui (UESPI), Brazil - Piauí - Teresina
+ * State University of Piauí (UESPI), Brazil - Piauí - Teresina
  *
  * FuzzyIO.cpp
  *
  *      Author: AJ Alves <aj.alves@zerokol.com>
- *          Co authors: Msc. Marvin Lemos <marvinlemos@gmail.com>
+ *          Co authors: Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>
+ *                      Msc. Marvin Lemos <marvinlemos@gmail.com>
  *                      Douglas S. Kridi <douglaskridi@gmail.com>
  *                      Kannya Leal <kannyal@hotmail.com>
  */
 #include "FuzzyIO.h"
 
-// CONSTRUTORES
-FuzzyIO::FuzzyIO(){
+// CONTRUCTORS
+FuzzyIO::FuzzyIO()
+{
 }
 
-FuzzyIO::FuzzyIO(int index){
+FuzzyIO::FuzzyIO(int index)
+{
     this->index = index;
-    // Iniciando os ponteiros como nulo
-    this->fuzzySets          = NULL;
-    this->fuzzySetsCursor    = NULL;
+    // Initializing pointers with NULL
+    this->fuzzySets = NULL;
 }
 
-// DESTRUTOR
-FuzzyIO::~FuzzyIO(){
+// DESTRUCTOR
+FuzzyIO::~FuzzyIO()
+{
     this->cleanFuzzySets(this->fuzzySets);
 }
 
-// MÉTODOS PÚBLICOS
-int FuzzyIO::getIndex(){
+// PUBLIC METHODS
+
+// Method to get the value of index
+int FuzzyIO::getIndex()
+{
     return this->index;
 }
 
-void FuzzyIO::setCrispInput(float crispInput){
+// Method to set the value of crispInput
+void FuzzyIO::setCrispInput(float crispInput)
+{
     this->crispInput = crispInput;
 }
 
-float FuzzyIO::getCrispInput(){
+// Method to get the value of crispInput
+float FuzzyIO::getCrispInput()
+{
     return this->crispInput;
 }
 
-bool FuzzyIO::addFuzzySet(FuzzySet* fuzzySet){
-    fuzzySetArray *aux;
-    // Alocando espaço na memória
-    if((aux = (fuzzySetArray *) malloc(sizeof(fuzzySetArray))) == NULL){
+// Method to include a new FuzzySet into FuzzyIO
+bool FuzzyIO::addFuzzySet(FuzzySet *fuzzySet)
+{
+    // auxiliary variable to handle the operation
+    fuzzySetArray *newOne;
+    // allocating in memory
+    if ((newOne = (fuzzySetArray *)malloc(sizeof(fuzzySetArray))) == NULL)
+    {
+        // return false if in out of memory
         return false;
     }
-    aux->fuzzySet     = fuzzySet;
-    aux->next         = NULL;
-
-    if(this->fuzzySets == NULL){
-        this->fuzzySets = aux;
-        this->fuzzySetsCursor = aux;
-    }else{
-        this->fuzzySetsCursor->next = aux;
-        this->fuzzySetsCursor = aux;
+    // building the object
+    newOne->fuzzySet = fuzzySet;
+    newOne->next = NULL;
+    // if it is the first FuzzySet, set it as the head
+    if (this->fuzzySets == NULL)
+    {
+        this->fuzzySets = newOne;
+    }
+    else
+    {
+        // auxiliary variable to handle the operation
+        fuzzySetArray *aux = this->fuzzySets;
+        // find the last element of the array
+        while (aux != NULL)
+        {
+            if (aux->next == NULL)
+            {
+                // make the relations between them
+                aux->next = newOne;
+                return true;
+            }
+            aux = aux->next;
+        }
     }
     return true;
 }
 
-void FuzzyIO::resetFuzzySets(){
-    fuzzySetArray* fuzzySetsAux;
-    fuzzySetsAux = this->fuzzySets;
-    // Calculando as pertinências de totos os FuzzyInputs
-    while(fuzzySetsAux != NULL){
+// Method to reset all FuzzySet of this collection
+void FuzzyIO::resetFuzzySets()
+{
+    // auxiliary variable to handle the operation
+    fuzzySetArray *fuzzySetsAux = this->fuzzySets;
+    // while not in the end of the array, iterate
+    while (fuzzySetsAux != NULL)
+    {
         fuzzySetsAux->fuzzySet->reset();
         fuzzySetsAux = fuzzySetsAux->next;
     }
 }
 
-// MÉTODOS PROTEGIDOS
-void FuzzyIO::cleanFuzzySets(fuzzySetArray *aux){
-    if(aux != NULL){
-        // Esvaziando a memória alocada
+// PROTECTED METHODS
+
+// Method to recursively clean all FuzzySet from memory
+void FuzzyIO::cleanFuzzySets(fuzzySetArray *aux)
+{
+    if (aux != NULL)
+    {
         this->cleanFuzzySets(aux->next);
+        // emptying allocated memory
         free(aux);
     }
 }

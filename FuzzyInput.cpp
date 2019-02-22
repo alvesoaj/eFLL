@@ -1,38 +1,47 @@
 /*
  * Robotic Research Group (RRG)
- * State University of Piaui (UESPI), Brazil - Piauí - Teresina
+ * State University of Piauí (UESPI), Brazil - Piauí - Teresina
  *
  * FuzzyInput.cpp
  *
  *      Author: AJ Alves <aj.alves@zerokol.com>
- *          Co authors: Msc. Marvin Lemos <marvinlemos@gmail.com>
+ *          Co authors: Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>
+ *                      Msc. Marvin Lemos <marvinlemos@gmail.com>
  *                      Douglas S. Kridi <douglaskridi@gmail.com>
  *                      Kannya Leal <kannyal@hotmail.com>
  */
 #include "FuzzyInput.h"
 
-// CONSTRUTORES
-FuzzyInput::FuzzyInput() : FuzzyIO(){
+// CONTRUCTORS
+FuzzyInput::FuzzyInput() : FuzzyIO()
+{
+    // no custom construction, using the father (FuzzyIO) constructor
 }
 
-FuzzyInput::FuzzyInput(int index) : FuzzyIO(index){
+FuzzyInput::FuzzyInput(int index) : FuzzyIO(index)
+{
+    // no custom construction, using the father (FuzzyIO) constructor
 }
 
-// DESTRUTOR
-FuzzyInput::~FuzzyInput(){
+// DESTRUCTOR
+FuzzyInput::~FuzzyInput()
+{
+    // no custom destruction, using the father (FuzzyIO) destructor
 }
 
-// MÉTODOS PÚBLICOS
-bool FuzzyInput::calculateFuzzySetPertinences(){
-    fuzzySetArray *aux;
-    aux = this->fuzzySets;
+// PUBLIC METHODS
 
-    while(aux != NULL){
-        if (aux->fuzzySet != NULL){
-            aux->fuzzySet->calculatePertinence(this->crispInput);
-        }
+// Method to calculate the pertinence of all FuzzySet
+bool FuzzyInput::calculateFuzzySetPertinences()
+{
+    // auxiliary variable to handle the operation
+    fuzzySetArray *aux = this->fuzzySets;
+    // while not in the end of the array, iterate
+    while (aux != NULL)
+    {
+        // call calculatePertinence for each FuzzySet
+        aux->fuzzySet->calculatePertinence(this->crispInput);
         aux = aux->next;
     }
-    
     return true;
 }

@@ -1,52 +1,55 @@
 /*
  * Robotic Research Group (RRG)
- * State University of Piaui (UESPI), Brazil - Piauí - Teresina
+ * State University of Piauí (UESPI), Brazil - Piauí - Teresina
  *
  * FuzzyComposition.h
  *
  *      Author: AJ Alves <aj.alves@zerokol.com>
- *          Co authors: Msc. Marvin Lemos <marvinlemos@gmail.com>
+ *          Co authors: Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>
+ *                      Msc. Marvin Lemos <marvinlemos@gmail.com>
  *                      Douglas S. Kridi <douglaskridi@gmail.com>
  *                      Kannya Leal <kannyal@hotmail.com>
  */
 #ifndef FUZZYCOMPOSITION_H
 #define FUZZYCOMPOSITION_H
 
-// IMPORTANDO AS BIBLIOTECAS NECESSÁRIAS
+// IMPORTING NECESSARY LIBRARIES
 #include <stdlib.h>
 
-// CONSTANTES
+// CONSTANTS
 #define EPS 1.0E-3
 
-// Estrutura de uma lista para guardar os pontos
-struct pointsArray{
-    pointsArray* previous;
-    float point;
-    float pertinence;
-    pointsArray* next;
+// Array struct for points objects
+struct pointsArray
+{
+  pointsArray *previous;
+  float point;
+  float pertinence;
+  pointsArray *next;
 };
 
-class FuzzyComposition{
-    public:
-        // CONSTRUTORES
-        FuzzyComposition();
-        // DESTRUTOR
-        ~FuzzyComposition();
-        // MÉTODOS PÚBLICOS
-        bool addPoint(float point, float pertinence);
-        bool checkPoint(float point, float pertinence);
-        bool build();
-        float avaliate();
-        bool empty();
+class FuzzyComposition
+{
+public:
+  // CONTRUCTORS
+  FuzzyComposition();
+  // DESTRUCTOR
+  ~FuzzyComposition();
+  // PUBLIC METHODS
+  bool addPoint(float point, float pertinence);
+  bool checkPoint(float point, float pertinence);
+  bool build();
+  float calculate();
+  bool empty();
+  int countPoints();
 
-    private:
-        // VARIÁVEIS PRIVADAS
-        pointsArray* pointsCursor;
-        pointsArray* points;
+private:
+  // PRIVATE VARIABLES
+  pointsArray *points;
 
-        // MÉTODOS PRIVADOS
-        void cleanPoints(pointsArray* aux);
-        bool rebuild(pointsArray* aSegmentBegin, pointsArray* aSegmentEnd, pointsArray* bSegmentBegin, pointsArray* bSegmentEnd);
-        bool rmvPoint(pointsArray* point);
+  // PRIVATE METHODS
+  void cleanPoints(pointsArray *aux);
+  bool rebuild(pointsArray *aSegmentBegin, pointsArray *aSegmentEnd, pointsArray *bSegmentBegin, pointsArray *bSegmentEnd);
+  bool rmvPoint(pointsArray *point);
 };
 #endif
