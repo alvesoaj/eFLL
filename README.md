@@ -3,9 +3,9 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ad6d2e4416f74e93a104b795d69e26c4)](https://www.codacy.com/app/zerokol/eFLL?utm_source=github.com&utm_medium=referral&utm_content=zerokol/eFLL&utm_campaign=Badge_Grade)
 ![GitHub top language](https://img.shields.io/github/languages/top/zerokol/eFLL.svg)
 ![GitHub search hit counter](https://img.shields.io/github/search/zerokol/eFLL/fuzzy.svg)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/zerokol/eFLL.svg)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/zerokol/eFLL/master.svg)
 
-## eFLL (Embedded Fuzzy Logic Library) v1.1.0
+## eFLL (Embedded Fuzzy Logic Library)
 
 eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and efficient Fuzzy Systems.
 
@@ -45,7 +45,7 @@ Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
 Ubuntu (/usr/share/arduino/libraries/) if installed via apt-get, if not, on Windows, Mac or Linux (where you downloaded the Arduino IDE, the Library folder is inside)
 
-_Ok! The library is ready to be used._
+**Ok! The library is ready to be used!**
 
 If the installation of the library has been successfully held, to import the library is easy:
 
@@ -89,7 +89,7 @@ And finally:
 
 **Authors:** AJ Alves <aj.alves@zerokol.com>; **Co authors:** Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>, Msc. Marvin Lemos <marvinlemos@gmail.com>, Douglas S. Kridi <douglaskridi@gmail.com>, Kannya Leal <kannyal@hotmail.com>
 
-## Special Thanks to Contributors:
+## Special Thanks to Contributors
 
 [@mikebutrimov](https://github.com/mikebutrimov), [@tzikis](https://github.com/tzikis), [@na7an](https://github.com/na7an)
 
