@@ -1,13 +1,8 @@
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/zerokol/eFLL.svg)
-
 ![GitHub](https://img.shields.io/github/license/zerokol/eFLL.svg)
-
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ad6d2e4416f74e93a104b795d69e26c4)](https://www.codacy.com/app/zerokol/eFLL?utm_source=github.com&utm_medium=referral&utm_content=zerokol/eFLL&utm_campaign=Badge_Grade)
-
 ![GitHub top language](https://img.shields.io/github/languages/top/zerokol/eFLL.svg)
-
 ![GitHub search hit counter](https://img.shields.io/github/search/zerokol/eFLL/fuzzy.svg)
-
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/zerokol/eFLL.svg)
 
 ## eFLL (Embedded Fuzzy Logic Library) v1.1.0
