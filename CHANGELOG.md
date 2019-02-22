@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.0] - 2019-02-22
+
+### Added
+
+- library.properties file to submit for Arduino Library Defaults.
+
+### Changed
+
+- A complete code review, code formatting, translating and commenting .
+- A Bug at FuzzyOutput was found, in the way of calculate builds the points of FuzzyComposition.
+- Some methods was renamed and others created (for helps in tests).
+- A complete check in tests to ensure library accuracy.
+
+### Removed
+
+- None.
+
 ## [1.0.10] - 2017-08-21
 
 ### Added
