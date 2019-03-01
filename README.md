@@ -37,6 +37,18 @@ Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
 
 ## How to install (and import to use with Arduino)
 
+### Easy Way
+
+**Step 1:** Open the Arduino IDE
+
+**Step 2:** In main menu, go to SKETCH >> INCLUDE LIBRARY >> MANAGE LIBRARIES
+
+**Step 3:** Search for "eFLL" or "Fuzzy"
+
+**Step 4:** eFLL will appear in the list, to finish, just click in INSTALL, now you can include eFLL to your sketchs
+
+### Old Way
+
 **Step 1:** Go to the official project page on GitHub (Here)
 
 **Step 2:** Make a clone of the project using Git or download at Download on the button "Download as zip."
