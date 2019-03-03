@@ -100,7 +100,7 @@ void loop()
   // Running the Fuzzification
   fuzzy->fuzzify();
   // Running the Defuzzification
-  float output = fuzzy->defuzzyfy(1);
+  float output = fuzzy->defuzzify(1);
   // Printing something
   Serial.println("Result: ");
   Serial.print("\t\t\tSpeed: ");
