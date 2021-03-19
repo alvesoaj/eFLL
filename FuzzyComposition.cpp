@@ -139,12 +139,11 @@ float FuzzyComposition::calculate()
     // while not in the end of the array, iterate
     while (aux != NULL)
     {
-
-        float area = 0.0;
-        float middle = 0.0;
+        float area;
+        float middle;
 
         // if a singleton (Not properly a membership function)
-        if (aux->previous == NULL && aux->next == NULL)
+        if ((aux->previous == NULL && aux->next == NULL) || aux->next == NULL)
         {
             area = aux->pertinence;
             middle = aux->point;
