@@ -17,7 +17,7 @@
 #include <stdlib.h>
 
 // CONSTANTS
-#define EPS 1.0E-3
+#define EPSILON_VALUE 1.0E-3
 
 // Array struct for points objects
 struct pointsArray

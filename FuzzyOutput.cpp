@@ -205,7 +205,7 @@ bool FuzzyOutput::rebuild(float x1, float y1, float x2, float y2, float x3, floa
         denom *= -1.0;
     }
     // If the denominator is zero or close to it, it means that the lines are parallels, so return false for intersection
-    if (denom < EPS)
+    if (denom < EPSILON_VALUE)
     {
         // return false for intersection
         return false;

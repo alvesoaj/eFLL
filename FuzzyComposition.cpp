@@ -261,7 +261,7 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
         denom *= -1.0;
     }
     // If the denominator is zero or close to it, it means that the lines are parallels, so return false for intersection
-    if (denom < EPS)
+    if (denom < EPSILON_VALUE)
     {
         // return false for intersection
         return false;
