@@ -503,9 +503,9 @@ TEST(Fuzzy, testFromLectureSystemsOne)
     // FuzzyInput
     FuzzyInput *size = new FuzzyInput(1);
 
-    FuzzySet *smallSize = new FuzzySet(-5, -5, 0, 10);
+    FuzzySet *smallSize = new FuzzySet(0, 0, 0, 10);
     size->addFuzzySet(smallSize);
-    FuzzySet *largeSize = new FuzzySet(0, 10, 15, 15);
+    FuzzySet *largeSize = new FuzzySet(0, 10, 10, 10);
     size->addFuzzySet(largeSize);
 
     fuzzy->addFuzzyInput(size);
@@ -513,9 +513,9 @@ TEST(Fuzzy, testFromLectureSystemsOne)
     // FuzzyInput
     FuzzyInput *weight = new FuzzyInput(2);
 
-    FuzzySet *smallWeight = new FuzzySet(-50, -50, 0, 100);
+    FuzzySet *smallWeight = new FuzzySet(0, 0, 0, 100);
     weight->addFuzzySet(smallWeight);
-    FuzzySet *largeWeight = new FuzzySet(0, 100, 150, 150);
+    FuzzySet *largeWeight = new FuzzySet(0, 100, 100, 100);
     weight->addFuzzySet(largeWeight);
 
     fuzzy->addFuzzyInput(weight);
@@ -523,11 +523,11 @@ TEST(Fuzzy, testFromLectureSystemsOne)
     // FuzzyOutput
     FuzzyOutput *quality = new FuzzyOutput(1);
 
-    FuzzySet *bad = new FuzzySet(-0.25, -0.25, 0, 0.5);
+    FuzzySet *bad = new FuzzySet(0, 0, 0, 0.5);
     quality->addFuzzySet(bad);
     FuzzySet *medium = new FuzzySet(0, 0.5, 0.5, 1.0);
     quality->addFuzzySet(medium);
-    FuzzySet *good = new FuzzySet(0.5, 1.0, 1.25, 1.25);
+    FuzzySet *good = new FuzzySet(0.5, 1.0, 1.0, 1.0);
     quality->addFuzzySet(good);
 
     fuzzy->addFuzzyOutput(quality);
