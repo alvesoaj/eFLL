@@ -217,7 +217,7 @@ TEST(FuzzyOutput, truncateAndGetCrispOutputAndGetFuzzyComposition)
 
     ASSERT_NE(nullptr, fuzzyComposition);
 
-    ASSERT_EQ(7, fuzzyComposition->countPoints());
+    ASSERT_EQ(8, fuzzyComposition->countPoints());
 
     ASSERT_TRUE(fuzzyComposition->checkPoint(0, 0));
     ASSERT_TRUE(fuzzyComposition->checkPoint(10, 1));
@@ -585,13 +585,13 @@ TEST(Fuzzy, testFromLectureSystemsTwo)
     // FuzzyInput
     FuzzyInput *temperature = new FuzzyInput(1);
 
-    FuzzySet *veryLow = new FuzzySet(-5, -5, 0, 15);
+    FuzzySet *veryLow = new FuzzySet(-5, -5, -5, 15);
     temperature->addFuzzySet(veryLow);
     FuzzySet *low = new FuzzySet(10, 20, 20, 30);
     temperature->addFuzzySet(low);
     FuzzySet *high = new FuzzySet(25, 30, 30, 35);
     temperature->addFuzzySet(high);
-    FuzzySet *veryHigh = new FuzzySet(30, 45, 50, 50);
+    FuzzySet *veryHigh = new FuzzySet(30, 50, 50, 50);
     temperature->addFuzzySet(veryHigh);
 
     fuzzy->addFuzzyInput(temperature);
@@ -599,13 +599,13 @@ TEST(Fuzzy, testFromLectureSystemsTwo)
     // FuzzyInput
     FuzzyInput *humidity = new FuzzyInput(2);
 
-    FuzzySet *dry = new FuzzySet(-5, -5, 0, 30);
+    FuzzySet *dry = new FuzzySet(-5, -5, -5, 30);
     humidity->addFuzzySet(dry);
     FuzzySet *comfortable = new FuzzySet(20, 35, 35, 50);
     humidity->addFuzzySet(comfortable);
     FuzzySet *humid = new FuzzySet(40, 55, 55, 70);
     humidity->addFuzzySet(humid);
-    FuzzySet *sticky = new FuzzySet(60, 100, 105, 105);
+    FuzzySet *sticky = new FuzzySet(60, 100, 100, 100);
     humidity->addFuzzySet(sticky);
 
     fuzzy->addFuzzyInput(humidity);
@@ -753,11 +753,11 @@ TEST(Fuzzy, testFromLectureSystemsTwo)
     fuzzy->addFuzzyRule(fuzzyRule16);
 
     // run it
-    fuzzy->setInput(1, 2);
-    fuzzy->setInput(2, 25);
+    fuzzy->setInput(1, 20);
+    fuzzy->setInput(2, 65);
     fuzzy->fuzzify();
 
-    ASSERT_FLOAT_EQ(0.3698, fuzzy->defuzzify(1));
+    ASSERT_FLOAT_EQ(51.30682, fuzzy->defuzzify(1));
 }
 
 // ##### Tests from real systems, received from eFLL users
@@ -898,7 +898,7 @@ TEST(Fuzzy, testFromLibraryUsersSystemsCasco)
 
     fuzzy->fuzzify();
 
-    EXPECT_FLOAT_EQ(17.3, fuzzy->defuzzify(1));
+    EXPECT_FLOAT_EQ(17.299999, fuzzy->defuzzify(1));
 
     // TEST 02
     fuzzy->setInput(1, 81.2);
@@ -906,7 +906,7 @@ TEST(Fuzzy, testFromLibraryUsersSystemsCasco)
 
     fuzzy->fuzzify();
 
-    EXPECT_FLOAT_EQ(8.28, fuzzy->defuzzify(1));
+    EXPECT_FLOAT_EQ(8.2799997, fuzzy->defuzzify(1));
 
     // TEST 03
     fuzzy->setInput(1, 81.2);
