@@ -180,6 +180,9 @@ float FuzzyComposition::calculate()
         numerator += middle * area;
         denominator += area;
 
+        // numerator += aux->point * aux->pertinence;
+        // denominator += aux->pertinence;
+
         aux = aux->next;
     }
     // avoiding zero division
