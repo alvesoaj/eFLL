@@ -99,30 +99,24 @@ bool FuzzyComposition::build()
         while (temp->previous != NULL)
         {
             // if the previous point is greater then the current
-            if (temp->point < temp->previous->point)
+            if (aux->point < temp->point)
             {
                 // if yes, break an use this point
                 break;
             }
             temp = temp->previous;
         }
-        // if some possible intersection found (temp may be null)
-        if (temp != NULL)
+        // iterate over the previous pointsArray
+        while (temp->previous != NULL)
         {
-            // one more auxiliary variable
-            pointsArray *zPoint = temp;
-            // iterate over the previous pointsArray
-            while (zPoint->previous != NULL)
+            // if previous of previous point is not NULL, and some intersection was fixed by rebuild
+            if (this->rebuild(aux, aux->next, temp, temp->previous) == true)
             {
-                // if previous of previous point is not NULL, and some intersection was fixed by rebuild
-                if (zPoint->previous->previous != NULL && this->rebuild(temp, temp->next, zPoint->previous, zPoint->previous->previous) == true)
-                {
-                    // move the first auxiliary to beginning of the array for a new validation, and breaks
-                    aux = this->points;
-                    break;
-                }
-                zPoint = zPoint->previous;
+                // move the first auxiliary to beginning of the array for a new validation, and breaks
+                aux = this->points;
+                break;
             }
+            temp = temp->previous;
         }
         aux = aux->next;
     }
@@ -278,7 +272,7 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
     // verify if has intersection between the segments
     float mua = numera / denom;
     float mub = numerb / denom;
-    if (mua < 0.0 || mua > 1.0 || mub < 0.0 || mub > 1.0)
+    if (mua <= 0.0 || mua >= 1.0 || mub <= 0.0 || mub >= 1.0)
     {
         // return false for intersection
         return false;
@@ -300,28 +294,24 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
         aux->pertinence = y1 + mua * (y2 - y1);
         aux->next = aSegmentEnd;
         // changing pointsArray to accomplish with new state
-        bSegmentEnd->next = aux;
+        aSegmentBegin->next = aux;
         aSegmentEnd->previous = aux;
+        bSegmentBegin->previous = aux;
+        bSegmentEnd->next = aux;
         // initiate a proccess of remotion of not needed pointsArray
-        // set a stop point (y) and pertinence (x)
-        float stopPoint = bSegmentBegin->point;
-        float stopPertinence = bSegmentBegin->pertinence;
         // some variables to help in this proccess, the start pointsArray
-        pointsArray *temp = aSegmentBegin;
+        pointsArray *temp = bSegmentBegin;
         // do, while
         do
         {
-            // get point (y) and pertinence (x) from current pointer
-            float pointToCompare = temp->point;
-            float pertinenceToCompare = temp->pertinence;
-            // navigate to previous
-            pointsArray *excl = temp->previous;
+            // hold next
+            pointsArray *excl = temp->next;
             // remove it from array
             this->rmvPoint(temp);
             // set new current
             temp = excl;
             // check if it is the stop pointsArray
-            if (stopPoint == pointToCompare && stopPertinence == pertinenceToCompare)
+            if (temp != NULL && temp->point == aux->point && temp->pertinence == aux->pertinence)
             {
                 // if true, stop the deletions
                 break;
