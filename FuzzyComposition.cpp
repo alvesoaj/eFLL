@@ -133,55 +133,55 @@ float FuzzyComposition::calculate()
     // while not in the end of the array, iterate
     while (aux != NULL)
     {
-        float area;
-        float middle;
+        // float area;
+        // float middle;
+        //
+        // // if a singleton (Not properly a membership function)
+        // if ((aux->previous == NULL && aux->next == NULL) || aux->next == NULL)
+        // {
+        //     area = aux->pertinence;
+        //     middle = aux->point;
+        // }
+        // // else if a triangle (Not properly a membership function)
+        // else if (aux->pertinence == 0.0 || aux->next->pertinence == 0.0)
+        // {
+        //     float pertinence;
+        //     if (aux->pertinence > 0.0)
+        //     {
+        //         pertinence = aux->pertinence;
+        //     }
+        //     else
+        //     {
+        //         pertinence = aux->next->pertinence;
+        //     }
+        //     area = ((aux->next->point - aux->point) * pertinence) / 2.0;
+        //     if (aux->pertinence < aux->next->pertinence)
+        //     {
+        //         middle = ((aux->next->point - aux->point) / 1.5) + aux->point;
+        //     }
+        //     else
+        //     {
+        //         middle = ((aux->next->point - aux->point) / 3.0) + aux->point;
+        //     }
+        // }
+        // // else if a square (Not properly a membership function)
+        // else if ((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && (aux->pertinence == aux->next->pertinence))
+        // {
+        //     area = (aux->next->point - aux->point) * aux->pertinence;
+        //     middle = ((aux->next->point - aux->point) / 2.0) + aux->point;
+        // }
+        // // else if a trapeze (Not properly a membership function)
+        // else if ((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && (aux->pertinence != aux->next->pertinence))
+        // {
+        //     area = ((aux->pertinence + aux->next->pertinence) / 2.0) * (aux->next->point - aux->point);
+        //     middle = ((aux->next->point - aux->point) / 2.0) + aux->point;
+        // }
+        //
+        // numerator += middle * area;
+        // denominator += area;
 
-        // if a singleton (Not properly a membership function)
-        if ((aux->previous == NULL && aux->next == NULL) || aux->next == NULL)
-        {
-            area = aux->pertinence;
-            middle = aux->point;
-        }
-        // else if a triangle (Not properly a membership function)
-        else if (aux->pertinence == 0.0 || aux->next->pertinence == 0.0)
-        {
-            float pertinence;
-            if (aux->pertinence > 0.0)
-            {
-                pertinence = aux->pertinence;
-            }
-            else
-            {
-                pertinence = aux->next->pertinence;
-            }
-            area = ((aux->next->point - aux->point) * pertinence) / 2.0;
-            if (aux->pertinence < aux->next->pertinence)
-            {
-                middle = ((aux->next->point - aux->point) / 1.5) + aux->point;
-            }
-            else
-            {
-                middle = ((aux->next->point - aux->point) / 3.0) + aux->point;
-            }
-        }
-        // else if a square (Not properly a membership function)
-        else if ((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && (aux->pertinence == aux->next->pertinence))
-        {
-            area = (aux->next->point - aux->point) * aux->pertinence;
-            middle = ((aux->next->point - aux->point) / 2.0) + aux->point;
-        }
-        // else if a trapeze (Not properly a membership function)
-        else if ((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && (aux->pertinence != aux->next->pertinence))
-        {
-            area = ((aux->pertinence + aux->next->pertinence) / 2.0) * (aux->next->point - aux->point);
-            middle = ((aux->next->point - aux->point) / 2.0) + aux->point;
-        }
-
-        numerator += middle * area;
-        denominator += area;
-
-        // numerator += aux->point * aux->pertinence;
-        // denominator += aux->pertinence;
+        numerator += aux->point * aux->pertinence;
+        denominator += aux->pertinence;
 
         aux = aux->next;
     }
