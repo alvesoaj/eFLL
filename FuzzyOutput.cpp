@@ -58,23 +58,27 @@ bool FuzzyOutput::truncate()
                 // check if the pertinence is the max
                 if (aux->fuzzySet->getPertinence() == 1.0)
                 {
-                    // include it
+                    // include it (it will replace previous point if left triangle)
                     this->fuzzyComposition->addPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence());
+                    // include it (it will replace previous point if right triangle)
+                    this->fuzzyComposition->addPoint(aux->fuzzySet->getPointD(), 0.0);
                 }
                 // if the pertinence is below the max, and it is a triangle, calculate the new point B and C
                 else
                 {
+                    // rebuild the new point finding the intersection of two lines, the first is the segment from A to B (pertinence here is the y) and the segment of truncate, from A to D
                     // initiate a new point with current values of B (here it does matters, it always will be changed)
                     float newPointB = aux->fuzzySet->getPointB();
                     float newPertinenceB = aux->fuzzySet->getPertinence();
-                    // rebuild the new point finding the intersection of two lines, the first is the segment from A to B (pertinence here is the y) and the segment of truncate, from A to D
+                    // only if a regular triangle
                     this->rebuild(aux->fuzzySet->getPointA(), 0.0, aux->fuzzySet->getPointB(), 1.0, aux->fuzzySet->getPointA(), aux->fuzzySet->getPertinence(), aux->fuzzySet->getPointD(), aux->fuzzySet->getPertinence(), &newPointB, &newPertinenceB);
                     // include it
                     this->fuzzyComposition->addPoint(newPointB, newPertinenceB);
+                    // rebuild the new point finding the intersection of two lines, the second is the segment from C to D (pertinence here is the y) and the segment of truncate, from A to D
                     // initiate a new point with current values of C (here it does matters, it always will be changed)
                     float newPointC = aux->fuzzySet->getPointC();
                     float newPertinenceC = aux->fuzzySet->getPertinence();
-                    // rebuild the new point finding the intersection of two lines, the first is the segment from C to D (pertinence here is the y) and the segment of truncate, from A to D
+                    // only if a regular triangle
                     this->rebuild(aux->fuzzySet->getPointC(), 1.0, aux->fuzzySet->getPointD(), 0.0, aux->fuzzySet->getPointA(), aux->fuzzySet->getPertinence(), aux->fuzzySet->getPointD(), aux->fuzzySet->getPertinence(), &newPointC, &newPertinenceC);
                     // include it
                     this->fuzzyComposition->addPoint(newPointC, newPertinenceC);
@@ -95,14 +99,14 @@ bool FuzzyOutput::truncate()
                 // if the pertinence is below the max, and it is a triangle, calculate the new point B and C
                 else
                 {
-                    // initiate a new point with current values of B (here it does matters, it always will be changed)
+                    // initiate a new point with current values of B
                     float newPointB = aux->fuzzySet->getPointB();
                     float newPertinenceB = aux->fuzzySet->getPertinence();
                     // rebuild the new point finding the intersection of two lines, the first is the segment from A to B (pertinence here is the y) and the segment of truncate, from A to D
                     this->rebuild(aux->fuzzySet->getPointA(), 0.0, aux->fuzzySet->getPointB(), 1.0, aux->fuzzySet->getPointA(), aux->fuzzySet->getPertinence(), aux->fuzzySet->getPointD(), aux->fuzzySet->getPertinence(), &newPointB, &newPertinenceB);
                     // include it
                     this->fuzzyComposition->addPoint(newPointB, newPertinenceB);
-                    // initiate a new point with current values of C (here it does matters, it always will be changed)
+                    // initiate a new point with current values of C
                     float newPointC = aux->fuzzySet->getPointC();
                     float newPertinenceC = aux->fuzzySet->getPertinence();
                     // rebuild the new point finding the intersection of two lines, the first is the segment from C to D (pertinence here is the y) and the segment of truncate, from A to D
