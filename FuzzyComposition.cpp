@@ -122,8 +122,14 @@ bool FuzzyComposition::build()
     return true;
 }
 
-// Method to calculate the center of the area of this FuzzyComposition
+// Method to return the calculated value of this FuzzyComposition
 float FuzzyComposition::calculate()
+{
+    return this->calculateCentroid();
+}
+
+// Method to calculate the center of the area of this FuzzyComposition
+float FuzzyComposition::calculateCentroid()
 {
     // auxiliary variable to handle the operation, instantiate with the first element from array
     pointsArray *aux = this->points;
@@ -187,10 +193,46 @@ float FuzzyComposition::calculate()
     {
         return 0.0;
     }
-    else
+    return numerator / denominator;
+}
+
+// Method to calculate the middle of the maxima of this FuzzyComposition
+float FuzzyComposition::calculateMeanMax()
+{
+    // it holds the max pertinence value for reference
+    float maxPertinence = 0.0;
+    // it holds the count of max occurrences
+    float count = 0;
+    // it holds the sum of all max
+    float sumOfMaxPoints = 0.0;
+    // auxiliary variable to handle the operation, instantiate with the first element from array
+    pointsArray *aux = this->points;
+    // while not in the end of the array, iterate
+    while (aux != NULL)
     {
-        return numerator / denominator;
+        // check if there is a new max
+        if (aux->pertinence > maxPertinence)
+        {
+            // if so, use it
+            maxPertinence = aux->pertinence;
+            // reset all auxiliary values
+            count = 1;
+            sumOfMaxPoints = aux->point;
+        }
+        else if (aux->pertinence == maxPertinence)
+        {
+            // if equal pertinence, increment values
+            count += 1;
+            sumOfMaxPoints += aux->point;
+        }
+        aux = aux->next;
     }
+    // avoiding zero division
+    if (count == 0)
+    {
+        return 0.0;
+    }
+    return sumOfMaxPoints / count;
 }
 
 // Method to reset the Object

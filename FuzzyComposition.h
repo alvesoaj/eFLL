@@ -40,6 +40,8 @@ public:
   bool checkPoint(float point, float pertinence);
   bool build();
   float calculate();
+  float calculateCentroid();
+  float calculateMeanMax();
   bool empty();
   int countPoints();
 
