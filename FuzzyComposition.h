@@ -15,11 +15,10 @@
 
 // IMPORTING NECESSARY LIBRARIES
 #include <stdlib.h>
+#include "EFLLConstants.h"
 
 // CONSTANTS
 #define EPSILON_VALUE 1.0E-3
-#define DEFUZZIFICATION_CETROID 1
-#define DEFUZZIFICATION_MEAN_MAX 2
 
 // Array struct for points objects
 struct pointsArray
