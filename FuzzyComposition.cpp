@@ -132,6 +132,34 @@ float FuzzyComposition::calculate(int method)
     return this->calculateCentroid();
 }
 
+// Method to reset the Object
+bool FuzzyComposition::empty()
+{
+    // clean all pointsArray from memory
+    this->cleanPoints(this->points);
+    // reset the pointer
+    this->points = NULL;
+    return true;
+}
+
+// Method to count the amount of points used in this FuzzyComposition
+int FuzzyComposition::countPoints()
+{
+    // variable to hold the count
+    int count = 0;
+    // auxiliary variable to handle the operation
+    pointsArray *aux = this->points;
+    // while not in the end of the array, iterate
+    while (aux != NULL)
+    {
+        count = count + 1;
+        aux = aux->next;
+    }
+    return count;
+}
+
+// PRIVATE METHODS
+
 // Method to calculate the center of the area of this FuzzyComposition
 float FuzzyComposition::calculateCentroid()
 {
@@ -238,34 +266,6 @@ float FuzzyComposition::calculateMeanMax()
     }
     return sumOfMaxPoints / count;
 }
-
-// Method to reset the Object
-bool FuzzyComposition::empty()
-{
-    // clean all pointsArray from memory
-    this->cleanPoints(this->points);
-    // reset the pointer
-    this->points = NULL;
-    return true;
-}
-
-// Method to count the amount of points used in this FuzzyComposition
-int FuzzyComposition::countPoints()
-{
-    // variable to hold the count
-    int count = 0;
-    // auxiliary variable to handle the operation
-    pointsArray *aux = this->points;
-    // while not in the end of the array, iterate
-    while (aux != NULL)
-    {
-        count = count + 1;
-        aux = aux->next;
-    }
-    return count;
-}
-
-// PRIVATE METHODS
 
 // Method to recursively clean all pointsArray structs from memory
 void FuzzyComposition::cleanPoints(pointsArray *aux)

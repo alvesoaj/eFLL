@@ -42,8 +42,6 @@ public:
   bool checkPoint(float point, float pertinence);
   bool build();
   float calculate(int method);
-  float calculateCentroid();
-  float calculateMeanMax();
   bool empty();
   int countPoints();
 
@@ -52,6 +50,8 @@ private:
   pointsArray *points;
 
   // PRIVATE METHODS
+  float calculateCentroid();
+  float calculateMeanMax();
   void cleanPoints(pointsArray *aux);
   bool rebuild(pointsArray *aSegmentBegin, pointsArray *aSegmentEnd, pointsArray *bSegmentBegin, pointsArray *bSegmentEnd);
   bool rmvPoint(pointsArray *point);
