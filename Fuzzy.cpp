@@ -255,7 +255,7 @@ bool Fuzzy::isFiredRule(int fuzzyRuleIndex)
 }
 
 // Method to retrieve the result of the process for one specific FuzzyOutput
-float Fuzzy::defuzzify(int fuzzyOutputIndex)
+float Fuzzy::defuzzify(int fuzzyOutputIndex, int method)
 {
     // auxiliary variable to handle the operation
     fuzzyOutputArray *aux;
@@ -268,7 +268,7 @@ float Fuzzy::defuzzify(int fuzzyOutputIndex)
         if (aux->fuzzyOutput->getIndex() == fuzzyOutputIndex)
         {
             // return the calculated result
-            return aux->fuzzyOutput->getCrispOutput();
+            return aux->fuzzyOutput->getCrispOutput(method);
         }
         aux = aux->next;
     }

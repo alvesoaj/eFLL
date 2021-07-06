@@ -57,7 +57,7 @@ public:
   bool setInput(int fuzzyInputIndex, float crispValue);
   bool fuzzify();
   bool isFiredRule(int fuzzyRuleIndex);
-  float defuzzify(int fuzzyOutputIndex);
+  float defuzzify(int fuzzyOutputIndex, int method);
 
 private:
   // PRIVATE VARIABLES

@@ -123,8 +123,12 @@ bool FuzzyComposition::build()
 }
 
 // Method to return the calculated value of this FuzzyComposition
-float FuzzyComposition::calculate()
+float FuzzyComposition::calculate(int method)
 {
+    if (method == DEFUZZIFICATION_MEAN_MAX)
+    {
+        return this->calculateMeanMax();
+    }
     return this->calculateCentroid();
 }
 

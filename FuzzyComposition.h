@@ -18,6 +18,8 @@
 
 // CONSTANTS
 #define EPSILON_VALUE 1.0E-3
+#define DEFUZZIFICATION_CETROID 1
+#define DEFUZZIFICATION_MEAN_MAX 2
 
 // Array struct for points objects
 struct pointsArray
@@ -39,7 +41,7 @@ public:
   bool addPoint(float point, float pertinence);
   bool checkPoint(float point, float pertinence);
   bool build();
-  float calculate();
+  float calculate(int method);
   float calculateCentroid();
   float calculateMeanMax();
   bool empty();
