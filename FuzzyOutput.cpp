@@ -119,7 +119,11 @@ bool FuzzyOutput::truncate()
             else
             {
                 // include it
+                this->fuzzyComposition->addPoint(aux->fuzzySet->getPointB(), 0.0);
+                // include it
                 this->fuzzyComposition->addPoint(aux->fuzzySet->getPointB(), aux->fuzzySet->getPertinence());
+                // include it
+                this->fuzzyComposition->addPoint(aux->fuzzySet->getPointB(), 0.0);
             }
             // Check if it is not a "trapeze" without its right triangle or singleton, before include the point D
             if (aux->fuzzySet->getPointC() != aux->fuzzySet->getPointD())
