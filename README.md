@@ -1,6 +1,6 @@
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/zerokol/eFLL.svg)
 ![GitHub](https://img.shields.io/github/license/zerokol/eFLL.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ad6d2e4416f74e93a104b795d69e26c4)](https://www.codacy.com/app/zerokol/eFLL?utm_source=github.com&utm_medium=referral&utm_content=zerokol/eFLL&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cf8ec18693d54d0d9437e4f198339195)](https://www.codacy.com/gh/zerokol/eFLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zerokol/eFLL&amp;utm_campaign=Badge_Grade)
 ![GitHub top language](https://img.shields.io/github/languages/top/zerokol/eFLL.svg)
 ![GitHub search hit counter](https://img.shields.io/github/search/zerokol/eFLL/fuzzy.svg)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/zerokol/eFLL/master.svg)
