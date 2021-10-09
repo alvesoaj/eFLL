@@ -27,7 +27,7 @@ public:
   ~FuzzyOutput();
   // PUBLIC METHODS
   bool truncate();
-  float getCrispOutput();
+  float getCrispOutput(int method);
   bool order();
   FuzzyComposition *getFuzzyComposition();
 
