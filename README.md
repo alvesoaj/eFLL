@@ -9,9 +9,9 @@
 
 eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and efficient Fuzzy Systems.
 
-Para informações avançadas, documentação e exemplos de uso em PORTUGUÊS: [eFLL - Uma Biblioteca Fuzzy para Arduino e Sistemas Embarcados](https://blog.zerokol.com/2012/09/arduinofuzzy-uma-biblioteca-fuzzy-para.html)
+Para informações avançadas, documentação e exemplos de uso em PORTUGUÊS: [eFLL - Uma Biblioteca Fuzzy para Arduino e Sistemas Embarcados](https://blog.alvesoaj.com/2012/09/arduinofuzzy-uma-biblioteca-fuzzy-para.html)
 
-For advanced information, documentation, and usage examples in ENGLISH: [eFLL - A Fuzzy Library for Arduino and Embedded Systems](https://blog.zerokol.com/2012/09/arduinofuzzy-fuzzy-library-for-arduino.html)
+For advanced information, documentation, and usage examples in ENGLISH: [eFLL - A Fuzzy Library for Arduino and Embedded Systems](https://blog.alvesoaj.com/2012/09/arduinofuzzy-fuzzy-library-for-arduino.html)
 
 ## Characteristics
 
@@ -99,7 +99,7 @@ And finally:
 
 ## REFERENCES
 
-**Authors:** AJ Alves <aj.alves@zerokol.com>; **Co authors:** Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>, Msc. Marvin Lemos <marvinlemos@gmail.com>, Douglas S. Kridi <douglaskridi@gmail.com>, Kannya Leal <kannyal@hotmail.com>
+**Authors:** AJ Alves <alvesoaj@icloud.com>; **Co authors:** Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>, Msc. Marvin Lemos <marvinlemos@gmail.com>, Douglas S. Kridi <douglaskridi@gmail.com>, Kannya Leal <kannyal@hotmail.com>
 
 ## Special Thanks to Contributors
 
