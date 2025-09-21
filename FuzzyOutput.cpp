@@ -140,9 +140,9 @@ bool FuzzyOutput::truncate()
 }
 
 // Method to run the calculate of FuzzyComposition and return the result
-float FuzzyOutput::getCrispOutput()
+float FuzzyOutput::getCrispOutput(int method)
 {
-    return this->fuzzyComposition->calculate();
+    return this->fuzzyComposition->calculate(method);
 }
 
 // Method to sort the FuzzySet by the reference of the point A in an ascending order

@@ -13,9 +13,19 @@
 #include "Fuzzy.h"
 
 // CONTRUCTORS
-Fuzzy::Fuzzy()
+Fuzzy::Fuzzy(int andMethod, int orMethod, int implicationMethod, int aggregationMethod, int defuzzifyMethod)
 {
     // Initializing pointers with NULL
+    // andMethod
+    this->andMethod = andMethod;
+    // orMethod
+    this->orMethod = orMethod;
+    // implicationMethod
+    this->implicationMethod = implicationMethod;
+    // aggregationMethod
+    this->aggregationMethod = aggregationMethod;
+    // defuzzifyMethod
+    this->defuzzifyMethod = defuzzifyMethod;
     // FuzzyInput
     this->fuzzyInputs = NULL;
     // FuzzyOutput
@@ -268,7 +278,7 @@ float Fuzzy::defuzzify(int fuzzyOutputIndex)
         if (aux->fuzzyOutput->getIndex() == fuzzyOutputIndex)
         {
             // return the calculated result
-            return aux->fuzzyOutput->getCrispOutput();
+            return aux->fuzzyOutput->getCrispOutput(this->defuzzifyMethod);
         }
         aux = aux->next;
     }
