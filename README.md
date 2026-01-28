@@ -1,9 +1,9 @@
-![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/zerokol/eFLL.svg)
-![GitHub](https://img.shields.io/github/license/zerokol/eFLL.svg)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/alvesoaj/eFLL.svg)
+![GitHub](https://img.shields.io/github/license/alvesoaj/eFLL.svg)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/cf8ec18693d54d0d9437e4f198339195)](https://www.codacy.com/gh/zerokol/eFLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zerokol/eFLL&amp;utm_campaign=Badge_Grade)
-![GitHub top language](https://img.shields.io/github/languages/top/zerokol/eFLL.svg)
-![GitHub search hit counter](https://img.shields.io/github/search/zerokol/eFLL/fuzzy.svg)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/zerokol/eFLL/master.svg)
+![GitHub top language](https://img.shields.io/github/languages/top/alvesoaj/eFLL.svg)
+![GitHub search hit counter](https://img.shields.io/github/search/alvesoaj/eFLL/fuzzy.svg)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/alvesoaj/eFLL/master.svg)
 
 ## eFLL (Embedded Fuzzy Logic Library)
 
@@ -65,7 +65,7 @@ If the installation of the library has been successfully held, to import the lib
 
 ## Brief Documentation
 
-![Class Diagram](https://raw.githubusercontent.com/zerokol/eFLL/master/uml/class-diagram.png)
+![Class Diagram](https://raw.githubusercontent.com/alvesoaj/eFLL/master/uml/class-diagram.png)
 
 **Fuzzy object** - This object includes all the Fuzzy System, through it, you can manipulate the Fuzzy Sets, Linguistic Rules, inputs and outputs.
 
