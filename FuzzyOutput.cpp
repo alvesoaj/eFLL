@@ -4,7 +4,7 @@
  *
  * FuzzyOutput.cpp
  *
- *      Author: AJ Alves <aj.alves@zerokol.com>
+ *      Author: AJ Alves <alvesoaj@icloud.com>
  *          Co authors: Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>
  *                      Msc. Marvin Lemos <marvinlemos@gmail.com>
  *                      Douglas S. Kridi <douglaskridi@gmail.com>
@@ -207,28 +207,20 @@ bool FuzzyOutput::rebuild(float x1, float y1, float x2, float y2, float x3, floa
     denom = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
     numera = (x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3);
     numerb = (x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3);
-    // if negative, convert to positive
-    if (denom < 0.0)
-    {
-        denom *= -1.0;
-    }
     // If the denominator is zero or close to it, it means that the lines are parallels, so return false for intersection
-    if (denom < EPSILON_VALUE)
+    // Check absolute value for parallel test
+    float absDenom = denom;
+    if (absDenom < 0.0)
+    {
+        absDenom *= -1.0;
+    }
+    if (absDenom < EPSILON_VALUE)
     {
         // return false for intersection
         return false;
     }
-    // if negative, convert to positive
-    if (numera < 0.0)
-    {
-        numera *= -1.0;
-    }
-    // if negative, convert to positive
-    if (numerb < 0.0)
-    {
-        numerb *= -1.0;
-    }
     // verify if has intersection between the segments
+    // DO NOT take absolute values - sign matters for parametric equation!
     mua = numera / denom;
     mub = numerb / denom;
     if (mua < 0.0 || mua > 1.0 || mub < 0.0 || mub > 1.0)

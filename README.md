@@ -1,110 +1,212 @@
-![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/zerokol/eFLL.svg)
-![GitHub](https://img.shields.io/github/license/zerokol/eFLL.svg)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cf8ec18693d54d0d9437e4f198339195)](https://www.codacy.com/gh/zerokol/eFLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zerokol/eFLL&amp;utm_campaign=Badge_Grade)
-![GitHub top language](https://img.shields.io/github/languages/top/zerokol/eFLL.svg)
-![GitHub search hit counter](https://img.shields.io/github/search/zerokol/eFLL/fuzzy.svg)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/zerokol/eFLL/master.svg)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/alvesoaj/eFLL.svg)
+![GitHub](https://img.shields.io/github/license/alvesoaj/eFLL.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cf8ec18693d54d0d9437e4f198339195)](https://www.codacy.com/gh/alvesoaj/eFLL/dashboard?utm_source=github.com&utm_medium=referral&utm_content=alvesoaj/eFLL&utm_campaign=Badge_Grade)
+![GitHub top language](https://img.shields.io/github/languages/top/alvesoaj/eFLL.svg)
+![GitHub search hit counter](https://img.shields.io/github/search/alvesoaj/eFLL/fuzzy.svg)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/alvesoaj/eFLL/master.svg)
 
 ## eFLL (Embedded Fuzzy Logic Library)
 
-eFLL (Embedded Fuzzy Logic Library) is a standard library for Embedded Systems to implement easy and efficient Fuzzy Systems.
+eFLL (Embedded Fuzzy Logic Library) is a lightweight, efficient library designed for implementing fuzzy logic systems on embedded platforms. It provides a simple yet powerful API for creating fuzzy inference systems with minimal resource overhead.
 
-Para informações avançadas, documentação e exemplos de uso em PORTUGUÊS: [eFLL - Uma Biblioteca Fuzzy para Arduino e Sistemas Embarcados](https://blog.alvesoaj.com/2012/09/arduinofuzzy-uma-biblioteca-fuzzy-para.html)
+**Documentation & Examples:**
 
-For advanced information, documentation, and usage examples in ENGLISH: [eFLL - A Fuzzy Library for Arduino and Embedded Systems](https://blog.alvesoaj.com/2012/09/arduinofuzzy-fuzzy-library-for-arduino.html)
+- **Portuguese:** [eFLL - Uma Biblioteca Fuzzy para Arduino e Sistemas Embarcados](https://blog.alvesoaj.com/2012/09/arduinofuzzy-uma-biblioteca-fuzzy-para.html)
+- **English:** [eFLL - A Fuzzy Library for Arduino and Embedded Systems](https://blog.alvesoaj.com/2012/09/arduinofuzzy-fuzzy-library-for-arduino.html)
 
-## Characteristics
+## Key Features
 
-Written in C++/C, uses only standard C language library "stdlib.h", so eFLL is a library designed not only to Arduino, but any Embedded System or not how have your commands written in C.
+**Portable & Lightweight**
 
-It has no explicit limitations on quantity of Fuzzy, Fuzzy Rules, Inputs or Outputs, these limited processing power and storage of each microcontroller
+- Written in C++/C using only the standard `stdlib.h` library
+- Designed for Arduino and any embedded system with C/C++ support
+- No platform-specific dependencies
 
-It uses the process:
+**Flexible Architecture**
 
-(MAX-MIN) and (Mamdani Minimum) for inference and composition, (CENTER OF AREA) to defuzzification in a continuous universe.
+- No hardcoded limits on the number of fuzzy sets, rules, inputs, or outputs
+- Scalability limited only by the processing power and memory of your microcontroller
+- Supports triangular, trapezoidal, and singleton membership functions
 
-Tested with [GTest](http://code.google.com/p/googletest/) for C, Google Inc.
+**Industry-Standard Inference**
 
-## How to install (general use)
+- Uses MAX-MIN and Mamdani Minimum methods for inference and composition
+- Implements Center of Area (COA) defuzzification in a continuous universe
+- Fully tested with Google Test (GTest) framework
 
-**Step 1:** Go to the official project page on GitHub (Here)
+## Installation
 
-**Step 2:** Make a clone of the project using Git or download at Download on the button "Download as zip."
-
-**Step 3:** Clone or unzip (For safety, rename the folder to "eFLL") the files into some folder
-
-**Step 4:** Compile and link it to your code (See Makefile)
-
-## How to install (and import to use with Arduino)
-
-### Easy Way
+### For Arduino (Recommended Method)
 
 **Step 1:** Open the Arduino IDE
 
-**Step 2:** In main menu, go to SKETCH >> INCLUDE LIBRARY >> MANAGE LIBRARIES
+**Step 2:** Navigate to **Sketch → Include Library → Manage Libraries**
 
 **Step 3:** Search for "eFLL" or "Fuzzy"
 
-**Step 4:** eFLL will appear in the list, to finish, just click in INSTALL, now you can include eFLL to your sketchs
+**Step 4:** Click **Install**
 
-### Old Way
+You can now include eFLL in your sketches!
 
-**Step 1:** Go to the official project page on GitHub (Here)
+### For Arduino (Manual Installation)
 
-**Step 2:** Make a clone of the project using Git or download at Download on the button "Download as zip."
+**Step 1:** Download the library from the [GitHub repository](https://github.com/alvesoaj/eFLL)
 
-**Step 3:** Clone or unzip (For safety, rename the folder to "eFLL") the files into Arduino libraries' folder:
+- Click the green "Code" button and select "Download ZIP"
 
-Ubuntu (/usr/share/arduino/libraries/) if installed via apt-get, if not, on Windows, Mac or Linux (where you downloaded the Arduino IDE, the Library folder is inside)
+**Step 2:** Extract the ZIP file and rename the folder to "eFLL" (if needed)
 
-**Ok! The library is ready to be used!**
+**Step 3:** Copy the folder to your Arduino libraries directory:
 
-If the installation of the library has been successfully held, to import the library is easy:
+- **Windows:** `Documents\Arduino\libraries\`
+- **macOS:** `~/Documents/Arduino/libraries/`
+- **Linux (apt-get install):** `/usr/share/arduino/libraries/`
+- **Linux (manual install):** `~/Arduino/libraries/`
 
-**Step 4:** Open your Arduino IDE, check out the tab on the top menu SKETCH → LIBRARY → Import eFLL
+**Step 4:** Restart the Arduino IDE
 
-## Brief Documentation
+**Step 5:** Navigate to **Sketch → Include Library → eFLL**
 
-![Class Diagram](https://raw.githubusercontent.com/zerokol/eFLL/master/uml/class-diagram.png)
+### For General Embedded Systems
 
-**Fuzzy object** - This object includes all the Fuzzy System, through it, you can manipulate the Fuzzy Sets, Linguistic Rules, inputs and outputs.
+**Step 1:** Clone or download the repository from [GitHub](https://github.com/alvesoaj/eFLL)
 
-**FuzzyInput** object - This object groups all entries Fuzzy Sets that belongs to the same domain.
+```bash
+git clone https://github.com/alvesoaj/eFLL.git
+```
 
-**FuzzyOutput** object - This object is similar to FuzzyInput, is used to group all output Fuzzy Sets thar belongs to the same domain.
+**Step 2:** Add the library files to your project
 
-**FuzzySet** object - This is one of the main objects of Fuzzy Library, with each set is possible to model the system in question. Currently the library supports triangular membership functions, trapezoidal and singleton, which are assembled based on points A, B, C and D, they are passed by parameter in its constructor FuzzySet(float a, float b, float c, float d).
+**Step 3:** Compile and link with your code (refer to the `Makefile` for examples)
 
-**FuzzyRule** object - This object is used to mount the base rule of Fuzzy object, which contains one or more of this object. Instantiated with FuzzyRule fr = new FuzzyRule (ID, antecedent, consequent).
+## Library Architecture
 
-**FuzzyRuleAntecedent** object - This object is used to compound the object FuzzyRule, responsible for assembling the antecedent of the conditional expression of a FuzzyRule.
+![Class Diagram](https://raw.githubusercontent.com/alvesoaj/eFLL/master/uml/class-diagram.png)
 
-**FuzzyRuleConsequent** object - This object is used to render the object FuzzyRule, responsible for assembling the output expression of a FuzzyRule.
+### Core Components
 
-## Tips
+**Fuzzy**
 
-These are all eFLL library objects that are used in the process. The next step, generally interactive is handled by three methods of the Fuzzy Class first:
+- The main controller class that manages the entire fuzzy inference system
+- Coordinates fuzzy sets, linguistic rules, inputs, and outputs
+- Provides the primary interface for interacting with the fuzzy system
 
-`bool setInput(int id, float value);`
+**FuzzyInput**
 
-It is used to pass the Crispe input value to the system note that the first parameter is the FuzzyInput object' ID which parameter value is intended.
+- Groups all input fuzzy sets that belong to the same input domain
+- Each input variable should have its own FuzzyInput object
 
-`bool fuzzify();`
+**FuzzyOutput**
 
-It is used to start the fuzzification process, composition and inference.
+- Groups all output fuzzy sets that belong to the same output domain
+- Similar to FuzzyInput but used for system outputs
 
-And finally:
+**FuzzySet**
 
-`float defuzzify(int id);`
+- One of the core building blocks of the library
+- Represents a membership function that models linguistic variables
+- Supports three types of membership functions:
+  - **Triangular:** Three points define a triangle shape
+  - **Trapezoidal:** Four points define a trapezoid shape
+  - **Singleton:** A single point with a specific membership value
+- Constructor: `FuzzySet(float a, float b, float c, float d)`
+  - Points A, B, C, D define the shape of the membership function
 
-## REFERENCES
+**FuzzyRule**
 
-**Authors:** AJ Alves <alvesoaj@icloud.com>; **Co authors:** Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>, Msc. Marvin Lemos <marvinlemos@gmail.com>, Douglas S. Kridi <douglaskridi@gmail.com>, Kannya Leal <kannyal@hotmail.com>
+- Represents a single fuzzy IF-THEN rule
+- Combines antecedent conditions with consequent actions
+- Constructor: `FuzzyRule(int id, FuzzyRuleAntecedent* antecedent, FuzzyRuleConsequent* consequent)`
 
-## Special Thanks to Contributors
+**FuzzyRuleAntecedent**
 
+- Defines the IF part (condition) of a fuzzy rule
+- Supports AND/OR operations to combine multiple fuzzy sets
+- Builds the antecedent expression for a rule
+
+**FuzzyRuleConsequent**
+
+- Defines the THEN part (action) of a fuzzy rule
+- Specifies which output fuzzy sets are activated when the rule fires
+- Builds the consequent expression for a rule
+
+## Basic Usage
+
+The fuzzy inference process involves three main steps, handled by three key methods of the `Fuzzy` class:
+
+### 1. Set Input Values
+
+```cpp
+bool setInput(int id, float value);
+```
+
+Sets a crisp input value for a specific FuzzyInput. The `id` parameter identifies which FuzzyInput object receives the value.
+
+### 2. Fuzzification and Inference
+
+```cpp
+bool fuzzify();
+```
+
+Initiates the fuzzification process, evaluates all fuzzy rules, performs composition, and prepares for defuzzification.
+
+### 3. Defuzzification
+
+```cpp
+float defuzzify(int id);
+```
+
+Calculates and returns the crisp output value for a specific FuzzyOutput using the Center of Area (COA) method.
+
+## Example Workflow
+
+```cpp
+// 1. Create fuzzy system
+Fuzzy* fuzzy = new Fuzzy();
+
+// 2. Define inputs and outputs
+FuzzyInput* temperature = new FuzzyInput(1);
+FuzzyOutput* fanSpeed = new FuzzyOutput(1);
+
+// 3. Define membership functions
+FuzzySet* cold = new FuzzySet(0, 0, 10, 20);
+FuzzySet* warm = new FuzzySet(15, 25, 25, 35);
+FuzzySet* hot = new FuzzySet(30, 40, 50, 50);
+
+// 4. Add sets to inputs/outputs
+temperature->addFuzzySet(cold);
+temperature->addFuzzySet(warm);
+temperature->addFuzzySet(hot);
+
+// 5. Create rules
+FuzzyRuleAntecedent* ifCold = new FuzzyRuleAntecedent();
+ifCold->joinSingle(cold);
+FuzzyRuleConsequent* thenSlow = new FuzzyRuleConsequent();
+thenSlow->addOutput(slow);
+
+FuzzyRule* rule1 = new FuzzyRule(1, ifCold, thenSlow);
+fuzzy->addFuzzyRule(rule1);
+
+// 6. Run inference
+fuzzy->setInput(1, 22.5);  // Set temperature to 22.5°C
+fuzzy->fuzzify();           // Perform fuzzification and inference
+float output = fuzzy->defuzzify(1);  // Get fan speed
+```
+
+## Credits
+
+**Author:** AJ Alves <alvesoaj@icloud.com>
+
+**Co-authors:**
+
+- Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>
+- Msc. Marvin Lemos <marvinlemos@gmail.com>
+- Douglas S. Kridi <douglaskridi@gmail.com>
+- Kannya Leal <kannyal@hotmail.com>
+
+**Special Thanks to Contributors:**
 [@mikebutrimov](https://github.com/mikebutrimov), [@tzikis](https://github.com/tzikis), [@na7an](https://github.com/na7an)
 
-## LICENSE
+## License
 
 MIT License

@@ -4,7 +4,7 @@
  *
  * FuzzyComposition.cpp
  *
- *      Author: AJ Alves <aj.alves@zerokol.com>
+ *      Author: AJ Alves <alvesoaj@icloud.com>
  *          Co authors: Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>
  *                      Msc. Marvin Lemos <marvinlemos@gmail.com>
  *                      Douglas S. Kridi <douglaskridi@gmail.com>
@@ -74,8 +74,14 @@ bool FuzzyComposition::checkPoint(float point, float pertinence)
     // while not in the end of the array, iterate
     while (aux != NULL)
     {
-        // if params match with this point
-        if (aux->point == point && aux->pertinence == pertinence)
+        // if params match with this point (using epsilon for floating point comparison)
+        float pointDiff = aux->point - point;
+        float pertDiff = aux->pertinence - pertinence;
+        if (pointDiff < 0.0)
+            pointDiff *= -1.0;
+        if (pertDiff < 0.0)
+            pertDiff *= -1.0;
+        if (pointDiff < EPSILON_VALUE && pertDiff < EPSILON_VALUE)
         {
             return true;
         }
@@ -134,13 +140,25 @@ float FuzzyComposition::calculate()
     {
         float area = 0.0;
         float middle = 0.0;
-        // if it is a singleton
-        if (aux->pertinence != aux->next->pertinence && aux->point == aux->next->point)
+        // if it is a singleton (using epsilon for floating point comparison)
+        float pointDiff = aux->point - aux->next->point;
+        float pertDiff = aux->pertinence - aux->next->pertinence;
+        if (pointDiff < 0.0)
+            pointDiff *= -1.0;
+        if (pertDiff < 0.0)
+            pertDiff *= -1.0;
+        if (pertDiff > EPSILON_VALUE && pointDiff < EPSILON_VALUE)
         {
             // enter in all points of singleton, but calculate only once
+            // Use whichever pertinence is non-zero
             if (aux->pertinence > 0.0)
             {
                 area = aux->pertinence;
+                middle = aux->point;
+            }
+            else if (aux->next->pertinence > 0.0)
+            {
+                area = aux->next->pertinence;
                 middle = aux->point;
             }
         }
@@ -167,16 +185,21 @@ float FuzzyComposition::calculate()
             }
         }
         // else if a square (Not properly a membership function)
-        else if ((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && aux->pertinence == aux->next->pertinence)
+        // Using epsilon for floating point comparison
+        else if ((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && pertDiff < EPSILON_VALUE)
         {
             area = (aux->next->point - aux->point) * aux->pertinence;
             middle = ((aux->next->point - aux->point) / 2.0) + aux->point;
         }
         // else if a trapeze (Not properly a membership function)
-        else if ((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && aux->pertinence != aux->next->pertinence)
+        // Using epsilon for floating point comparison
+        else if ((aux->pertinence > 0.0 && aux->next->pertinence > 0.0) && pertDiff > EPSILON_VALUE)
         {
             area = ((aux->pertinence + aux->next->pertinence) / 2.0) * (aux->next->point - aux->point);
-            middle = ((aux->next->point - aux->point) / 2.0) + aux->point;
+            // Centroid of trapezoid: x = x1 + L * (2*h2 + h1) / (3*(h1 + h2))
+            float h1 = aux->pertinence;
+            float h2 = aux->next->pertinence;
+            middle = aux->point + (aux->next->point - aux->point) * (2.0 * h2 + h1) / (3.0 * (h1 + h2));
         }
         numerator += middle * area;
         denominator += area;
@@ -248,31 +271,23 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
     float denom = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
     float numera = (x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3);
     float numerb = (x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3);
-    // if negative, convert to positive
-    if (denom < 0.0)
-    {
-        denom *= -1.0;
-    }
     // If the denominator is zero or close to it, it means that the lines are parallels, so return false for intersection
-    if (denom < EPSILON_VALUE)
+    // Check absolute value for parallel test
+    float absDenom = denom;
+    if (absDenom < 0.0)
+    {
+        absDenom *= -1.0;
+    }
+    if (absDenom < EPSILON_VALUE)
     {
         // return false for intersection
         return false;
     }
-    // if negative, convert to positive
-    if (numera < 0.0)
-    {
-        numera *= -1.0;
-    }
-    // if negative, convert to positive
-    if (numerb < 0.0)
-    {
-        numerb *= -1.0;
-    }
     // verify if has intersection between the segments
+    // DO NOT take absolute values - sign matters for parametric equation!
     float mua = numera / denom;
     float mub = numerb / denom;
-    if (mua <= 0.0 || mua >= 1.0 || mub <= 0.0 || mub >= 1.0)
+    if (mua < 0.0 || mua > 1.0 || mub < 0.0 || mub > 1.0)
     {
         // return false for intersection
         return false;
@@ -310,11 +325,20 @@ bool FuzzyComposition::rebuild(pointsArray *aSegmentBegin, pointsArray *aSegment
             this->rmvPoint(temp);
             // set new current
             temp = excl;
-            // check if it is the stop pointsArray
-            if (temp != NULL && temp->point == aux->point && temp->pertinence == aux->pertinence)
+            // check if it is the stop pointsArray (using epsilon for floating point comparison)
+            if (temp != NULL)
             {
-                // if true, stop the deletions
-                break;
+                float pointDiff = temp->point - aux->point;
+                float pertDiff = temp->pertinence - aux->pertinence;
+                if (pointDiff < 0.0)
+                    pointDiff *= -1.0;
+                if (pertDiff < 0.0)
+                    pertDiff *= -1.0;
+                if (pointDiff < EPSILON_VALUE && pertDiff < EPSILON_VALUE)
+                {
+                    // if true, stop the deletions
+                    break;
+                }
             }
         } while (temp != NULL);
         return true;

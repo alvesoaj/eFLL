@@ -4,7 +4,7 @@
  *
  * FuzzyOutput.h
  *
- *      Author: AJ Alves <aj.alves@zerokol.com>
+ *      Author: AJ Alves <alvesoaj@icloud.com>
  *          Co authors: Dr. Ricardo Lira <ricardor_usp@yahoo.com.br>
  *                      Msc. Marvin Lemos <marvinlemos@gmail.com>
  *                      Douglas S. Kridi <douglaskridi@gmail.com>

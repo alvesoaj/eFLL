@@ -491,7 +491,7 @@ TEST(Fuzzy, setInputAndFuzzifyAndIsFiredRuleAndDefuzzify)
     ASSERT_TRUE(fuzzy->isFiredRule(2));
     ASSERT_FALSE(fuzzy->isFiredRule(3));
 
-    ASSERT_FLOAT_EQ(19.375, fuzzy->defuzzify(1));
+    ASSERT_FLOAT_EQ(20.0, fuzzy->defuzzify(1));
 }
 
 // ##### Tests from explanation Fuzzy System
@@ -575,7 +575,7 @@ TEST(Fuzzy, testFromLectureSystemsOne)
     ASSERT_FLOAT_EQ(0.2, ifSizeLargeAndWeightSmall->evaluate());
     ASSERT_FLOAT_EQ(0.2, ifSizeLargeAndWeightLarge->evaluate());
 
-    ASSERT_FLOAT_EQ(0.37692466, fuzzy->defuzzify(1)); // 0.3698 on the paper
+    ASSERT_FLOAT_EQ(0.36986744, fuzzy->defuzzify(1)); // Updated after trapezoid centroid fix
 }
 
 // From: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.486.1238&rep=rep1&type=pdf
@@ -758,7 +758,7 @@ TEST(Fuzzy, testFromLectureSystemsTwo)
     fuzzy->setInput(2, 65);
     fuzzy->fuzzify();
 
-    ASSERT_FLOAT_EQ(50.568535, fuzzy->defuzzify(1)); // This value was not extracted from the paper
+    ASSERT_FLOAT_EQ(50.552891, fuzzy->defuzzify(1)); // Updated after trapezoid centroid fix
 }
 
 // ##### Tests from real systems, received from eFLL users
@@ -1247,7 +1247,7 @@ TEST(Fuzzy, testFromLibraryUsersSystemsCasco)
 
     fuzzy->fuzzify();
 
-    EXPECT_FLOAT_EQ(6.4175873, fuzzy->defuzzify(1)); // 6.21 on original file
+    EXPECT_FLOAT_EQ(6.2965312, fuzzy->defuzzify(1)); // Updated after trapezoid centroid fix
 
     // TEST 04
     fuzzy->setInput(1, 71.69);
@@ -1256,7 +1256,7 @@ TEST(Fuzzy, testFromLibraryUsersSystemsCasco)
 
     fuzzy->fuzzify();
 
-    EXPECT_FLOAT_EQ(4.2093439, fuzzy->defuzzify(1)); // 4.12 on original file
+    EXPECT_FLOAT_EQ(4.2066846, fuzzy->defuzzify(1)); // Updated after trapezoid centroid fix
 
     // TEST 05
     fuzzy->setInput(1, 71.69);
@@ -1265,7 +1265,7 @@ TEST(Fuzzy, testFromLibraryUsersSystemsCasco)
 
     fuzzy->fuzzify();
 
-    EXPECT_FLOAT_EQ(15.478251, fuzzy->defuzzify(1)); // 15.5 on original file
+    EXPECT_FLOAT_EQ(15.478436, fuzzy->defuzzify(1)); // Updated after trapezoid centroid fix
 
     // TEST 06
     fuzzy->setInput(1, 16.27);
@@ -1394,29 +1394,29 @@ TEST(Fuzzy, setInputAndFuzzifyAndDefuzzify09)
     FuzzyRule *fuzzyRule21;
 
     // Fuzzy set
-    FuzzySet *s_0 = new FuzzySet(9, 21, 21, 33);      //veri left
-    FuzzySet *s_1 = new FuzzySet(24, 31.5, 31.5, 39); //medium left
-    FuzzySet *s_2 = new FuzzySet(35, 39, 39, 43);     //zero
-    FuzzySet *s_3 = new FuzzySet(39, 46.5, 46.5, 54); //medium right
-    FuzzySet *s_4 = new FuzzySet(45, 57, 57, 69);     //very right
+    FuzzySet *s_0 = new FuzzySet(9, 21, 21, 33);      // veri left
+    FuzzySet *s_1 = new FuzzySet(24, 31.5, 31.5, 39); // medium left
+    FuzzySet *s_2 = new FuzzySet(35, 39, 39, 43);     // zero
+    FuzzySet *s_3 = new FuzzySet(39, 46.5, 46.5, 54); // medium right
+    FuzzySet *s_4 = new FuzzySet(45, 57, 57, 69);     // very right
 
-    FuzzySet *d_0 = new FuzzySet(0, 5, 5, 10);    //farthest
-    FuzzySet *d_1 = new FuzzySet(5, 10, 10, 15);  //far
-    FuzzySet *d_2 = new FuzzySet(10, 15, 15, 20); //middle
-    FuzzySet *d_3 = new FuzzySet(15, 25, 25, 35); //near
-    FuzzySet *d_4 = new FuzzySet(25, 42, 42, 59); //nearest
+    FuzzySet *d_0 = new FuzzySet(0, 5, 5, 10);    // farthest
+    FuzzySet *d_1 = new FuzzySet(5, 10, 10, 15);  // far
+    FuzzySet *d_2 = new FuzzySet(10, 15, 15, 20); // middle
+    FuzzySet *d_3 = new FuzzySet(15, 25, 25, 35); // near
+    FuzzySet *d_4 = new FuzzySet(25, 42, 42, 59); // nearest
 
-    FuzzySet *ang_0 = new FuzzySet(60, 70, 70, 80);     //leftmost
-    FuzzySet *ang_1 = new FuzzySet(69, 79, 79, 89);     //left
-    FuzzySet *ang_2 = new FuzzySet(88, 90, 90, 92);     //middle
-    FuzzySet *ang_3 = new FuzzySet(91, 101, 101, 111);  //right
+    FuzzySet *ang_0 = new FuzzySet(60, 70, 70, 80);     // leftmost
+    FuzzySet *ang_1 = new FuzzySet(69, 79, 79, 89);     // left
+    FuzzySet *ang_2 = new FuzzySet(88, 90, 90, 92);     // middle
+    FuzzySet *ang_3 = new FuzzySet(91, 101, 101, 111);  // right
     FuzzySet *ang_4 = new FuzzySet(100, 110, 110, 120); // rightmost
 
-    FuzzySet *speed_0 = new FuzzySet(50, 75, 75, 100);    //very slow
-    FuzzySet *speed_1 = new FuzzySet(75, 110, 110, 145);  //slow
-    FuzzySet *speed_2 = new FuzzySet(120, 150, 150, 180); //middle
-    FuzzySet *speed_3 = new FuzzySet(155, 190, 190, 225); //fast
-    FuzzySet *speed_4 = new FuzzySet(200, 225, 225, 250); //veryfast
+    FuzzySet *speed_0 = new FuzzySet(50, 75, 75, 100);    // very slow
+    FuzzySet *speed_1 = new FuzzySet(75, 110, 110, 145);  // slow
+    FuzzySet *speed_2 = new FuzzySet(120, 150, 150, 180); // middle
+    FuzzySet *speed_3 = new FuzzySet(155, 190, 190, 225); // fast
+    FuzzySet *speed_4 = new FuzzySet(200, 225, 225, 250); // veryfast
 
     // Fuzzy input
     shift = new FuzzyInput(1);
