@@ -173,10 +173,15 @@ FuzzySet* cold = new FuzzySet(0, 0, 10, 20);
 FuzzySet* warm = new FuzzySet(15, 25, 25, 35);
 FuzzySet* hot = new FuzzySet(30, 40, 50, 50);
 
+FuzzySet* slow = new FuzzySet(0, 0.33, 0.33, 0.5);
+FuzzySet* fast = new FuzzySet(0.5, 0.66, 0.66, 1);
+
 // 4. Add sets to inputs/outputs
 temperature->addFuzzySet(cold);
 temperature->addFuzzySet(warm);
 temperature->addFuzzySet(hot);
+
+fanSpeed->addFuzzySet(slow);
 
 // 5. Create rules
 FuzzyRuleAntecedent* ifCold = new FuzzyRuleAntecedent();
