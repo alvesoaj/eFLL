@@ -18,6 +18,7 @@
 #include "FuzzyInput.h"
 #include "FuzzyOutput.h"
 #include "FuzzyRule.h"
+#include "EFLLConstants.h"
 
 // Array struct for FuzzyInput objects
 struct fuzzyInputArray
@@ -45,7 +46,7 @@ class Fuzzy
 {
 public:
   // CONTRUCTORS
-  Fuzzy();
+  Fuzzy(int andMethod = EFLLConstants::METHOD_MIN, int orMethod = EFLLConstants::METHOD_MAX, int implicationMethod = EFLLConstants::METHOD_MIN, int aggregationMethod = EFLLConstants::METHOD_MAX, int defuzzifyMethod = EFLLConstants::DEFUZZIFICATION_CETROID);
 
   // DESTRUCTOR
   ~Fuzzy();
@@ -61,6 +62,16 @@ public:
 
 private:
   // PRIVATE VARIABLES
+  // holds the and method
+  int andMethod;
+  // holds the or method
+  int orMethod;
+  // holds the implication method
+  int implicationMethod;
+  // holds the aggregation method
+  int aggregationMethod;
+  // holds the final defuzzification method
+  int defuzzifyMethod;
   // pointers to manage the array of FuzzyInput
   fuzzyInputArray *fuzzyInputs;
   // pointers to manage the array of FuzzyOutput

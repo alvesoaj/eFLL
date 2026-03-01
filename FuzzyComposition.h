@@ -15,6 +15,7 @@
 
 // IMPORTING NECESSARY LIBRARIES
 #include <stdlib.h>
+#include "EFLLConstants.h"
 
 // CONSTANTS
 #define EPSILON_VALUE 1.0E-3
@@ -39,7 +40,7 @@ public:
   bool addPoint(float point, float pertinence);
   bool checkPoint(float point, float pertinence);
   bool build();
-  float calculate();
+  float calculate(int method);
   bool empty();
   int countPoints();
 
@@ -48,6 +49,8 @@ private:
   pointsArray *points;
 
   // PRIVATE METHODS
+  float calculateCentroid();
+  float calculateMeanMax();
   void cleanPoints(pointsArray *aux);
   bool rebuild(pointsArray *aSegmentBegin, pointsArray *aSegmentEnd, pointsArray *bSegmentBegin, pointsArray *bSegmentEnd);
   bool rmvPoint(pointsArray *point);
