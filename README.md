@@ -183,6 +183,9 @@ temperature->addFuzzySet(hot);
 
 fanSpeed->addFuzzySet(slow);
 
+fuzzy->addFuzzyInput(temperature);
+fuzzy->addFuzzyOutput(fanSpeed);
+
 // 5. Create rules
 FuzzyRuleAntecedent* ifCold = new FuzzyRuleAntecedent();
 ifCold->joinSingle(cold);
@@ -193,7 +196,7 @@ FuzzyRule* rule1 = new FuzzyRule(1, ifCold, thenSlow);
 fuzzy->addFuzzyRule(rule1);
 
 // 6. Run inference
-fuzzy->setInput(1, 22.5);  // Set temperature to 22.5°C
+fuzzy->setInput(1, 10.0);  // Set temperature to 10.0°C
 fuzzy->fuzzify();           // Perform fuzzification and inference
 float output = fuzzy->defuzzify(1);  // Get fan speed
 ```
